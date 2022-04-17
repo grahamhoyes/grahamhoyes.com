@@ -62,7 +62,6 @@ I wanted it to be nearly as feature-rich as popular blogging templates like [bea
 - Mobile-friendly view
 - Light and dark theme
 - Self-hosted font with [Fontsource](https://fontsource.org/)
-- Supports [plausible](https://plausible.io/), [simple analytics](https://simpleanalytics.com/) and google analytics
 - [MDX - write JSX in markdown documents!](https://mdxjs.com/)
 - Server-side syntax highlighting with line numbers and line highlighting via [rehype-prism-plus](https://github.com/timlrx/rehype-prism-plus)
 - Math display supported via [KaTeX](https://katex.org/)
