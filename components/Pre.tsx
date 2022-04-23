@@ -1,6 +1,10 @@
-import { useState, useRef } from "react";
+import { useState, useRef, ReactNode } from "react";
 
-const Pre = (props) => {
+interface PreProps {
+  children: ReactNode;
+}
+
+const Pre = ({ children }: PreProps) => {
   const textInput = useRef(null);
   const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -68,7 +72,7 @@ const Pre = (props) => {
         </button>
       )}
 
-      <pre>{props.children}</pre>
+      <pre>{children}</pre>
     </div>
   );
 };

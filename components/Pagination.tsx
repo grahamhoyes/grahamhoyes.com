@@ -1,15 +1,19 @@
 import Link from "@/components/Link";
 
-export default function Pagination({ totalPages, currentPage }) {
-  const prevPage = parseInt(currentPage) - 1 > 0;
-  const nextPage = parseInt(currentPage) + 1 <= parseInt(totalPages);
+interface PaginationProps {
+  totalPages: number;
+  currentPage: number;
+}
+
+const Pagination = ({ totalPages, currentPage }: PaginationProps) => {
+  const prevPage = currentPage - 1 > 0;
+  const nextPage = currentPage + 1 <= totalPages;
 
   return (
     <div className="space-y-2 pt-6 pb-8 md:space-y-5">
       <nav className="flex justify-between">
         {!prevPage && (
           <button
-            rel="previous"
             className="cursor-auto disabled:opacity-50"
             disabled={!prevPage}
           >
@@ -22,7 +26,7 @@ export default function Pagination({ totalPages, currentPage }) {
               currentPage - 1 === 1 ? `/blog/` : `/blog/page/${currentPage - 1}`
             }
           >
-            <button rel="previous">Previous</button>
+            <button>Previous</button>
           </Link>
         )}
         <span>
@@ -30,7 +34,6 @@ export default function Pagination({ totalPages, currentPage }) {
         </span>
         {!nextPage && (
           <button
-            rel="next"
             className="cursor-auto disabled:opacity-50"
             disabled={!nextPage}
           >
@@ -39,10 +42,12 @@ export default function Pagination({ totalPages, currentPage }) {
         )}
         {nextPage && (
           <Link href={`/blog/page/${currentPage + 1}`}>
-            <button rel="next">Next</button>
+            <button>Next</button>
           </Link>
         )}
       </nav>
     </div>
   );
-}
+};
+
+export default Pagination;
