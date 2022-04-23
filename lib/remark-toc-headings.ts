@@ -1,10 +1,12 @@
+import { Parent } from "unist";
 import { visit } from "unist-util-visit";
 import { slug } from "github-slugger";
 import { toString } from "mdast-util-to-string";
+import { TocHeading } from "types/Toc";
 
-export default function remarkTocHeadings(options) {
-  return (tree) =>
-    visit(tree, "heading", (node, index, parent) => {
+const remarkTocHeadings = (options: { exportRef: TocHeading[] }) => {
+  return (tree: Parent) =>
+    visit(tree, "heading", (node: Parent & { depth: number }) => {
       const textContent = toString(node);
       options.exportRef.push({
         value: textContent,
@@ -12,4 +14,6 @@ export default function remarkTocHeadings(options) {
         depth: node.depth,
       });
     });
-}
+};
+
+export default remarkTocHeadings;

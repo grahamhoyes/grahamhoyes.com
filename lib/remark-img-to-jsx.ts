@@ -1,17 +1,27 @@
+import { Parent, Node, Literal } from "unist";
 import { visit } from "unist-util-visit";
 import sizeOf from "image-size";
 import fs from "fs";
 
-export default function remarkImgToJsx() {
-  return (tree) => {
+interface ImageNode extends Parent {
+  url: string;
+  alt: string;
+  name: string;
+  attributes: (Literal & { name: string })[];
+}
+
+const remarkImgToJsx = () => {
+  return (tree: Node) => {
     visit(
       tree,
       // only visit p tags that contain an img element
-      (node) =>
+      (node: Parent): node is Parent =>
         node.type === "paragraph" &&
         node.children.some((n) => n.type === "image"),
-      (node) => {
-        const imageNode = node.children.find((n) => n.type === "image");
+      (node: Parent) => {
+        const imageNode = node.children.find(
+          (n) => n.type === "image",
+        ) as ImageNode;
 
         // only local files
         if (fs.existsSync(`${process.cwd()}/public${imageNode.url}`)) {
@@ -42,4 +52,6 @@ export default function remarkImgToJsx() {
       },
     );
   };
-}
+};
+
+export default remarkImgToJsx;
