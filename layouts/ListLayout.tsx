@@ -2,7 +2,6 @@ import { ComponentProps, useState } from "react";
 
 import Link from "@/components/Link";
 import Tag from "@/components/Tag";
-import siteMetadata from "@/data/siteMetadata";
 import Pagination from "@/components/Pagination";
 import formatDate from "@/lib/utils/formatDate";
 import { PostFrontMatter } from "types/FrontMatter";

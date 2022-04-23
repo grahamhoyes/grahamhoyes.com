@@ -12,6 +12,25 @@ import { PostFrontMatter } from "types/FrontMatter";
 
 const root = process.cwd();
 
+interface TagProps {
+  posts: PostFrontMatter[];
+  tag: string;
+}
+
+const Tag = ({ posts, tag }: TagProps) => {
+  // Capitalize first letter and convert space to dash
+  const title = tag[0].toUpperCase() + tag.split(" ").join("-").slice(1);
+  return (
+    <>
+      <TagSEO
+        title={`${tag} - ${siteMetadata.author}`}
+        description={`${tag} tags - ${siteMetadata.author}`}
+      />
+      <ListLayout posts={posts} title={title} />
+    </>
+  );
+};
+
 export const getStaticPaths = async () => {
   const tags = await getAllTags();
 
@@ -43,25 +62,6 @@ export const getStaticProps: GetStaticProps<TagProps> = async ({ params }) => {
   }
 
   return { props: { posts: filteredPosts, tag } };
-};
-
-interface TagProps {
-  posts: PostFrontMatter[];
-  tag: string;
-}
-
-const Tag = ({ posts, tag }: TagProps) => {
-  // Capitalize first letter and convert space to dash
-  const title = tag[0].toUpperCase() + tag.split(" ").join("-").slice(1);
-  return (
-    <>
-      <TagSEO
-        title={`${tag} - ${siteMetadata.author}`}
-        description={`${tag} tags - ${siteMetadata.author}`}
-      />
-      <ListLayout posts={posts} title={title} />
-    </>
-  );
 };
 
 export default Tag;

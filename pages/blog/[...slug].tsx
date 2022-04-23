@@ -16,6 +16,47 @@ import { TocHeading } from "types/Toc";
 
 const DEFAULT_LAYOUT = "PostLayout";
 
+interface PostPointer {
+  slug: string;
+  title: string;
+}
+
+interface BlogProps {
+  post: { mdxSource: string; frontMatter: PostFrontMatter; toc: TocHeading[] };
+  authorDetails: AuthorFrontMatter[];
+  prev?: PostPointer;
+  next?: PostPointer;
+}
+
+const Blog = ({ post, authorDetails, prev, next }: BlogProps) => {
+  const { mdxSource, toc, frontMatter } = post;
+
+  return (
+    <>
+      {frontMatter.draft !== true ? (
+        <MDXLayoutRenderer
+          layout={frontMatter.layout || DEFAULT_LAYOUT}
+          toc={toc}
+          mdxSource={mdxSource}
+          frontMatter={frontMatter}
+          authorDetails={authorDetails}
+          prev={prev}
+          next={next}
+        />
+      ) : (
+        <div className="mt-24 text-center">
+          <PageTitle>
+            Under Construction{" "}
+            <span role="img" aria-label="roadwork sign">
+              🚧
+            </span>
+          </PageTitle>
+        </div>
+      )}
+    </>
+  );
+};
+
 export const getStaticPaths = async () => {
   const posts = getFiles("blog");
   return {
@@ -57,47 +98,6 @@ export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
   }
 
   return { props: { post, authorDetails, prev, next } };
-};
-
-interface PostPointer {
-  slug: string;
-  title: string;
-}
-
-interface BlogProps {
-  post: { mdxSource: string; frontMatter: PostFrontMatter; toc: TocHeading[] };
-  authorDetails: AuthorFrontMatter[];
-  prev?: PostPointer;
-  next?: PostPointer;
-}
-
-const Blog = ({ post, authorDetails, prev, next }: BlogProps) => {
-  const { mdxSource, toc, frontMatter } = post;
-
-  return (
-    <>
-      {frontMatter.draft !== true ? (
-        <MDXLayoutRenderer
-          layout={frontMatter.layout || DEFAULT_LAYOUT}
-          toc={toc}
-          mdxSource={mdxSource}
-          frontMatter={frontMatter}
-          authorDetails={authorDetails}
-          prev={prev}
-          next={next}
-        />
-      ) : (
-        <div className="mt-24 text-center">
-          <PageTitle>
-            Under Construction{" "}
-            <span role="img" aria-label="roadwork sign">
-              🚧
-            </span>
-          </PageTitle>
-        </div>
-      )}
-    </>
-  );
 };
 
 export default Blog;

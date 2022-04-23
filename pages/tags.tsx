@@ -1,3 +1,5 @@
+import { GetStaticProps } from "next";
+
 import Link from "@/components/Link";
 import { PageSEO } from "@/components/SEO";
 import Tag from "@/components/Tag";
@@ -5,13 +7,11 @@ import siteMetadata from "@/data/siteMetadata";
 import { getAllTags } from "@/lib/tags";
 import kebabCase from "@/lib/utils/kebabCase";
 
-export async function getStaticProps() {
-  const tags = await getAllTags("blog");
-
-  return { props: { tags } };
+interface TagsProps {
+  tags: Record<string, number>;
 }
 
-export default function Tags({ tags }) {
+const Tags = ({ tags }: TagsProps) => {
   const sortedTags = Object.keys(tags).sort((a, b) => tags[b] - tags[a]);
   return (
     <>
@@ -44,4 +44,12 @@ export default function Tags({ tags }) {
       </div>
     </>
   );
-}
+};
+
+export const getStaticProps: GetStaticProps<TagsProps> = async () => {
+  const tags = await getAllTags();
+
+  return { props: { tags } };
+};
+
+export default Tags;

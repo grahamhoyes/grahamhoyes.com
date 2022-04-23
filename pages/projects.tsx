@@ -3,7 +3,7 @@ import projectsData from "@/data/projectsData";
 import Card from "@/components/Card";
 import { PageSEO } from "@/components/SEO";
 
-export default function Projects() {
+const Projects = () => {
   return (
     <>
       <PageSEO
@@ -35,4 +35,6 @@ export default function Projects() {
       </div>
     </>
   );
-}
+};
+
+export default Projects;
