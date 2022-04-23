@@ -7,7 +7,6 @@ import siteMetadata from "@/data/siteMetadata";
 import { getAllFilesFrontMatter } from "@/lib/mdx";
 import formatDate from "@/lib/utils/formatDate";
 
-import NewsletterForm from "@/components/NewsletterForm";
 import { PostFrontMatter } from "types/FrontMatter";
 
 const MAX_DISPLAY = 5;
@@ -93,11 +92,6 @@ const Home = ({ posts }: HomeProps) => {
           >
             All Posts &rarr;
           </Link>
-        </div>
-      )}
-      {siteMetadata.newsletter.provider !== "" && (
-        <div className="flex items-center justify-center pt-4">
-          <NewsletterForm />
         </div>
       )}
     </>

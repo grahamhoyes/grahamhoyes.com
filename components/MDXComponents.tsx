@@ -5,7 +5,6 @@ import Image from "./Image";
 import CustomLink from "./Link";
 import TOCInline from "./TOCInline";
 import Pre from "./Pre";
-import { BlogNewsletterForm } from "./NewsletterForm";
 
 const Wrapper: ComponentType<{ layout: string }> = ({ layout, ...rest }) => {
   const Layout = require(`../layouts/${layout}`).default;
@@ -17,7 +16,6 @@ export const MDXComponents: ComponentMap = {
   TOCInline,
   a: CustomLink,
   pre: Pre,
-  BlogNewsletterForm: BlogNewsletterForm,
   wrapper: Wrapper,
 };
 

@@ -17,11 +17,6 @@ const siteMetadata = {
   youtube: "https://youtube.com",
   linkedin: "https://www.linkedin.com",
   locale: "en-US",
-  newsletter: {
-    // supports mailchimp, buttondown, convertkit, klaviyo, revue
-    // Please add your .env file and modify it according to your selection
-    provider: "buttondown",
-  },
 };
 
 export default siteMetadata;
