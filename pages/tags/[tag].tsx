@@ -6,12 +6,14 @@ import { getAllFilesFrontMatter } from "@/lib/mdx";
 import { getAllTags } from "@/lib/tags";
 import kebabCase from "@/lib/utils/kebabCase";
 import fs from "fs";
+import { GetStaticProps } from "next";
 import path from "path";
+import { PostFrontMatter } from "types/FrontMatter";
 
 const root = process.cwd();
 
-export async function getStaticPaths() {
-  const tags = await getAllTags("blog");
+export const getStaticPaths = async () => {
+  const tags = await getAllTags();
 
   return {
     paths: Object.keys(tags).map((tag) => ({
@@ -21,28 +23,34 @@ export async function getStaticPaths() {
     })),
     fallback: false,
   };
-}
+};
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps<TagProps> = async ({ params }) => {
+  const tag = params.tag as string;
+
   const allPosts = await getAllFilesFrontMatter("blog");
   const filteredPosts = allPosts.filter(
     (post) =>
-      post.draft !== true &&
-      post.tags.map((t) => kebabCase(t)).includes(params.tag),
+      post.draft !== true && post.tags.map((t) => kebabCase(t)).includes(tag),
   );
 
   // rss
   if (filteredPosts.length > 0) {
-    const rss = generateRss(filteredPosts, `tags/${params.tag}/feed.xml`);
-    const rssPath = path.join(root, "public", "tags", params.tag);
+    const rss = generateRss(filteredPosts, `tags/${tag}/feed.xml`);
+    const rssPath = path.join(root, "public", "tags", tag);
     fs.mkdirSync(rssPath, { recursive: true });
     fs.writeFileSync(path.join(rssPath, "feed.xml"), rss);
   }
 
-  return { props: { posts: filteredPosts, tag: params.tag } };
+  return { props: { posts: filteredPosts, tag } };
+};
+
+interface TagProps {
+  posts: PostFrontMatter[];
+  tag: string;
 }
 
-export default function Tag({ posts, tag }) {
+const Tag = ({ posts, tag }: TagProps) => {
   // Capitalize first letter and convert space to dash
   const title = tag[0].toUpperCase() + tag.split(" ").join("-").slice(1);
   return (
@@ -54,4 +62,6 @@ export default function Tag({ posts, tag }) {
       <ListLayout posts={posts} title={title} />
     </>
   );
-}
+};
+
+export default Tag;

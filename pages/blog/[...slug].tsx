@@ -1,4 +1,6 @@
 import fs from "fs";
+import { GetStaticProps } from "next";
+
 import PageTitle from "@/components/PageTitle";
 import generateRss from "@/lib/generate-rss";
 import { MDXLayoutRenderer } from "@/components/MDXComponents";
@@ -9,9 +11,12 @@ import {
   getFiles,
 } from "@/lib/mdx";
 
+import { AuthorFrontMatter, PostFrontMatter } from "types/FrontMatter";
+import { TocHeading } from "types/Toc";
+
 const DEFAULT_LAYOUT = "PostLayout";
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const posts = getFiles("blog");
   return {
     paths: posts.map((p) => ({
@@ -21,22 +26,29 @@ export async function getStaticPaths() {
     })),
     fallback: false,
   };
-}
+};
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
+  const slug = (params.slug as string[]).join("/");
+
   const allPosts = await getAllFilesFrontMatter("blog");
   const postIndex = allPosts.findIndex(
-    (post) => formatSlug(post.slug) === params.slug.join("/"),
+    (post) => formatSlug(post.slug) === slug,
   );
-  const prev = allPosts[postIndex + 1] || null;
-  const next = allPosts[postIndex - 1] || null;
-  const post = await getFileBySlug("blog", params.slug.join("/"));
+
+  const prev: PostPointer = allPosts[postIndex + 1] || null;
+  const next: PostPointer = allPosts[postIndex - 1] || null;
+
+  const post = await getFileBySlug("blog", slug);
+
   const authorList = post.frontMatter.authors || ["default"];
-  const authorPromise = authorList.map(async (author) => {
-    const authorResults = await getFileBySlug("authors", [author]);
+
+  const getAuthorPromises = authorList.map(async (author) => {
+    const authorResults = await getFileBySlug("authors", author);
     return authorResults.frontMatter;
   });
-  const authorDetails = await Promise.all(authorPromise);
+
+  const authorDetails = await Promise.all(getAuthorPromises);
 
   // rss
   if (allPosts.length > 0) {
@@ -45,9 +57,21 @@ export async function getStaticProps({ params }) {
   }
 
   return { props: { post, authorDetails, prev, next } };
+};
+
+interface PostPointer {
+  slug: string;
+  title: string;
 }
 
-export default function Blog({ post, authorDetails, prev, next }) {
+interface BlogProps {
+  post: { mdxSource: string; frontMatter: PostFrontMatter; toc: TocHeading[] };
+  authorDetails: AuthorFrontMatter[];
+  prev?: PostPointer;
+  next?: PostPointer;
+}
+
+const Blog = ({ post, authorDetails, prev, next }: BlogProps) => {
   const { mdxSource, toc, frontMatter } = post;
 
   return (
@@ -74,4 +98,6 @@ export default function Blog({ post, authorDetails, prev, next }) {
       )}
     </>
   );
-}
+};
+
+export default Blog;
