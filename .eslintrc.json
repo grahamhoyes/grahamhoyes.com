@@ -1,16 +1,26 @@
 {
-  "plugins": [],
+  "plugins": ["@typescript-eslint"],
   "env": {
     "browser": true,
     "amd": true,
     "node": true,
     "es6": true
   },
-  "extends": ["eslint:recommended", "prettier", "next", "next/core-web-vitals"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "next",
+    "next/core-web-vitals"
+  ],
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/prop-types": 0,
     "no-unused-vars": 0,
-    "react/no-unescaped-entities": 0
+    "react/no-unescaped-entities": 0,
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/ban-ts-comment": "off"
   }
 }
