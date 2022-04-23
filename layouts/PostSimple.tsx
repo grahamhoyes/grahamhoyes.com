@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import Link from "@/components/Link";
 import PageTitle from "@/components/PageTitle";
 import SectionContainer from "@/components/SectionContainer";
@@ -5,22 +7,26 @@ import { BlogSEO } from "@/components/SEO";
 import siteMetadata from "@/data/siteMetadata";
 import formatDate from "@/lib/utils/formatDate";
 import ScrollTop from "@/components/ScrollTop";
+import { PostFrontMatter } from "types/FrontMatter";
 
-export default function PostLayout({
+interface PostSimpleLayoutProps {
+  frontMatter: PostFrontMatter;
+  next?: { slug: string; title: string };
+  prev?: { slug: string; title: string };
+  children: ReactNode;
+}
+
+const PostSimpleLayout = ({
   frontMatter,
-  authorDetails,
   next,
   prev,
   children,
-}) {
-  const { date, title } = frontMatter;
+}: PostSimpleLayoutProps) => {
+  const { date, title, slug } = frontMatter;
 
   return (
     <SectionContainer>
-      <BlogSEO
-        url={`${siteMetadata.siteUrl}/blog/${frontMatter.slug}`}
-        {...frontMatter}
-      />
+      <BlogSEO url={`${siteMetadata.siteUrl}/blog/${slug}`} {...frontMatter} />
       <ScrollTop />
       <article>
         <div>
@@ -77,4 +83,6 @@ export default function PostLayout({
       </article>
     </SectionContainer>
   );
-}
+};
+
+export default PostSimpleLayout;

@@ -1,16 +1,25 @@
+import { ComponentProps, useState } from "react";
+
 import Link from "@/components/Link";
 import Tag from "@/components/Tag";
 import siteMetadata from "@/data/siteMetadata";
-import { useState } from "react";
 import Pagination from "@/components/Pagination";
 import formatDate from "@/lib/utils/formatDate";
+import { PostFrontMatter } from "types/FrontMatter";
 
-export default function ListLayout({
+interface ListLayoutProps {
+  posts: PostFrontMatter[];
+  title: string;
+  initialDisplayPosts?: PostFrontMatter[];
+  pagination?: ComponentProps<typeof Pagination>;
+}
+
+const ListLayout = ({
   posts,
   title,
   initialDisplayPosts = [],
   pagination,
-}) {
+}: ListLayoutProps) => {
   const [searchValue, setSearchValue] = useState("");
   const filteredBlogPosts = posts.filter((frontMatter) => {
     const searchContent =
@@ -102,4 +111,6 @@ export default function ListLayout({
       )}
     </>
   );
-}
+};
+
+export default ListLayout;

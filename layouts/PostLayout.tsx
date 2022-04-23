@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 import Link from "@/components/Link";
 import PageTitle from "@/components/PageTitle";
 import SectionContainer from "@/components/SectionContainer";
@@ -6,6 +8,7 @@ import Image from "@/components/Image";
 import Tag from "@/components/Tag";
 import siteMetadata from "@/data/siteMetadata";
 import ScrollTop from "@/components/ScrollTop";
+import { AuthorFrontMatter, PostFrontMatter } from "types/FrontMatter";
 
 const editUrl = (fileName) =>
   `${siteMetadata.siteRepo}/blob/master/data/blog/${fileName}`;
@@ -14,20 +17,28 @@ const discussUrl = (slug) =>
     `${siteMetadata.siteUrl}/blog/${slug}`,
   )}`;
 
-const postDateTemplate = {
+const postDateTemplate: Intl.DateTimeFormatOptions = {
   weekday: "long",
   year: "numeric",
   month: "long",
   day: "numeric",
 };
 
-export default function PostLayout({
+interface PostLayoutProps {
+  frontMatter: PostFrontMatter;
+  authorDetails: AuthorFrontMatter[];
+  next?: { slug: string; title: string };
+  prev?: { slug: string; title: string };
+  children: ReactNode;
+}
+
+const PostLayout = ({
   frontMatter,
   authorDetails,
   next,
   prev,
   children,
-}) {
+}: PostLayoutProps) => {
   const { slug, fileName, date, title, tags } = frontMatter;
 
   return (
@@ -172,4 +183,6 @@ export default function PostLayout({
       </article>
     </SectionContainer>
   );
-}
+};
+
+export default PostLayout;

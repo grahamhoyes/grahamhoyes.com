@@ -1,18 +1,18 @@
+import { ReactNode } from "react";
 import SocialIcon from "@/components/social-icons";
 import Image from "@/components/Image";
 import { PageSEO } from "@/components/SEO";
+import { AuthorFrontMatter } from "types/FrontMatter";
+import { defaultConfig } from "next/dist/server/config-shared";
 
-export default function AuthorLayout({ children, frontMatter }) {
-  const {
-    name,
-    avatar,
-    occupation,
-    company,
-    email,
-    twitter,
-    linkedin,
-    github,
-  } = frontMatter;
+interface AuthorLayoutProps {
+  children: ReactNode;
+  frontMatter: AuthorFrontMatter;
+}
+
+const AuthorLayout = ({ children, frontMatter }: AuthorLayoutProps) => {
+  const { name, avatar, occupation, company, email, linkedin, github } =
+    frontMatter;
 
   return (
     <>
@@ -50,4 +50,6 @@ export default function AuthorLayout({ children, frontMatter }) {
       </div>
     </>
   );
-}
+};
+
+export default AuthorLayout;

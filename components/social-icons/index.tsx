@@ -10,7 +10,13 @@ const components = {
   linkedin: Linkedin,
 };
 
-const SocialIcon = ({ kind, href, size = 8 }) => {
+interface SocialIconProps {
+  kind: string;
+  href: string;
+  size?: number;
+}
+
+const SocialIcon = ({ kind, href, size = 8 }: SocialIconProps) => {
   if (
     !href ||
     (kind === "mail" &&
