@@ -147,10 +147,17 @@ export const getAllFilesFrontMatter = <
   files.forEach((file) => {
     // Replace is needed to work on Windows
     const fileName = file.slice(prefixPaths.length + 1).replace(/\\/g, "/");
-    // Remove Unexpected File
+
+    // Remove unexpected file
     if (path.extname(fileName) !== ".md" && path.extname(fileName) !== ".mdx") {
       return;
     }
+
+    // Remove hidden files
+    if (fileName.startsWith(".")) {
+      return;
+    }
+
     const source = fs.readFileSync(file, "utf8");
     const matterFile = matter(source);
 
