@@ -1,16 +1,12 @@
 ---
-name: Tails Azimuth
-avatar: /static/images/avatar.png
-occupation: Professor of Atmospheric Science
-company: Stanford University
-email: address@yoursite.com
-twitter: https://twitter.com/Twitter
-linkedin: https://www.linkedin.com
-github: https://github.com
+name: Graham Hoyes
+avatar: /static/images/avatar.jpg
+occupation: Software Engineer
+email: contact@grahamhoyes.com
+linkedin: https://www.linkedin.com/in/grahamhoyes
+github: https://github.com/grahamhoyes
 ---
 
-Tails Azimuth is a professor of atmospheric sciences at the Stanford AI Lab. His research interests includes complexity modelling of tailwinds, headwinds and crosswinds.
+I am a Software Engineer based in Toronto, Canada. I obtained my BASc in Engineering Science from the University of Toronto, with a major in Machine Intelligence. My areas of professional interest are AI, scalable systems, and improving developer efficiency.
 
-He leads the clean energy group which develops 3D air pollution-climate models, writes differential equation solvers, and manufactures titanium plated air ballons. In his free time he bakes raspberry pi.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed neque elit, tristique placerat feugiat ac, facilisis vitae arcu. Proin eget egestas augue. Praesent ut sem nec arcu pellentesque aliquet. Duis dapibus diam vel metus tempus vulputate.
+In my free time, I enjoy starting web development projects (and sometimes even finishing them), playing the saxophone and [EWI](https://www.youtube.com/watch?v=HYie77YHkns), tweaking my [Dvorak-based keyboard layout](https://github.com/grahamhoyes/qmk_firmware/blob/grahamhoyes/zodiark/keyboards/aleblazer/zodiark/keymaps/grahamhoyes/keymap.c), and CAD / 3D printing. I also enjoy cooking and fermenting things - recipes section coming soon (once I code that, see above).
