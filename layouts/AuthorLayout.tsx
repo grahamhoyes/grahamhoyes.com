@@ -3,7 +3,8 @@ import SocialIcon from "@/components/social-icons";
 import Image from "@/components/Image";
 import { PageSEO } from "@/components/SEO";
 import { AuthorFrontMatter } from "types/FrontMatter";
-import { defaultConfig } from "next/dist/server/config-shared";
+
+import Skill, { RoundSkill } from "@/components/Skill";
 
 interface AuthorLayoutProps {
   children: ReactNode;
@@ -23,8 +24,8 @@ const AuthorLayout = ({ children, frontMatter }: AuthorLayoutProps) => {
             About
           </h1>
         </div>
-        <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
-          <div className="flex flex-col items-center pt-8">
+        <div className="items-start space-y-2 py-8 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
+          <div className="flex flex-col items-center">
             <Image
               src={avatar}
               alt="avatar"
@@ -43,9 +44,15 @@ const AuthorLayout = ({ children, frontMatter }: AuthorLayoutProps) => {
               <SocialIcon kind="linkedin" href={linkedin} />
             </div>
           </div>
-          <div className="prose max-w-none pt-8 pb-8 dark:prose-dark xl:col-span-2">
+          <div className="prose max-w-none dark:prose-dark xl:col-span-2">
             {children}
           </div>
+        </div>
+        <div className="items-start space-y-2 py-8 xl:space-y-0">
+          <Skill name="python" level={3} />
+          <RoundSkill name="javascript" level={4} />
+          <RoundSkill name="being great" level={4} dark />
+          <RoundSkill name="sleeping" level={4} dark={false} />
         </div>
       </div>
     </>
