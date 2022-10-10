@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
+import Image from "next/future/image";
 
 import siteMetadata from "@/data/siteMetadata";
 import headerNavLinks from "@/data/headerNavLinks";
-import Logo from "@/data/logo.svg";
+
 import Link from "./Link";
 import SectionContainer from "./SectionContainer";
 import Footer from "./Footer";
@@ -22,10 +23,21 @@ const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
                 <div className="mr-3">
-                  <Logo />
+                  <Image
+                    src={siteMetadata.siteLogo}
+                    alt={siteMetadata.title}
+                    width="24"
+                    height="24"
+                    quality="100"
+                    style={{ verticalAlign: "middle" }}
+                    unoptimized={true}
+                  />
                 </div>
                 {typeof siteMetadata.headerTitle === "string" ? (
-                  <div className="hidden h-6 text-2xl font-semibold sm:block">
+                  <div
+                    className="hidden h-6 text-2xl font-semibold sm:block"
+                    style={{ lineHeight: 1 }}
+                  >
                     {siteMetadata.headerTitle}
                   </div>
                 ) : (
