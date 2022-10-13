@@ -4,7 +4,7 @@ const projectsData = [
     description: `What if you could look up any information in the world? Webpages, images, videos
     and more. Google has many features to help you find exactly what you're looking
     for.`,
-    imgSrc: "/static/images/google.png",
+    imgSrc: "/static/images/newhacks.png",
     href: "https://www.google.com",
   },
   {
@@ -16,5 +16,12 @@ const projectsData = [
     href: "/blog/the-time-machine",
   },
 ];
+
+// Webnotes
+// Counters
+// Hackathon template
+// Dotfiles
+// Keyboard layout
+// Django swarm template
 
 export default projectsData;
