@@ -33,7 +33,7 @@ const Blog = ({ posts, initialDisplayPosts, pagination }: BlogProps) => {
 };
 
 export const getStaticProps: GetStaticProps<BlogProps> = async () => {
-  const posts = await getAllFilesFrontMatter("blog");
+  const posts = getAllFilesFrontMatter("blog");
   const initialDisplayPosts = posts.slice(0, POSTS_PER_PAGE);
   const pagination = {
     currentPage: 1,

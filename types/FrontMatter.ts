@@ -24,3 +24,9 @@ export interface AuthorFrontMatter {
   linkedin: string;
   github: string;
 }
+
+export interface ProjectFrontMatter {
+  title: string;
+  imgSrc: string;
+  href: string;
+}

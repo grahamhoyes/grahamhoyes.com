@@ -1,9 +1,31 @@
+import { ComponentMap } from "mdx-bundler/client";
+import { GetStaticProps } from "next";
+
+import { ProjectFrontMatter } from "types/FrontMatter";
 import siteMetadata from "@/data/siteMetadata";
-import projectsData from "@/data/projectsData";
 import Card from "@/components/Card";
 import { PageSEO } from "@/components/SEO";
+import { MDXLayoutRenderer } from "@/components/MDXComponents";
+import { CardContent } from "@/components/Card";
+import { formatSlug, getFileBySlug, getFiles } from "@/lib/mdx";
 
-const Projects = () => {
+interface ProjectsProps {
+  projects: { mdxSource: string; frontMatter: ProjectFrontMatter }[];
+}
+
+const projectCardComponents: ComponentMap = {
+  p: CardContent,
+};
+
+// TODO:
+// Webnotes
+// Counters
+// Hackathon template
+// Dotfiles
+// Keyboard layout
+// Django swarm template
+
+const Projects = ({ projects }: ProjectsProps) => {
   return (
     <>
       <PageSEO
@@ -18,20 +40,41 @@ const Projects = () => {
         </div>
         <div className="container py-12">
           <div className="-m-4 flex flex-wrap">
-            {projectsData.map((d) => (
+            {projects.map(({ mdxSource, frontMatter }) => (
               <Card
-                key={d.title}
-                title={d.title}
-                description={d.description}
-                imgSrc={d.imgSrc}
-                href={d.href}
-              />
+                key={frontMatter.title}
+                title={frontMatter.title}
+                imgSrc={frontMatter.imgSrc}
+                href={frontMatter.href}
+              >
+                <MDXLayoutRenderer
+                  layout="NoLayout"
+                  mdxSource={mdxSource}
+                  components={projectCardComponents}
+                />
+              </Card>
             ))}
           </div>
         </div>
       </div>
     </>
   );
+};
+
+export const getStaticProps: GetStaticProps<ProjectsProps> = async () => {
+  const slugs = getFiles("projects");
+
+  const projects = await Promise.all(
+    slugs.map(
+      async (slug) => await getFileBySlug("projects", formatSlug(slug)),
+    ),
+  );
+
+  return {
+    props: {
+      projects,
+    },
+  };
 };
 
 export default Projects;

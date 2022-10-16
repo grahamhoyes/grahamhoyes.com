@@ -1,15 +1,27 @@
+import { ReactNode } from "react";
 import Image from "./Image";
 import Link from "./Link";
 
-interface CardProps {
-  title: string;
-  description: string;
-  imgSrc: string;
-  href: string;
+interface CardContentProps {
+  children: ReactNode;
 }
 
-const Card = ({ title, description, imgSrc, href }: CardProps) => (
-  <div className="md p-4 md:w-1/2" style={{ maxWidth: "544px" }}>
+export const CardContent = ({ children }: CardContentProps) => (
+  <p className="prose mb-3 max-w-none text-light-500 dark:text-dark-400">
+    {children}
+  </p>
+);
+
+type CardProps = {
+  title: string;
+  description?: string;
+  imgSrc: string;
+  href: string;
+  children?: ReactNode;
+};
+
+const Card = ({ title, description, children, imgSrc, href }: CardProps) => (
+  <div className="md max-w-[544px] p-4 md:w-1/2 xl:w-1/3">
     <div
       className={`${
         imgSrc && "h-full"
@@ -21,18 +33,18 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
             <Image
               alt={title}
               src={imgSrc}
-              className="object-cover object-center md:h-36 lg:h-48"
+              className="lg:h-50 sm:h-50 max-h-60 object-cover object-top"
               width={544}
-              height={306}
+              height={400}
             />
           </Link>
         ) : (
           <Image
             alt={title}
             src={imgSrc}
-            className="object-cover object-center md:h-36 lg:h-48"
+            className="lg:h-50 sm:h-50 max-h-60 object-cover object-top"
             width={544}
-            height={306}
+            height={400}
           />
         ))}
       <div className="p-6">
@@ -45,9 +57,7 @@ const Card = ({ title, description, imgSrc, href }: CardProps) => (
             title
           )}
         </h2>
-        <p className="prose mb-3 max-w-none text-light-500 dark:text-dark-400">
-          {description}
-        </p>
+        {children || <CardContent>{description}</CardContent>}
         {href && (
           <Link
             href={href}

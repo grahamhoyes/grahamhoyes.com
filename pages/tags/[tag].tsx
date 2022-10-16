@@ -47,7 +47,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<TagProps> = async ({ params }) => {
   const tag = params.tag as string;
 
-  const allPosts = await getAllFilesFrontMatter("blog");
+  const allPosts = getAllFilesFrontMatter("blog");
   const filteredPosts = allPosts.filter(
     (post) =>
       post.draft !== true && post.tags.map((t) => kebabCase(t)).includes(tag),

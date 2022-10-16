@@ -72,7 +72,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
   const slug = (params.slug as string[]).join("/");
 
-  const allPosts = await getAllFilesFrontMatter("blog");
+  const allPosts = getAllFilesFrontMatter("blog");
   const postIndex = allPosts.findIndex(
     (post) => formatSlug(post.slug) === slug,
   );

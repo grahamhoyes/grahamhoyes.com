@@ -98,7 +98,7 @@ const Home = ({ posts }: HomeProps) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const posts = await getAllFilesFrontMatter("blog");
+  const posts = getAllFilesFrontMatter("blog");
 
   return { props: { posts } };
 };

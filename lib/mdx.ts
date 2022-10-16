@@ -21,14 +21,35 @@ import rehypeCitation from "rehype-citation";
 import rehypePrismPlus from "rehype-prism-plus";
 import rehypePresetMinify from "rehype-preset-minify";
 
+// Local packages
 import getAllFilesRecursively from "./utils/files";
-import { AuthorFrontMatter, PostFrontMatter } from "types/FrontMatter";
+import {
+  AuthorFrontMatter,
+  PostFrontMatter,
+  ProjectFrontMatter,
+} from "types/FrontMatter";
 import { TocHeading } from "types/Toc";
+
+type FrontMatter<T> = T extends "blog"
+  ? PostFrontMatter
+  : T extends "authors"
+  ? AuthorFrontMatter
+  : T extends "projects"
+  ? ProjectFrontMatter
+  : never;
 
 const root = process.cwd();
 
-export const getFiles = (type: "blog" | "authors") => {
-  const prefixPaths = path.join(root, "data", type);
+/**
+ * Get the path of all files within a folder in the `data` directory
+ *
+ * @param folder folder to search
+ *
+ * @returns array of paths relative to `folder`, excluding `folder` itself
+ *          in the paths
+ */
+export const getFiles = (folder: "blog" | "authors" | "projects") => {
+  const prefixPaths = path.join(root, "data", folder);
   const files = getAllFilesRecursively(prefixPaths);
   // Only want to return blog/path and ignore root, replace is needed to work on Windows
   return files.map((file) =>
@@ -46,15 +67,12 @@ export const dateSortDesc = (a: string, b: string) => {
   return 0;
 };
 
-export const getFileBySlug = async <
-  T extends "blog" | "authors",
-  P extends T extends "blog" ? PostFrontMatter : AuthorFrontMatter,
->(
-  type: T,
+export const getFileBySlug = async <T extends "blog" | "authors" | "projects">(
+  folder: T,
   slug: string,
 ) => {
-  const mdxPath = path.join(root, "data", type, `${slug}.mdx`);
-  const mdPath = path.join(root, "data", type, `${slug}.md`);
+  const mdxPath = path.join(root, "data", folder, `${slug}.mdx`);
+  const mdPath = path.join(root, "data", folder, `${slug}.md`);
 
   const source = fs.existsSync(mdxPath)
     ? fs.readFileSync(mdxPath, "utf8")
@@ -127,22 +145,31 @@ export const getFileBySlug = async <
       slug: slug || null,
       fileName: fs.existsSync(mdxPath) ? `${slug}.mdx` : `${slug}.md`,
       date: frontmatter.date ? new Date(frontmatter.date).toISOString() : null,
-      ...(frontmatter as P),
+      ...(frontmatter as FrontMatter<T>),
     },
   };
 };
 
+const isBlog = (
+  folder: string,
+  frontMatter: unknown | unknown[],
+): frontMatter is PostFrontMatter => folder === "blog";
+
+/**
+ * Get all front matter for files in the specified data folder
+ *
+ * If `folder` is "blog", front matters will be sorted by date descending
+ */
 export const getAllFilesFrontMatter = <
-  T extends "blog" | "authors",
-  P extends T extends "blog" ? PostFrontMatter : AuthorFrontMatter,
+  T extends "blog" | "authors" | "projects",
 >(
   folder: T,
-): P[] => {
+): FrontMatter<T>[] => {
   const prefixPaths = path.join(root, "data", folder);
 
   const files = getAllFilesRecursively(prefixPaths);
 
-  const allFrontMatter: P[] = [];
+  const allFrontMatter: FrontMatter<T>[] = [];
 
   files.forEach((file) => {
     // Replace is needed to work on Windows
@@ -161,15 +188,25 @@ export const getAllFilesFrontMatter = <
     const source = fs.readFileSync(file, "utf8");
     const matterFile = matter(source);
 
-    const frontmatter = matterFile.data as P;
+    const frontmatter = matterFile.data as FrontMatter<T>;
 
-    if ("draft" in frontmatter && frontmatter.draft !== true) {
+    if ("draft" in frontmatter && frontmatter.draft === true) {
+      // Skip over drafts
+      return;
+    }
+
+    if (isBlog(folder, frontmatter)) {
       allFrontMatter.push({
         ...frontmatter,
         slug: formatSlug(fileName),
         date: frontmatter.date
           ? new Date(frontmatter.date).toISOString()
           : null,
+      });
+    } else {
+      // Authors and projects
+      allFrontMatter.push({
+        ...frontmatter,
       });
     }
   });
