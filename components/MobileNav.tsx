@@ -29,7 +29,7 @@ const MobileNav = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
-          className="text-gray-900 dark:text-gray-100"
+          className="text-light-900 dark:text-dark-100"
         >
           {navShow ? (
             <path
@@ -57,7 +57,7 @@ const MobileNav = () => {
           className="fixed inset-0 h-full w-full cursor-auto focus:outline-none"
           onClick={onToggleNav}
         ></button>
-        <nav className="fixed h-auto w-full bg-white py-2 shadow-2xl shadow-[0_1rem_0.5rem_0.5rem_white] dark:bg-gray-900 dark:shadow-[0_1rem_0.5rem_0.5rem_theme(colors.gray.900)]">
+        <nav className="fixed h-auto w-full bg-white py-2 shadow-2xl shadow-[0_1rem_0.5rem_0.5rem_white] dark:bg-dark-900 dark:shadow-[0_1rem_0.5rem_0.5rem_theme(colors.dark.900)]">
           {headerNavLinks.map((link) => (
             <div
               key={link.title}
@@ -65,7 +65,7 @@ const MobileNav = () => {
             >
               <Link
                 href={link.href}
-                className="block px-12 py-2 text-2xl font-semibold tracking-widest text-gray-900 dark:text-gray-100"
+                className="block px-12 py-2 text-2xl font-semibold tracking-widest text-light-900 dark:text-dark-100"
                 onClick={onToggleNav}
               >
                 {link.title}

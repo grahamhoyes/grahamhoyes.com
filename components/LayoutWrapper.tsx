@@ -18,7 +18,7 @@ const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
   return (
     <SectionContainer>
       <div className="flex h-screen flex-col justify-between">
-        <header className="sticky top-0 z-40 flex items-center justify-between bg-white py-5 dark:bg-gray-900 sm:relative sm:top-auto sm:py-10">
+        <header className="sticky top-0 z-40 flex items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
           <div>
             <Link href="/" aria-label={siteMetadata.headerTitle}>
               <div className="flex items-center justify-between">
@@ -52,7 +52,7 @@ const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
                 <Link
                   key={link.title}
                   href={link.href}
-                  className="p-1 font-medium text-gray-900 dark:text-gray-100 sm:p-4"
+                  className="p-1 font-medium text-light-900 dark:text-dark-100 sm:p-4"
                 >
                   {link.title}
                 </Link>
