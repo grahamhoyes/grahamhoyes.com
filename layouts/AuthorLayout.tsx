@@ -29,8 +29,8 @@ const AuthorLayout = ({ children, frontMatter }: AuthorLayoutProps) => {
             <Image
               src={avatar}
               alt="avatar"
-              width="192px"
-              height="192px"
+              width="192"
+              height="192"
               className="h-48 w-48 rounded-full"
             />
             <h3 className="pt-4 pb-2 text-2xl font-bold leading-8 tracking-tight">
@@ -48,12 +48,12 @@ const AuthorLayout = ({ children, frontMatter }: AuthorLayoutProps) => {
             {children}
           </div>
         </div>
-        <div className="items-start space-y-2 py-8 xl:space-y-0">
-          <Skill name="python" level={3} />
-          <RoundSkill name="javascript" level={4} />
-          <RoundSkill name="being great" level={4} dark />
-          <RoundSkill name="sleeping" level={4} dark={false} />
-        </div>
+        {/*<div className="items-start space-y-2 py-8 xl:space-y-0">*/}
+        {/*  <Skill name="python" level={3} />*/}
+        {/*  <RoundSkill name="javascript" level={4} />*/}
+        {/*  <RoundSkill name="being great" level={4} dark />*/}
+        {/*  <RoundSkill name="sleeping" level={4} dark={false} />*/}
+        {/*</div>*/}
       </div>
     </>
   );
