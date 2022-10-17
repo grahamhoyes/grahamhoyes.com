@@ -18,9 +18,19 @@ type CardProps = {
   imgSrc: string;
   href: string;
   children?: ReactNode;
+  linkText?: string;
+  imageAnchor?: string;
 };
 
-const Card = ({ title, description, children, imgSrc, href }: CardProps) => (
+const Card = ({
+  title,
+  description,
+  children,
+  imgSrc,
+  href,
+  linkText,
+  imageAnchor,
+}: CardProps) => (
   <div className="md max-w-[544px] p-4 md:w-1/2 xl:w-1/3">
     <div
       className={`${
@@ -33,7 +43,9 @@ const Card = ({ title, description, children, imgSrc, href }: CardProps) => (
             <Image
               alt={title}
               src={imgSrc}
-              className="lg:h-50 sm:h-50 max-h-60 object-cover object-top"
+              className={`max-h-60 object-cover sm:h-60 ${
+                imageAnchor || "object-top"
+              }`}
               width={544}
               height={400}
             />
@@ -42,7 +54,9 @@ const Card = ({ title, description, children, imgSrc, href }: CardProps) => (
           <Image
             alt={title}
             src={imgSrc}
-            className="lg:h-50 sm:h-50 max-h-60 object-cover object-top"
+            className={`lg:h-50 sm:h-50 max-h-60 object-cover ${
+              imageAnchor || "object-top"
+            }`}
             width={544}
             height={400}
           />
@@ -64,7 +78,7 @@ const Card = ({ title, description, children, imgSrc, href }: CardProps) => (
             className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label={`Link to ${title}`}
           >
-            Learn more &rarr;
+            {linkText || "Learn more"} &rarr;
           </Link>
         )}
       </div>

@@ -20,10 +20,6 @@ const projectCardComponents: ComponentMap = {
 // TODO:
 // Webnotes
 // Counters
-// Hackathon template
-// Dotfiles
-// Keyboard layout
-// Django swarm template
 
 const Projects = ({ projects }: ProjectsProps) => {
   return (
@@ -45,7 +41,9 @@ const Projects = ({ projects }: ProjectsProps) => {
                 key={frontMatter.title}
                 title={frontMatter.title}
                 imgSrc={frontMatter.imgSrc}
+                imageAnchor={frontMatter.imageAnchor}
                 href={frontMatter.href}
+                linkText={frontMatter.linkText}
               >
                 <MDXLayoutRenderer
                   layout="NoLayout"
@@ -69,6 +67,8 @@ export const getStaticProps: GetStaticProps<ProjectsProps> = async () => {
       async (slug) => await getFileBySlug("projects", formatSlug(slug)),
     ),
   );
+
+  projects.sort((a, b) => a.frontMatter.order ?? 0 - b.frontMatter.order ?? 0);
 
   return {
     props: {

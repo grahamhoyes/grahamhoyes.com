@@ -36,7 +36,7 @@ interface MDXLayoutProps {
  *               Use "NoLayout" to return the content as-is.
  * @param mdxSource MDX source
  * @param components Additional component overrides for customizing rendered output
- * @param rest Any other props the layout requires
+ * @param ...rest Any other props the layout requires
  * @constructor
  */
 export const MDXLayoutRenderer = ({

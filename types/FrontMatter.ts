@@ -28,5 +28,13 @@ export interface AuthorFrontMatter {
 export interface ProjectFrontMatter {
   title: string;
   imgSrc: string;
+  // Tailwind object position class to use for the card image. Any
+  // object position is actually fine.
+  imageAnchor: "object-top" | "object-left-top";
   href: string;
+  linkText?: string;
+  // Control the order that projects are displayed,
+  // lower numbers first. Defaults to 0. Sorted alphabetically
+  // by the file system second.
+  order?: number;
 }
