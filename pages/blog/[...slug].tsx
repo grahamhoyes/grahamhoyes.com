@@ -84,12 +84,12 @@ export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
 
   const authorList = post.frontMatter.authors || ["default"];
 
-  const getAuthorPromises = authorList.map(async (author) => {
-    const authorResults = await getFileBySlug("authors", author);
-    return authorResults.frontMatter;
-  });
-
-  const authorDetails = await Promise.all(getAuthorPromises);
+  const authorDetails = await Promise.all(
+    authorList.map(async (author) => {
+      const authorResults = await getFileBySlug("authors", author);
+      return authorResults.frontMatter;
+    }),
+  );
 
   // rss
   if (allPosts.length > 0) {
