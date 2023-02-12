@@ -58,6 +58,9 @@ module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ["pages", "components", "lib", "layouts", "scripts"],
   },
+  experimental: {
+    runtime: "edge",
+  },
   async headers() {
     return [
       {
