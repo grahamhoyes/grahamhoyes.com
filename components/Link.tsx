@@ -13,7 +13,8 @@ const CustomLink = ({ href, ...rest }: CustomLinkProps) => {
 
   if (isInternalLink) {
     return (
-      <Link href={href}>
+      // TODO: Update to next v13 semantics which doesn't require the <a>
+      <Link href={href} legacyBehavior>
         <a {...rest} />
       </Link>
     );

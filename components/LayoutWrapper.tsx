@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Image from "next/future/image";
+import Image from "next/image";
 
 import siteMetadata from "@/data/siteMetadata";
 import headerNavLinks from "@/data/headerNavLinks";

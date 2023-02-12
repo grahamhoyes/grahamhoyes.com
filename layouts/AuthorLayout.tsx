@@ -4,8 +4,6 @@ import Image from "@/components/Image";
 import { PageSEO } from "@/components/SEO";
 import { AuthorFrontMatter } from "types/FrontMatter";
 
-import Skill, { RoundSkill } from "@/components/Skill";
-
 interface AuthorLayoutProps {
   children: ReactNode;
   frontMatter: AuthorFrontMatter;
@@ -50,12 +48,6 @@ const AuthorLayout = ({ children, frontMatter }: AuthorLayoutProps) => {
             {children}
           </div>
         </div>
-        {/*<div className="items-start space-y-2 py-8 xl:space-y-0">*/}
-        {/*  <Skill name="python" level={3} />*/}
-        {/*  <RoundSkill name="javascript" level={4} />*/}
-        {/*  <RoundSkill name="being great" level={4} dark />*/}
-        {/*  <RoundSkill name="sleeping" level={4} dark={false} />*/}
-        {/*</div>*/}
       </div>
     </>
   );
