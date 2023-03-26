@@ -4,6 +4,9 @@ import matter from "gray-matter";
 import path from "path";
 import readingTime from "reading-time";
 
+// Recma packages
+import recmaSection from "@frontline-hq/recma-sections";
+
 // Remark packages
 import remarkGfm from "remark-gfm";
 import remarkFootnotes from "remark-footnotes";
@@ -67,6 +70,77 @@ export const dateSortDesc = (a: string, b: string) => {
   return 0;
 };
 
+/**
+ * Using @frontline-hq/recma-sections, a single mdx file can be split into
+ * multiple exported components. Components are started by
+ *
+ *    {/* section:<section_name> <*>/}
+ *
+ * comments (ignore the last set of <>). Along with the default export on
+ * the bundled component, there will also be an export called `section_name`,
+ * which itself will have a `default` export (along with any other named exports
+ * in that section).
+ *
+ * Imports must occur before any sections, and apply to all sections.
+ */
+const getSectionFromComment = (comment: string | undefined) => {
+  if (!comment || !comment.trim().startsWith("section:")) return undefined;
+
+  return comment.replace(/^\s*section:/, "");
+};
+
+/**
+ * Bundle and build JSX from the provided MDX source code.
+ *
+ * Includes a number of remark, rehype, and recma plugins.
+ */
+export const bundleMdxWrapper = async (source: string) => {
+  const toc: TocHeading[] = [];
+
+  const { code, frontmatter } = await bundleMDX({
+    source,
+    // mdx imports can be automatically source from the components directory
+    cwd: path.join(root, "components"),
+    mdxOptions(options) {
+      // this is the recommended way to add custom remark/rehype plugins:
+      // The syntax might look weird, but it protects you in case we add/remove
+      // plugins in the future.
+      options.remarkPlugins = [
+        ...(options.remarkPlugins ?? []),
+        remarkExtractFrontmatter,
+        [remarkTocHeadings, { exportRef: toc }],
+        remarkGfm,
+        remarkCodeTitles,
+        [remarkFootnotes, { inlineNotes: true }],
+        remarkMath,
+        remarkImgToJsx,
+      ];
+      options.rehypePlugins = [
+        ...(options.rehypePlugins ?? []),
+        rehypeSlug,
+        rehypeAutolinkHeadings,
+        rehypeKatex,
+        [rehypeCitation, { path: path.join(root, "data") }],
+        [rehypePrismPlus, { ignoreMissing: true }],
+        rehypePresetMinify,
+      ];
+      options.recmaPlugins = [
+        [recmaSection, { getComment: getSectionFromComment }],
+      ];
+      return options;
+    },
+    esbuildOptions: (options) => {
+      options.loader = {
+        ...options.loader,
+        ".js": "jsx",
+      };
+      return options;
+    },
+  });
+
+  return { code, toc, frontmatter };
+};
+
 export const getFileBySlug = async <T extends "blog" | "authors" | "projects">(
   folder: T,
   slug: string,
@@ -96,46 +170,7 @@ export const getFileBySlug = async <T extends "blog" | "authors" | "projects">(
     );
   }
 
-  const toc: TocHeading[] = [];
-
-  const { code, frontmatter } = await bundleMDX({
-    source,
-    // mdx imports can be automatically source from the components directory
-    cwd: path.join(root, "components"),
-    // TODO: this was xmdOptions
-    mdxOptions(options) {
-      // this is the recommended way to add custom remark/rehype plugins:
-      // The syntax might look weird, but it protects you in case we add/remove
-      // plugins in the future.
-      options.remarkPlugins = [
-        ...(options.remarkPlugins ?? []),
-        remarkExtractFrontmatter,
-        [remarkTocHeadings, { exportRef: toc }],
-        remarkGfm,
-        remarkCodeTitles,
-        [remarkFootnotes, { inlineNotes: true }],
-        remarkMath,
-        remarkImgToJsx,
-      ];
-      options.rehypePlugins = [
-        ...(options.rehypePlugins ?? []),
-        rehypeSlug,
-        rehypeAutolinkHeadings,
-        rehypeKatex,
-        [rehypeCitation, { path: path.join(root, "data") }],
-        [rehypePrismPlus, { ignoreMissing: true }],
-        rehypePresetMinify,
-      ];
-      return options;
-    },
-    esbuildOptions: (options) => {
-      options.loader = {
-        ...options.loader,
-        ".js": "jsx",
-      };
-      return options;
-    },
-  });
+  const { code, toc, frontmatter } = await bundleMdxWrapper(source);
 
   return {
     mdxSource: code,

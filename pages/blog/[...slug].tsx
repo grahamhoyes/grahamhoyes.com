@@ -40,6 +40,7 @@ const Blog = ({ post, authorDetails, prev, next }: BlogProps) => {
           mdxSource={mdxSource}
           frontMatter={frontMatter}
           authorDetails={authorDetails}
+          exportName="default"
           prev={prev}
           next={next}
         />

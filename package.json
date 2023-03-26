@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@fontsource/inter": "4.5.2",
+    "@frontline-hq/recma-sections": "^1.0.8",
     "@tailwindcss/forms": "^0.5.3",
     "@tailwindcss/typography": "^0.5.7",
     "autoprefixer": "^10.4.0",

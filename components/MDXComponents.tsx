@@ -28,10 +28,10 @@ interface MDXLayoutProps {
   layout?: string;
   // MDX source
   mdxSource: string;
-  // To render a named export of an MDX file, supply an exportName.
-  // Default is "default" to use the default export (regular MDX
-  // content).
-  exportName?: string;
+  // To render a section of an MDX file created by recma-sections,
+  // supply a sectionName. Default is "default" to use the default export
+  // (regular MDX content).
+  sectionName?: string;
   // Additional component overrides for customizing rendered output
   components?: ComponentMap;
   // Any other props the layout reuqires
@@ -46,16 +46,23 @@ interface MDXLayoutProps {
 export const MDXLayoutRenderer = ({
   layout = "NoLayout",
   mdxSource,
-  exportName = "default",
+  sectionName = "default",
   components,
   ...rest
 }: MDXLayoutProps) => {
-  const mdxExport = getMDXExport(mdxSource);
+  const mdxExport = useMemo(() => {
+    return getMDXExport(mdxSource);
+  }, [mdxSource]);
 
-  const MDXComponent = useMemo(
-    () => mdxExport[exportName],
-    [exportName, mdxExport],
-  );
+  const MDXComponent = useMemo(() => {
+    let component = mdxExport[sectionName];
+
+    if (typeof component === "object" && "default" in component) {
+      component = component.default;
+    }
+
+    return component;
+  }, [sectionName, mdxExport]);
 
   return (
     <MDXComponent
