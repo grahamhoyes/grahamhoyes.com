@@ -58,6 +58,9 @@ module.exports = withBundleAnalyzer({
   eslint: {
     dirs: ["pages", "components", "lib", "layouts", "scripts"],
   },
+  experimental: {
+    appDir: true,
+  },
   images: {
     // Using cloudflare pages, we don't have the nextjs image api
     unoptimized: true,

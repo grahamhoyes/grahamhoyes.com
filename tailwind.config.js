@@ -6,6 +6,7 @@ module.exports = {
     optimizeUniversalDefaults: true,
   },
   content: [
+    "./app/**/*.(js|tsx|mdx)",
     "./pages/**/*.(js|tsx)",
     "./components/**/*.(js|tsx)",
     "./layouts/**/*.(js|tsx)",

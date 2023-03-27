@@ -1,0 +1,106 @@
+import { ReactNode } from "react";
+import type { Metadata } from "next";
+import Image from "next/image";
+
+import "@/css/tailwind.css";
+import "@/css/prism.css";
+import "katex/dist/katex.css";
+import "@fontsource/inter/variable-full.css";
+
+import siteMetadata from "@/data/siteMetadata";
+import headerNavLinks from "@/data/headerNavLinks";
+
+import Providers from "app/Providers";
+import SectionContainer from "@/components/SectionContainer";
+import Link from "@/components/Link";
+import ThemeSwitch from "@/components/ThemeSwitch";
+import MobileNav from "@/components/MobileNav";
+import Footer from "@/components/Footer";
+
+export const metadata: Metadata = {
+  title: "Graham Hoyes",
+  authors: { name: "Graham Hoyes" },
+  description: "The personal antics of Graham Hoyes",
+  themeColor: "#000000",
+  icons: {
+    icon: [
+      { url: "/static/favicons/favicon-16x16.png", sizes: "16x16" },
+      { url: "/static/favicons/favicon-32x32.png", sizes: "32x32" },
+    ],
+    apple: {
+      url: "/static/favicons/apple-touch-icon.png",
+      sizes: "76x76",
+    },
+  },
+  manifest: "/static/favicons/site.webmanifest",
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
+};
+
+const isDevelopment = process.env.NODE_ENV === "development";
+const isSocket = process.env.SOCKET;
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <body className="bg-white text-light-900 antialiased dark:bg-dark-900 dark:text-dark-50">
+        <Providers
+          useClientReload={!!(isDevelopment && isSocket)}
+          defaultTheme={siteMetadata.theme}
+        >
+          <SectionContainer>
+            <div className="flex h-screen flex-col justify-between">
+              <header className="sticky top-0 z-40 flex items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
+                <div>
+                  <Link href="/" aria-label={siteMetadata.headerTitle}>
+                    <div className="flex items-center justify-between">
+                      <div className="mr-3">
+                        <Image
+                          src={siteMetadata.siteLogo}
+                          alt={siteMetadata.title}
+                          width="24"
+                          height="24"
+                          quality="100"
+                          style={{ verticalAlign: "middle" }}
+                          unoptimized={true}
+                        />
+                      </div>
+                      <div
+                        className="hidden h-6 text-2xl font-semibold sm:block"
+                        style={{ lineHeight: 1 }}
+                      >
+                        {siteMetadata.headerTitle}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+                <div className="flex items-center text-base leading-5">
+                  <div className="hidden sm:block">
+                    {headerNavLinks.map((link) => (
+                      <Link
+                        key={link.title}
+                        href={link.href}
+                        className="p-1 font-medium text-light-900 dark:text-dark-100 sm:p-4"
+                      >
+                        {link.title}
+                      </Link>
+                    ))}
+                  </div>
+                  <ThemeSwitch />
+                  <MobileNav />
+                </div>
+              </header>
+
+              <main className="mb-auto">{children}</main>
+
+              <Footer />
+            </div>
+          </SectionContainer>
+        </Providers>
+      </body>
+    </html>
+  );
+}
