@@ -1,5 +1,4 @@
 import Link from "@/components/Link";
-import Tag from "@/components/Tag";
 import siteMetadata from "@/data/siteMetadata";
 // import { getAllFilesFrontMatter } from "@/lib/mdx";
 import formatDate from "@/lib/utils/formatDate";
@@ -47,27 +46,20 @@ const Home = () => {
                               {title}
                             </Link>
                           </h2>
-                          {tags && (
-                            <div className="flex flex-wrap">
-                              {tags.map((tag) => (
-                                <Tag key={tag} text={tag} />
-                              ))}
-                            </div>
-                          )}
                         </div>
                         <div className="prose max-w-none text-light-500 dark:text-dark-400">
                           {summary}
                         </div>
                       </div>
-                      {/*<div className="text-base font-medium leading-6">*/}
-                      {/*  <Link*/}
-                      {/*    href={`/blog/${slug}`}*/}
-                      {/*    className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"*/}
-                      {/*    aria-label={`Read "${title}"`}*/}
-                      {/*  >*/}
-                      {/*    Read more &rarr;*/}
-                      {/*  </Link>*/}
-                      {/*</div>*/}
+                      <div className="text-base font-medium leading-6">
+                        <Link
+                          href={`/blog/${slug}`}
+                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                          aria-label={`Read "${title}"`}
+                        >
+                          Read more &rarr;
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </article>

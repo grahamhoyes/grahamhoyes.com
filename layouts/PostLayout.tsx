@@ -5,7 +5,6 @@ import PageTitle from "@/components/PageTitle";
 import SectionContainer from "@/components/SectionContainer";
 import { BlogSEO } from "@/components/SEO";
 import Image from "@/components/Image";
-import Tag from "@/components/Tag";
 import siteMetadata from "@/data/siteMetadata";
 import ScrollTop from "@/components/ScrollTop";
 import { AuthorFrontMatter, PostFrontMatter } from "types/FrontMatter";
@@ -39,7 +38,7 @@ const PostLayout = ({
   prev,
   children,
 }: PostLayoutProps) => {
-  const { slug, fileName, date, title, tags } = frontMatter;
+  const { slug, fileName, date, title } = frontMatter;
 
   return (
     <SectionContainer>
@@ -132,18 +131,6 @@ const PostLayout = ({
             </div>
             <footer>
               <div className="divide-light-200 text-sm font-medium leading-5 dark:divide-dark-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-                {tags && (
-                  <div className="py-4 xl:py-8">
-                    <h2 className="text-xs uppercase tracking-wide text-light-500 dark:text-dark-400">
-                      Tags
-                    </h2>
-                    <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
-                      ))}
-                    </div>
-                  </div>
-                )}
                 {(next || prev) && (
                   <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
                     {prev && (

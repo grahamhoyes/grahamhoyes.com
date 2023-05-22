@@ -1,7 +1,6 @@
 import { ComponentProps, useState } from "react";
 
 import Link from "@/components/Link";
-import Tag from "@/components/Tag";
 import Pagination from "@/components/Pagination";
 import formatDate from "@/lib/utils/formatDate";
 import { PostFrontMatter } from "types/FrontMatter";
@@ -86,11 +85,6 @@ const ListLayout = ({
                           {title}
                         </Link>
                       </h3>
-                      <div className="flex flex-wrap">
-                        {tags.map((tag) => (
-                          <Tag key={tag} text={tag} />
-                        ))}
-                      </div>
                     </div>
                     <div className="prose max-w-none text-light-500 dark:text-dark-400">
                       {summary}

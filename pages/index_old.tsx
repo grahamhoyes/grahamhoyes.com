@@ -2,7 +2,6 @@ import { GetStaticProps } from "next";
 
 import Link from "@/components/Link";
 import { PageSEO } from "@/components/SEO";
-import Tag from "@/components/Tag";
 import siteMetadata from "@/data/siteMetadata";
 import { getAllFilesFrontMatter } from "@/lib/mdx";
 import formatDate from "@/lib/utils/formatDate";
@@ -55,11 +54,6 @@ const Home = ({ posts }: HomeProps) => {
                               {title}
                             </Link>
                           </h2>
-                          <div className="flex flex-wrap">
-                            {tags.map((tag) => (
-                              <Tag key={tag} text={tag} />
-                            ))}
-                          </div>
                         </div>
                         <div className="prose max-w-none text-light-500 dark:text-dark-400">
                           {summary}
