@@ -1,34 +1,22 @@
-import fs from "fs";
-import matter from "gray-matter";
-import path from "path";
-import { getFiles } from "./mdx";
-import kebabCase from "./utils/kebabCase";
+import { slug } from "github-slugger";
 
-const root = process.cwd();
+import { allBlogs } from "contentlayer/generated";
 
-export async function getAllTags() {
-  const files = await getFiles("blog");
+export async function getAllTags(): Promise<Record<string, number>> {
+  const tagCounts: Record<string, number> = {};
 
-  const tagCount: Record<string, number> = {};
+  for (const blog of allBlogs) {
+    if (!blog.tags) continue;
 
-  // Iterate through each post, putting all found tags into `tags`
-  files.forEach((file) => {
-    const source = fs.readFileSync(
-      path.join(root, "data", "blog", file),
-      "utf8",
-    );
-    const { data } = matter(source);
-    if (data.tags && data.draft !== true) {
-      data.tags.forEach((tag: string) => {
-        const formattedTag = kebabCase(tag);
-        if (formattedTag in tagCount) {
-          tagCount[formattedTag] += 1;
-        } else {
-          tagCount[formattedTag] = 1;
-        }
-      });
+    for (const tag of blog.tags) {
+      const formattedTag = slug(tag);
+      if (formattedTag in tagCounts) {
+        tagCounts[formattedTag] += 1;
+      } else {
+        tagCounts[formattedTag] = 1;
+      }
     }
-  });
+  }
 
-  return tagCount;
+  return tagCounts;
 }

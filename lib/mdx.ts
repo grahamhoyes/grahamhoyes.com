@@ -6,7 +6,6 @@ import readingTime from "reading-time";
 
 // Remark packages
 import remarkGfm from "remark-gfm";
-import remarkFootnotes from "remark-footnotes";
 import remarkMath from "remark-math";
 import remarkExtractFrontmatter from "./remark-extract-frontmatter";
 import remarkCodeTitles from "./remark-code-title";
@@ -113,7 +112,6 @@ export const getFileBySlug = async <T extends "blog" | "authors" | "projects">(
         [remarkTocHeadings, { exportRef: toc }],
         remarkGfm,
         remarkCodeTitles,
-        [remarkFootnotes, { inlineNotes: true }],
         remarkMath,
         remarkImgToJsx,
       ];
