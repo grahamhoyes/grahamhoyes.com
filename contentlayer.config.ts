@@ -58,6 +58,7 @@ export const Blog = defineDocumentType(() => ({
 export const Project = defineDocumentType(() => ({
   name: "Project",
   filePathPattern: "projects/*.md",
+  contentType: "mdx",
   fields: {
     title: { type: "string", required: true },
     imgSrc: { type: "string", required: true },

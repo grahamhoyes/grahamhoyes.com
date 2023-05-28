@@ -14,11 +14,11 @@ interface ClientLayoutWrapperProps {
 /**
  * A client component to provide the theming providers and wrappers we use.
  */
-export default function Providers({
+const Providers = ({
   children,
   // useClientReload,
   defaultTheme,
-}: ClientLayoutWrapperProps) {
+}: ClientLayoutWrapperProps) => {
   return (
     <ThemeProvider attribute="class" defaultTheme={defaultTheme}>
       {/*TODO: Might not need client reloading*/}
@@ -26,4 +26,6 @@ export default function Providers({
       {children}
     </ThemeProvider>
   );
-}
+};
+
+export default Providers;

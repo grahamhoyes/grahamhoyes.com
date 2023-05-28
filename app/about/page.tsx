@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import { Metadata } from "next";
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { allAuthors } from "contentlayer/generated";
 
