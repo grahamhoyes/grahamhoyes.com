@@ -7,7 +7,7 @@ import { getAllFilesFrontMatter } from "@/lib/mdx";
 import ListLayout from "@/layouts/ListLayout";
 import { PostFrontMatter } from "types/FrontMatter";
 
-import { POSTS_PER_PAGE } from "../../blog";
+import { POSTS_PER_PAGE } from "pages/blog_old";
 
 interface PostPageProps {
   posts: PostFrontMatter[];

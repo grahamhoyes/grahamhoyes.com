@@ -72,7 +72,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
   const slug = (params.slug as string[]).join("/");
 
-  const allPosts = getAllFilesFrontMatter("blog");
+  const allPosts = getAllFilesFrontMatter("blog_old");
   const postIndex = allPosts.findIndex(
     (post) => formatSlug(post.slug) === slug,
   );
@@ -80,7 +80,7 @@ export const getStaticProps: GetStaticProps<BlogProps> = async ({ params }) => {
   const prev: PostPointer = allPosts[postIndex + 1] || null;
   const next: PostPointer = allPosts[postIndex - 1] || null;
 
-  const post = await getFileBySlug("blog", slug);
+  const post = await getFileBySlug("blog_old", slug);
 
   const authorList = post.frontMatter.authors || ["default"];
 

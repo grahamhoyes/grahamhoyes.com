@@ -7,7 +7,7 @@ import ListLayout from "@/layouts/ListLayout";
 import { PageSEO } from "@/components/SEO";
 import { PostFrontMatter } from "types/FrontMatter";
 
-export const POSTS_PER_PAGE = 5;
+export const POSTS_PER_PAGE = 1;
 
 interface BlogProps {
   posts: PostFrontMatter[];
@@ -15,7 +15,7 @@ interface BlogProps {
   pagination: ComponentProps<typeof ListLayout>["pagination"];
 }
 
-const Blog = ({ posts, initialDisplayPosts, pagination }: BlogProps) => {
+const Blog_old = ({ posts, initialDisplayPosts, pagination }: BlogProps) => {
   return (
     <>
       <PageSEO
@@ -43,4 +43,4 @@ export const getStaticProps: GetStaticProps<BlogProps> = async () => {
   return { props: { initialDisplayPosts, posts, pagination } };
 };
 
-export default Blog;
+export default Blog_old;
