@@ -9,7 +9,7 @@ import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
 import remarkExtractFrontmatter from "./remark-extract-frontmatter";
 import remarkCodeTitles from "./remark-code-title";
-import remarkTocHeadings from "./remark-toc-headings";
+import { remarkTocHeadings } from "./remark-toc-headings";
 import remarkImgToJsx from "./remark-img-to-jsx";
 
 // Rehype packages

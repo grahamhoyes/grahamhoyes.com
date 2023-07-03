@@ -1,19 +1,42 @@
+import { VFile } from "vfile";
 import { Parent } from "unist";
 import { visit } from "unist-util-visit";
-import { slug } from "github-slugger";
+import { Heading } from "mdast";
+import slugger from "github-slugger";
 import { toString } from "mdast-util-to-string";
-import { TocHeading } from "types/Toc";
+import { remark } from "remark";
 
-const remarkTocHeadings = (options: { exportRef: TocHeading[] }) => {
-  return (tree: Parent) =>
-    visit(tree, "heading", (node: Parent & { depth: number }) => {
+export type TocHeading = {
+  value: string;
+  depth: number;
+  url: string;
+};
+
+export type Toc = TocHeading[];
+
+export function remarkTocHeadings() {
+  return (tree: Parent, file: VFile) => {
+    const toc: Toc = [];
+    visit(tree, "heading", (node: Heading) => {
       const textContent = toString(node);
-      options.exportRef.push({
+      toc.push({
         value: textContent,
-        url: "#" + slug(textContent),
+        url: "#" + slugger.slug(textContent),
         depth: node.depth,
       });
     });
-};
+    file.data.toc = toc;
+  };
+}
 
-export default remarkTocHeadings;
+/**
+ * Passes markdown file through remark to extract TOC headings
+ *
+ * @param {string} markdown
+ * @return {*}  {Promise<Toc>}
+ */
+export async function extractTocHeadings(markdown: string): Promise<Toc> {
+  const vfile = await remark().use(remarkTocHeadings).process(markdown);
+  // @ts-ignore
+  return vfile.data.toc;
+}

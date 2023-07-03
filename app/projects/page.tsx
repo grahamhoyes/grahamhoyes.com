@@ -1,17 +1,14 @@
 import { Metadata } from "next";
 
 import { allProjects, Project } from "contentlayer/generated";
-import { useMDXComponent } from "next-contentlayer/hooks";
 import Card from "@/components/Card";
-import { MDXLayoutRenderer } from "@/components/MDXComponents";
+import { MdxRenderer } from "@/components/MdxComponents";
 
 export const metadata: Metadata = {
   title: "Projects - Graham Hoyes",
 };
 
 const ProjectCard = (project: Project) => {
-  const Content = useMDXComponent(project.body.code);
-
   return (
     <Card
       key={project.title}
@@ -21,7 +18,7 @@ const ProjectCard = (project: Project) => {
       href={project.href}
       linkText={project.linkText}
     >
-      <Content />
+      <MdxRenderer content={project} />
     </Card>
   );
 };

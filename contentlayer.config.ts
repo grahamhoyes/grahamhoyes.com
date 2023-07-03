@@ -12,6 +12,7 @@ import remarkMath from "remark-math";
 import remarkExtractFrontmatter from "./lib/remark-extract-frontmatter";
 import remarkCodeTitles from "./lib/remark-code-title";
 import remarkImgToJsx from "./lib/remark-img-to-jsx";
+import { extractTocHeadings } from "./lib/remark-toc-headings";
 
 // Rehype packages
 import rehypeSlug from "rehype-slug";
@@ -35,7 +36,10 @@ const computedFields: ComputedFields = {
     type: "string",
     resolve: (doc) => doc._raw.sourceFilePath,
   },
-  // TODO: toc
+  toc: {
+    type: "string",
+    resolve: (doc) => extractTocHeadings(doc.body.raw),
+  },
 };
 
 export const Blog = defineDocumentType(() => ({

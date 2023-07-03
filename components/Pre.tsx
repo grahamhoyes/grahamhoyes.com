@@ -1,11 +1,10 @@
-import { useState, useRef, ReactNode } from "react";
+import { useState, useRef, ReactNode, MutableRefObject } from "react";
 
-interface PreProps {
-  children: ReactNode;
-}
-
-const Pre = ({ children }: PreProps) => {
-  const textInput = useRef(null);
+export const Pre = ({ children }: { children: ReactNode }) => {
+  const textInput: MutableRefObject<HTMLDivElement> = useRef(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    null as any as HTMLDivElement,
+  );
   const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -18,10 +17,13 @@ const Pre = ({ children }: PreProps) => {
   };
   const onCopy = () => {
     setCopied(true);
-    navigator.clipboard.writeText(textInput.current.textContent);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
+
+    const content = textInput.current.textContent || "";
+
+    content &&
+      navigator.clipboard
+        .writeText(content)
+        .then(() => setTimeout(() => setCopied(false), 2000));
   };
 
   return (
