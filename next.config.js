@@ -69,21 +69,19 @@ module.exports = () => {
     eslint: {
       dirs: ["pages", "components", "lib", "layouts", "scripts"],
     },
-    experimental: {
-      appDir: true,
-    },
+    output: "export",
     images: {
       // Using cloudflare pages, we don't have the nextjs image api
       unoptimized: true,
     },
-    async headers() {
-      return [
-        {
-          source: "/(.*)",
-          headers: securityHeaders,
-        },
-      ];
-    },
+    // async headers() {
+    //   return [
+    //     {
+    //       source: "/(.*)",
+    //       headers: securityHeaders,
+    //     },
+    //   ];
+    // },
     webpack: (config, { dev, isServer }) => {
       config.module.rules.push({
         test: /\.svg$/,

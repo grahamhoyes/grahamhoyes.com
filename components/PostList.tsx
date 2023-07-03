@@ -11,7 +11,7 @@ interface PostListProps {
 export const PostList = ({ posts, pagination }: PostListProps) => (
   <>
     <ul className="divide-y divide-light-200 dark:divide-dark-700">
-      {posts.map(({ slug, date, title, summary, tags }) => {
+      {posts.map(({ slug, date, title, summary }) => {
         return (
           <li key={slug} className="py-6">
             <article>
