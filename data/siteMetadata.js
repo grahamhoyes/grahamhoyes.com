@@ -9,7 +9,7 @@ const siteMetadata = {
   siteRepo: "https://github.com/grahamhoyes/grahamhoyes.com",
   siteLogo: "/static/images/logo.png",
   image: "/static/images/avatar.png",
-  socialBanner: "/static/images/twitter-card.png",
+  socialBanner: "/static/images/social-card.png",
   email: "contact@grahamhoyes.com",
   github: "https://github.com/grahamhoyes/",
   twitter: "https://twitter.com/grahamhoyes/",

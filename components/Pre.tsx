@@ -74,7 +74,7 @@ export const Pre = ({ children }: { children: ReactNode }) => {
         </button>
       )}
 
-      <pre>{children}</pre>
+      <pre className="font-mono text-base">{children}</pre>
     </div>
   );
 };

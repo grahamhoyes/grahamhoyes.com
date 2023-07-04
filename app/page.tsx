@@ -1,7 +1,6 @@
 import Link from "@/components/Link";
 import PostList from "@/components/PostList";
 import siteMetadata from "@/data/siteMetadata";
-import formatDate from "@/lib/utils/formatDate";
 
 import { sortedBlogs } from "@/data/generated";
 

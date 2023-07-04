@@ -1,5 +1,6 @@
 import fs from "fs";
 
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import Link from "@/components/Link";
@@ -177,4 +178,23 @@ export const generateStaticParams = (): PostProps["params"][] => {
   return sortedBlogs.map(({ slug }) => ({
     slug: slug.split("/"),
   }));
+};
+
+export const generateMetadata = ({ params }: PostProps): Metadata => {
+  const post = sortedBlogs.find((p) => p.slug === params.slug.join("/"));
+
+  if (!post) return {};
+
+  return {
+    title: `${post.title} | ${siteMetadata.title}`,
+    openGraph: {
+      type: "article",
+      publishedTime: new Date(post.date).toISOString(),
+      modifiedTime: new Date(post.lastmod || post.date).toISOString(),
+      authors: (post.authors || ["default"]).map(
+        (author) => authors[author].name,
+      ),
+      tags: post.tags,
+    },
+  };
 };

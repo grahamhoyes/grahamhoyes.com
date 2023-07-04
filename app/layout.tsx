@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
+import { Source_Code_Pro } from "next/font/google";
 
 import "@/css/tailwind.css";
 import "@/css/prism.css";
@@ -16,6 +17,12 @@ import Link from "@/components/Link";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import MobileNav from "@/components/MobileNav";
 import Footer from "@/components/Footer";
+
+const source_code_pro = Source_Code_Pro({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-source-code-pro",
+});
 
 export const metadata: Metadata = {
   title: "Graham Hoyes",
@@ -38,6 +45,18 @@ export const metadata: Metadata = {
       "application/rss+xml": "/feed.xml",
     },
   },
+  openGraph: {
+    title: "Graham Hoyes",
+    url: "https://grahamhoyes.com",
+    siteName: "grahamhoyes.com",
+    images: [
+      {
+        url: "/static/images/twitter-card.png",
+        width: 1200,
+        height: 600,
+      },
+    ],
+  },
 };
 
 const isDevelopment = process.env.NODE_ENV === "development";
@@ -45,7 +64,11 @@ const isSocket = process.env.SOCKET;
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`scroll-smooth ${source_code_pro.variable}`}
+      suppressHydrationWarning
+    >
       <body className="bg-white text-light-900 antialiased dark:bg-dark-900 dark:text-dark-50">
         <Providers
           useClientReload={!!(isDevelopment && isSocket)}

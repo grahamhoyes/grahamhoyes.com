@@ -1,11 +1,12 @@
 import { Metadata } from "next";
 
 import { sortedBlogs } from "@/data/generated";
+import siteMetadata from "@/data/siteMetadata";
 
 import PostList, { POSTS_PER_PAGE } from "@/components/PostList";
 
 export const metadata: Metadata = {
-  title: "Blog - Graham Hoyes",
+  title: `Blog | ${siteMetadata.title}`,
 };
 
 const Blog = () => {

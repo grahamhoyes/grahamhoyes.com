@@ -26,6 +26,7 @@ const CommonSEO = ({
   canonicalUrl,
 }: CommonSEOProps) => {
   const router = useRouter();
+
   return (
     <Head>
       <title>{title}</title>
