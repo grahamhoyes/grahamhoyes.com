@@ -7,7 +7,6 @@ module.exports = {
   },
   content: [
     "./app/**/*.(js|tsx|mdx)",
-    "./pages/**/*.(js|tsx)",
     "./components/**/*.(js|tsx)",
     "./layouts/**/*.(js|tsx)",
     "./lib/**/*.(js|tsx)",

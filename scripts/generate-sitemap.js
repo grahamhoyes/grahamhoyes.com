@@ -7,14 +7,14 @@ const siteMetadata = require("../data/siteMetadata");
 (async () => {
   const prettierConfig = await prettier.resolveConfig("./.prettierrc.js");
   const pages = await globby([
-    "pages/*.js",
-    "pages/*.tsx",
+    "app/*.js",
+    "app/*.tsx",
     "data/blog/**/*.mdx",
     "data/blog/**/*.md",
     "public/tags/**/*.xml",
-    "!pages/_*.js",
-    "!pages/_*.tsx",
-    "!pages/api",
+    "!app/_*.js",
+    "!app/_*.tsx",
+    "!app/api",
   ]);
 
   const sitemap = `
@@ -34,7 +34,7 @@ const siteMetadata = require("../data/siteMetadata");
                   }
                 }
                 const path = page
-                  .replace("pages/", "/")
+                  .replace("app/", "/")
                   .replace("data/blog", "/blog")
                   .replace("public/", "/")
                   .replace(".js", "")
@@ -45,8 +45,8 @@ const siteMetadata = require("../data/siteMetadata");
                 const route = path === "/index" ? "" : path;
 
                 if (
-                  page.search("pages/404.") > -1 ||
-                  page.search(`pages/blog/[...slug].`) > -1
+                  page.search("app/not-found.") > -1 ||
+                  page.search(`app/blog/[...slug].`) > -1
                 ) {
                   return;
                 }

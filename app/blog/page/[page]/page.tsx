@@ -5,7 +5,7 @@ import { sortedBlogs } from "@/data/generated";
 import PostList, { POSTS_PER_PAGE } from "@/components/PostList";
 
 export const metadata: Metadata = {
-  title: "Blog - Graham Hoyes",
+  title: "Blog | Graham Hoyes",
 };
 
 interface BlogListProps {
