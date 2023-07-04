@@ -54,7 +54,6 @@ export const Blog = defineDocumentType(() => ({
     draft: { type: "boolean" },
     summary: { type: "string" },
     authors: { type: "list", of: { type: "string" } },
-    layout: { type: "string" },
   },
   computedFields,
 }));
