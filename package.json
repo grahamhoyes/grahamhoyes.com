@@ -8,7 +8,7 @@
     "check:eslint": "eslint . --max-warnings=0",
     "check:prettier": "prettier --check .",
     "dev": "next dev",
-    "lint": "next lint --fix --dir pages --dir components --dir lib --dir layouts --dir scripts && npm run check:prettier",
+    "lint": "next lint --fix --dir app --dir components --dir lib --dir layouts --dir scripts && npm run check:prettier",
     "fix": "npm run fix:eslint && npm run fix:prettier",
     "fix:eslint": "eslint . --fix",
     "fix:prettier": "prettier --write .",
@@ -68,11 +68,8 @@
     "husky": "^6.0.0",
     "inquirer": "^8.1.1",
     "lint-staged": "^11.2.6",
-    "next-remote-watch": "^1.0.0",
     "prettier": "^2.6.2",
     "prettier-plugin-tailwindcss": "^0.1.4",
-    "socket.io": "^4.4.0",
-    "socket.io-client": "^4.4.0",
     "typescript": "^4.6.3"
   },
   "lint-staged": {

@@ -1,5 +1,3 @@
-"use client";
-
 import { useMDXComponent } from "next-contentlayer/hooks";
 import { MDXComponents } from "mdx/types";
 import Image from "./Image";
@@ -16,12 +14,8 @@ export const defaultMdxComponents: MDXComponents = {
 };
 
 interface MDXRendererProps {
-  // Contentlayer generated content
-  content: {
-    body: {
-      code: string;
-    };
-  };
+  // MDX source code as bundled javascript
+  code: string;
   // Additional component overrides for customizing rendered output
   components?: MDXComponents;
   // Any other props the layout requires
@@ -34,11 +28,11 @@ interface MDXRendererProps {
  * Given the MDX source as bundled javascript, get a memoized component
  */
 export const MdxRenderer = ({
-  content,
+  code,
   components,
   ...rest
 }: MDXRendererProps) => {
-  const Component = useMDXComponent(content.body.code);
+  const Component = useMDXComponent(code);
 
   return (
     <Component

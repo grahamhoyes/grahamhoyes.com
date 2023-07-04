@@ -1,10 +1,9 @@
-import { useState, useRef, ReactNode, MutableRefObject } from "react";
+"use client";
+
+import { useState, useRef, ReactNode } from "react";
 
 export const Pre = ({ children }: { children: ReactNode }) => {
-  const textInput: MutableRefObject<HTMLDivElement> = useRef(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    null as any as HTMLDivElement,
-  );
+  const textInput = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -16,14 +15,15 @@ export const Pre = ({ children }: { children: ReactNode }) => {
     setCopied(false);
   };
   const onCopy = () => {
+    const content = textInput.current?.textContent ?? null;
+
+    if (content === null) return;
+
     setCopied(true);
 
-    const content = textInput.current.textContent || "";
-
-    content &&
-      navigator.clipboard
-        .writeText(content)
-        .then(() => setTimeout(() => setCopied(false), 2000));
+    navigator.clipboard
+      .writeText(content)
+      .then(() => setTimeout(() => setCopied(false), 2000));
   };
 
   return (

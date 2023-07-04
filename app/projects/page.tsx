@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 import { allProjects, Project } from "contentlayer/generated";
 import Card from "@/components/Card";
-import { MdxRenderer } from "@/components/MdxComponents";
+import { MdxRenderer } from "@/components/Mdx";
 
 export const metadata: Metadata = {
   title: "Projects - Graham Hoyes",
@@ -18,7 +18,7 @@ const ProjectCard = (project: Project) => {
       href={project.href}
       linkText={project.linkText}
     >
-      <MdxRenderer content={project} />
+      <MdxRenderer code={project.body.code} />
     </Card>
   );
 };

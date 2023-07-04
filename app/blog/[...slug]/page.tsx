@@ -8,7 +8,7 @@ import PageTitle from "@/components/PageTitle";
 import SectionContainer from "@/components/SectionContainer";
 import Image from "@/components/Image";
 import ScrollTop from "@/components/ScrollTop";
-import MdxRenderer from "@/components/MdxComponents";
+import MdxRenderer from "@/components/Mdx";
 import siteMetadata from "@/data/siteMetadata";
 
 import { sortedBlogs, authors } from "@/data/generated";
@@ -46,11 +46,6 @@ const Post = ({ params }: PostProps) => {
 
   return (
     <SectionContainer>
-      {/*<BlogSEO*/}
-      {/*  url={`${siteMetadata.siteUrl}/blog/${slug}`}*/}
-      {/*  authorDetails={authorDetails}*/}
-      {/*  {...frontMatter}*/}
-      {/*/>*/}
       <ScrollTop />
       <article>
         <div className="xl:divide-y xl:divide-light-200 xl:dark:divide-dark-700">
@@ -109,7 +104,7 @@ const Post = ({ params }: PostProps) => {
             </dl>
             <div className="divide-y divide-light-200 dark:divide-dark-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
-                <MdxRenderer content={post} toc={post.toc} />
+                <MdxRenderer code={post.body.code} toc={post.toc} />
               </div>
               <div className="pt-6 pb-6 text-sm text-dark-700 dark:text-dark-300">
                 <Link

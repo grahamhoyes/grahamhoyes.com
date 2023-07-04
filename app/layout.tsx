@@ -57,6 +57,13 @@ export const metadata: Metadata = {
       },
     ],
   },
+  metadataBase: new URL(
+    process.env.CF_PAGES_URL ||
+    `https://${process.env.VERCEL_URL}` ||
+    process.env.NODE_ENV === "development"
+      ? `http://localhost:${process.env.PORT || 3000}`
+      : siteMetadata.siteUrl,
+  ),
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
