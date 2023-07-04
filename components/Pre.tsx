@@ -1,11 +1,9 @@
+"use client";
+
 import { useState, useRef, ReactNode } from "react";
 
-interface PreProps {
-  children: ReactNode;
-}
-
-const Pre = ({ children }: PreProps) => {
-  const textInput = useRef(null);
+export const Pre = ({ children }: { children: ReactNode }) => {
+  const textInput = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -17,11 +15,15 @@ const Pre = ({ children }: PreProps) => {
     setCopied(false);
   };
   const onCopy = () => {
+    const content = textInput.current?.textContent ?? null;
+
+    if (content === null) return;
+
     setCopied(true);
-    navigator.clipboard.writeText(textInput.current.textContent);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
+
+    navigator.clipboard
+      .writeText(content)
+      .then(() => setTimeout(() => setCopied(false), 2000));
   };
 
   return (
@@ -72,7 +74,7 @@ const Pre = ({ children }: PreProps) => {
         </button>
       )}
 
-      <pre>{children}</pre>
+      <pre className="font-mono text-base">{children}</pre>
     </div>
   );
 };

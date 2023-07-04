@@ -2,6 +2,8 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
+const { withContentlayer } = require("next-contentlayer");
+
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
   default-src 'self';
@@ -52,40 +54,43 @@ const securityHeaders = [
   },
 ];
 
-module.exports = withBundleAnalyzer({
-  reactStrictMode: true,
-  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-  eslint: {
-    dirs: ["pages", "components", "lib", "layouts", "scripts"],
-  },
-  images: {
-    // Using cloudflare pages, we don't have the nextjs image api
-    unoptimized: true,
-  },
-  async headers() {
-    return [
-      {
-        source: "/(.*)",
-        headers: securityHeaders,
-      },
-    ];
-  },
-  webpack: (config, { dev, isServer }) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
+/**
+ * @type {import('next').NextConfig}
+ **/
+module.exports = () => {
+  const plugins = [withContentlayer, withBundleAnalyzer];
 
-    if (!dev && !isServer) {
-      // Replace React with Preact only in client production build
-      Object.assign(config.resolve.alias, {
-        "react/jsx-runtime.js": "preact/compat/jsx-runtime",
-        react: "preact/compat",
-        "react-dom/test-utils": "preact/test-utils",
-        "react-dom": "preact/compat",
+  /**
+   * @type {import('next').NextConfig}
+   **/
+  const nextConfig = {
+    reactStrictMode: true,
+    pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
+    eslint: {
+      dirs: ["pages", "components", "lib", "layouts", "scripts"],
+    },
+    output: "export",
+    images: {
+      // Using cloudflare pages, we don't have the nextjs image api
+      unoptimized: true,
+    },
+    // async headers() {
+    //   return [
+    //     {
+    //       source: "/(.*)",
+    //       headers: securityHeaders,
+    //     },
+    //   ];
+    // },
+    webpack: (config) => {
+      config.module.rules.push({
+        test: /\.svg$/,
+        use: ["@svgr/webpack"],
       });
-    }
 
-    return config;
-  },
-});
+      return config;
+    },
+  };
+
+  return plugins.reduce((cfg, plugin) => plugin(cfg), nextConfig);
+};

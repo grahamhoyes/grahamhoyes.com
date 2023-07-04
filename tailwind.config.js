@@ -6,7 +6,7 @@ module.exports = {
     optimizeUniversalDefaults: true,
   },
   content: [
-    "./pages/**/*.(js|tsx)",
+    "./app/**/*.(js|tsx|mdx)",
     "./components/**/*.(js|tsx)",
     "./layouts/**/*.(js|tsx)",
     "./lib/**/*.(js|tsx)",
@@ -26,6 +26,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ["InterVariable", ...defaultTheme.fontFamily.sans],
+        mono: ["var(--font-source-code-pro)", ...defaultTheme.fontFamily.mono],
       },
       colors: {
         primary: colors.sky,
@@ -66,7 +67,7 @@ module.exports = {
               backgroundColor: theme("colors.light.800"),
             },
             code: {
-              color: theme("colors.pink.500"),
+              color: theme("colors.blue.600"),
               backgroundColor: theme("colors.light.100"),
               paddingLeft: "4px",
               paddingRight: "4px",
@@ -134,6 +135,7 @@ module.exports = {
               backgroundColor: theme("colors.dark.800"),
             },
             code: {
+              color: theme("colors.blue.200"),
               backgroundColor: theme("colors.dark.800"),
             },
             details: {

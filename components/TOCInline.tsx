@@ -1,4 +1,4 @@
-import { TocHeading } from "types/Toc";
+import { TocHeading } from "@/lib/remark-toc-headings";
 
 interface TOCInlineProps {
   toc: TocHeading[];
@@ -6,12 +6,12 @@ interface TOCInlineProps {
   fromHeading?: number;
   toHeading?: number;
   asDisclosure?: boolean;
+  // Exclude titles matching these
   exclude?: string | string[];
 }
 
 /**
  * Generates an inline table of contents
- * Exclude titles matching this string (new RegExp('^(' + string + ')$', 'i')).
  * If an array is passed the array gets joined with a pipe (new RegExp('^(' + array.join('|') + ')$', 'i')).
  */
 const TOCInline = ({

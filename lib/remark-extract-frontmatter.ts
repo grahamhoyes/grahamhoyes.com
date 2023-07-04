@@ -1,7 +1,9 @@
 import { VFile } from "vfile";
 import { Parent } from "unist";
 import { visit } from "unist-util-visit";
-import { load } from "js-yaml";
+import jsYaml from "js-yaml";
+
+const { load } = jsYaml;
 
 const extractFrontmatter = () => {
   return (tree: Parent, file: VFile) => {
