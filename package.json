@@ -14,7 +14,7 @@
     "fix:prettier": "prettier --write .",
     "prepare": "husky install",
     "serve": "next start",
-    "start": "cross-env SOCKET=true node ./scripts/next-remote-watch.js ./data"
+    "start": "next"
   },
   "dependencies": {
     "@fontsource/inter": "4.5.2",

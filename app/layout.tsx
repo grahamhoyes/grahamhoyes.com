@@ -59,9 +59,6 @@ export const metadata: Metadata = {
   },
 };
 
-const isDevelopment = process.env.NODE_ENV === "development";
-const isSocket = process.env.SOCKET;
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
@@ -70,10 +67,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className="bg-white text-light-900 antialiased dark:bg-dark-900 dark:text-dark-50">
-        <Providers
-          useClientReload={!!(isDevelopment && isSocket)}
-          defaultTheme={siteMetadata.theme}
-        >
+        <Providers defaultTheme={siteMetadata.theme}>
           <SectionContainer>
             <div className="flex h-screen flex-col justify-between">
               <header className="sticky top-0 z-40 flex items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
