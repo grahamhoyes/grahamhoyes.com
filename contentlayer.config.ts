@@ -88,11 +88,26 @@ export const Author = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const Recipe = defineDocumentType(() => ({
+  name: "Recipe",
+  filePathPattern: "recipes/*.mdx",
+  contentType: "mdx",
+  fields: {
+    title: { type: "string", required: true },
+    date: { type: "date", required: true },
+    description: { type: "string", required: true },
+    lastmod: { type: "date" },
+    tags: { type: "list", of: { type: "string" } },
+    authors: { type: "list", of: { type: "string" } },
+  },
+  computedFields,
+}));
+
 const root = process.cwd();
 
 export default makeSource({
   contentDirPath: "data",
-  documentTypes: [Blog, Project, Author],
+  documentTypes: [Blog, Project, Author, Recipe],
   mdx: {
     cwd: root,
     remarkPlugins: [

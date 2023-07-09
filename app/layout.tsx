@@ -12,7 +12,6 @@ import siteMetadata from "@/data/siteMetadata";
 import headerNavLinks from "@/data/headerNavLinks";
 
 import Providers from "app/Providers";
-import SectionContainer from "@/components/SectionContainer";
 import Link from "@/components/Link";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import MobileNav from "@/components/MobileNav";
@@ -75,7 +74,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="bg-white text-light-900 antialiased dark:bg-dark-900 dark:text-dark-50">
         <Providers defaultTheme={siteMetadata.theme}>
-          <SectionContainer>
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 xl:max-w-6xl xl:px-0">
             <div className="flex h-screen flex-col justify-between">
               <header className="sticky top-0 z-40 flex items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
                 <div>
@@ -122,7 +121,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
               <Footer />
             </div>
-          </SectionContainer>
+          </div>
         </Providers>
       </body>
     </html>
