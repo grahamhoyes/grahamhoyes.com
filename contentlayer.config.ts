@@ -119,7 +119,12 @@ export default makeSource({
     ],
     rehypePlugins: [
       rehypeSlug,
-      rehypeAutolinkHeadings,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "append",
+        },
+      ],
       rehypeKatex,
       [rehypeCitation, { path: path.join(root, "data") }],
       [rehypePrismPlus, { ignoreMissing: true }],

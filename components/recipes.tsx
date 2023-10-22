@@ -1,13 +1,23 @@
 import { ReactNode } from "react";
+import slugger from "github-slugger";
 
 interface IngredientsProps {
   children: ReactNode;
+  title?: string;
 }
 
-export const Ingredients = ({ children }: IngredientsProps) => {
+export const Ingredients = ({ children, title }: IngredientsProps) => {
+  title = title ?? "Ingredients";
+  const slug = slugger.slug(title);
+
   return (
-    <div className="lg:sticky lg:top-0 lg:col-span-1 lg:mt-10 lg:h-fit">
-      <h1 className="mt-0">Ingredients</h1>
+    <div className="lg:sticky lg:top-0 lg:col-span-1 lg:h-fit lg:pt-10">
+      <h1 className="mt-0" id={slug}>
+        Ingredients
+        <a href={"#" + slug} aria-hidden="true" tabIndex={-1}>
+          <span className="icon icon-link"></span>
+        </a>
+      </h1>
       {children}
     </div>
   );
@@ -15,12 +25,21 @@ export const Ingredients = ({ children }: IngredientsProps) => {
 
 interface StepsProps {
   children: ReactNode;
+  title?: string;
 }
 
-export const Steps = ({ children }: StepsProps) => {
+export const Steps = ({ children, title }: StepsProps) => {
+  title = title ?? "Steps";
+  const slug = slugger.slug(title);
+
   return (
-    <div className="mx-auto lg:col-span-3 lg:mt-10">
-      <h1 className="mt-0">Steps</h1>
+    <div className="mx-auto lg:col-span-3 lg:pt-10">
+      <h1 className="mt-0" id={slug}>
+        Steps
+        <a href={"#" + slug} aria-hidden="true" tabIndex={-1}>
+          <span className="icon icon-link"></span>
+        </a>
+      </h1>
       {children}
     </div>
   );
