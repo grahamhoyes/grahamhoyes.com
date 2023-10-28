@@ -50,6 +50,9 @@ module.exports = {
               fontWeight: "700",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.light.900"),
+              "&:not(:first-child)": {
+                marginTop: "1.5em",
+              },
             },
             h2: {
               fontWeight: "700",

@@ -7,6 +7,7 @@ description:
 ---
 
 import { Ingredients, Steps } from "components/recipes";
+import JumpTo from "components/JumpTo";
 
 <Ingredients>
     - 500g flour (ideally bread flour)
@@ -32,7 +33,7 @@ import { Ingredients, Steps } from "components/recipes";
     6. Divide the dough into 4 equal pieces and shape into balls.
         - Freeze any unused dough balls in an airtight vessel, or optionally switch to cold fermenting them.
     7. Let the dough balls rise for another 2 hours.
-    8. Make a pizza (left as an exercise to the reader).
+    <JumpTo href="#making-pizza" text="Continue"/>
 
     ## Overnight No-Knead
 
@@ -44,7 +45,7 @@ import { Ingredients, Steps } from "components/recipes";
     7. Two hours before pizza time, divide the dough into 4 equal pieces and shape into balls.
         - Freeze any unused dough balls in an airtight vessel, or optionally switch to cold fermenting them.
     8. Let the dough balls rise for another hour.
-    9. Make a pizza.
+    <JumpTo href="#making-pizza" text="Continue"/>
 
     ## Cold Ferment
 
@@ -56,17 +57,22 @@ import { Ingredients, Steps } from "components/recipes";
     7. Place in the fridge for 4-7 days, without disturbing the dough.
     8. After 4-7 days, remove the dough from the fridge and let sit at room temperature for 2 hours.
         - If you have more dough than you need, freeze in the current containers.
-    9. Do not re-ball the dough. Using a very well floured work surface, stretch the dough into a pizza shape and enjoy.
+    9. Do not re-ball the dough.
+    <JumpTo href="#making-pizza" text="Continue"/>
 
     ## Defrosting Frozen Dough
 
     Frozen dough from any of the above methods can be defrosted in the fridge overnight, then letting sit at room temperature for 2 hours. Or go right to room temperature for 6 hours.
+
+    ---
+
+    <span>
+    # Making Pizza
+    </span>
+
+    1. Preheat your oven as hot as it will go (500 °F or higher) for at least an hour, with a pizza stone or steel inside.<br />\
+       If you have a "roast" setting that enables the top and bottom elements, use it. Enable convection as well, if available.
+    2. Using your hands, stretch the dough into a roughly 11-inch pizza shape.
+    3. Add toppings (left as an exercise to the reader).
+    4. Transfer the pizza to the oven and bake for 5-7 minutes, until desired done-ness is achieved.
 </Steps>
-
-<div className="mx-auto lg:col-span-4 pt-6">
-    # Making the Pizza
-
-    1. Oven on 500
-    2. Stretch dough
-
-</div>

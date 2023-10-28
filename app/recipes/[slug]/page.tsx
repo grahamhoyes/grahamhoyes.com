@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { ArrowDownCircleIcon } from "@heroicons/react/24/solid";
 
 import MdxRenderer from "@/components/Mdx";
 
@@ -6,6 +7,8 @@ import { sortedRecipes } from "@/data/generated";
 import PageTitle from "@/components/PageTitle";
 import Link from "@/components/Link";
 import siteMetadata from "@/data/siteMetadata";
+
+import JumpTo from "@/components/JumpTo";
 
 interface RecipeProps {
   params: {
