@@ -59,11 +59,11 @@ const MobileNav = () => {
           className="fixed inset-0 h-full w-full cursor-auto focus:outline-none"
           onClick={onToggleNav}
         ></button>
-        <nav className="fixed h-auto w-full bg-white py-2 shadow-2xl shadow-[0_1rem_0.5rem_0.5rem_white] dark:bg-dark-900 dark:shadow-[0_1rem_0.5rem_0.5rem_theme(colors.dark.900)]">
+        <nav className="relative overflow-auto rounded-b-lg bg-light-50 py-2 shadow-[0_1rem_0.5rem_0.5rem_white] dark:bg-dark-700 dark:bg-dark-900 dark:shadow-[0_1rem_0.5rem_0.5rem_theme(colors.dark.900)]">
           {headerNavLinks.map((link) => (
             <div
               key={link.title}
-              className="colors my-2 ml-2 border-l-4 border-sky-400"
+              className="colors my-2 ml-2 border-l-4 border-sky-400 transition-colors hover:bg-dark-200 dark:hover:bg-dark-600"
             >
               <Link
                 href={link.href}

@@ -77,7 +77,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers defaultTheme={siteMetadata.theme}>
           <div className="mx-auto max-w-6xl px-4 sm:px-6 xl:max-w-6xl xl:px-0">
             <div className="flex h-screen flex-col justify-between">
-              <header className="sticky top-0 z-40 my-5 flex items-center justify-between rounded-lg bg-light-50 py-5 px-5 shadow-md dark:bg-dark-700 sm:relative sm:top-auto">
+              <header className="sticky top-0 z-40 my-5 flex items-center justify-between rounded-lg bg-light-50/80 py-5 px-5 shadow-md backdrop-blur dark:bg-dark-700 sm:relative sm:top-auto">
                 <div>
                   <Link href="/" aria-label={siteMetadata.headerTitle}>
                     <div className="flex items-center justify-between">
@@ -107,7 +107,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                       <Link
                         key={link.title}
                         href={link.href}
-                        className="p-1 font-medium text-light-900 dark:text-dark-100 sm:p-4"
+                        className="mx-1 rounded-lg p-3 font-medium text-light-900 transition-colors hover:bg-dark-200 dark:text-dark-100 dark:hover:bg-dark-600"
                       >
                         {link.title}
                       </Link>
