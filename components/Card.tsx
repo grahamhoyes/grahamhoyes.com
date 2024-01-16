@@ -15,7 +15,7 @@ export const CardContent = ({ children }: CardContentProps) => (
 type CardProps = {
   title: string;
   description?: string;
-  imgSrc: string;
+  imgSrc?: string;
   href: string;
   children?: ReactNode;
   linkText?: string;
