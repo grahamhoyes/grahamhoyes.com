@@ -1,10 +1,10 @@
-import { allBlogs, allAuthors } from "contentlayer/generated";
-import { Blog, Author } from "contentlayer/generated";
+import { allBlogs, allAuthors, allRecipes } from "contentlayer/generated";
+import { Blog, Author, Recipe } from "contentlayer/generated";
 
 import siteMetadata from "@/data/siteMetadata";
 
-export { allBlogs, allAuthors };
-export type { Blog, Author };
+export { allBlogs, allAuthors, allRecipes };
+export type { Blog, Author, Recipe };
 
 // Transforms on stuff generated from contentlayer
 export const dateSortDesc = (a: string, b: string) => {
@@ -26,3 +26,8 @@ export const authors: { [key: string]: Author } = (() => {
   authorMap["default"] = authorMap[siteMetadata.author];
   return authorMap;
 })();
+
+// Recipes sorted in descending order
+export const sortedRecipes = allRecipes.sort((a, b) =>
+  dateSortDesc(a.date, b.date),
+);
