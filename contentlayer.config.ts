@@ -1,7 +1,7 @@
 import {
+  ComputedFields,
   defineDocumentType,
   makeSource,
-  ComputedFields,
 } from "contentlayer/source-files";
 import path from "path";
 import readingTime from "reading-time";
@@ -96,9 +96,11 @@ export const Recipe = defineDocumentType(() => ({
     title: { type: "string", required: true },
     date: { type: "date", required: true },
     description: { type: "string", required: true },
+    categories: { type: "list", of: { type: "string" }, required: true },
     lastmod: { type: "date" },
     tags: { type: "list", of: { type: "string" } },
     authors: { type: "list", of: { type: "string" } },
+    thumbnail: { type: "string", required: false },
   },
   computedFields,
 }));
