@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { allRecipes } from "contentlayer/generated";
 import { CardList } from "./RecipeCard";
 import CategorySection from "./CategorySection";
-import Pagination from "@/components/Pagination";
 
 export const metadata: Metadata = {
   title: "Recipes - Graham Hoyes",
@@ -11,11 +10,10 @@ export const metadata: Metadata = {
 
 const MAX_RECIPES = 6;
 
-const RecipesPage = ({ params }: { params: { page: string } }) => {
-  const page = parseInt(params.page) || 1;
-  const sortedRecipes = allRecipes
-    .flatMap((r) => [r, r, r, r, r, r, r])
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const RecipesPage = () => {
+  const sortedRecipes = allRecipes.sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+  );
 
   // Get all unique categories (case-insensitive)
   const categories = Array.from(
@@ -51,12 +49,6 @@ const RecipesPage = ({ params }: { params: { page: string } }) => {
             .slice(0, MAX_RECIPES)}
         />
       ))}
-
-      <Pagination
-        currentPage={page}
-        totalPages={Math.ceil(sortedRecipes.length / MAX_RECIPES)}
-        basePath="/recipes"
-      />
     </div>
   );
 };

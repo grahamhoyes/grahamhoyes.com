@@ -6,7 +6,6 @@ import { createSlugMap, titleCase } from "@/lib/utils/titles";
 
 const RECIPES_PER_PAGE = 12;
 
-// Because this is a server component, we can compute these at build time
 const categories = Array.from(
   new Set(
     allRecipes.flatMap((recipe) =>
@@ -16,11 +15,12 @@ const categories = Array.from(
 );
 const slugMap = createSlugMap(categories);
 
-const CategoryPage = ({
-  params: { category: categorySlug },
+const PaginatedCategoryPage = ({
+  params: { category: categorySlug, page },
 }: {
-  params: { category: string };
+  params: { category: string; page: string };
 }) => {
+  const currentPage = parseInt(page, 10);
   const categoryName = slugMap.get(categorySlug) || categorySlug;
 
   return (
@@ -30,32 +30,45 @@ const CategoryPage = ({
       filterFunc={(recipe) =>
         recipe.categories.some((cat) => cat.toLowerCase() === categoryName)
       }
-      currentPage={1}
+      currentPage={currentPage}
       basePath={`/recipes/category/${categorySlug}`}
       recipesPerPage={RECIPES_PER_PAGE}
     />
   );
 };
 
-export default CategoryPage;
+export default PaginatedCategoryPage;
 
 export const generateStaticParams = async () => {
-  return Array.from(slugMap.keys()).map((slug) => ({
-    category: slug,
-  }));
+  const params: { category: string; page: string }[] = [];
+
+  for (const category of slugMap.keys()) {
+    const categoryRecipes = allRecipes.filter((recipe) =>
+      recipe.categories.some(
+        (cat) => cat.toLowerCase() === slugMap.get(category),
+      ),
+    );
+    const totalPages = Math.ceil(categoryRecipes.length / RECIPES_PER_PAGE);
+
+    for (let page = 1; page <= totalPages; page++) {
+      params.push({ category, page: page.toString() });
+    }
+  }
+
+  return params;
 };
 
 export const generateMetadata = ({
   params,
 }: {
-  params: { category: string };
+  params: { category: string; page: string };
 }): Metadata => {
   const categoryName = titleCase(
     slugMap.get(params.category) || params.category,
   );
 
   return {
-    title: `${categoryName} Recipes - Graham Hoyes`,
-    description: `${categoryName.toLowerCase()} recipes`,
+    title: `${categoryName} Recipes - Page ${params.page} - Graham Hoyes`,
+    description: `${categoryName.toLowerCase()} recipes - Page ${params.page}`,
   };
 };
