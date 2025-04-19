@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Recipe } from "contentlayer/generated";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 import { createSlug, titleCase } from "@/lib/utils/titles";
 
@@ -44,9 +45,9 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
         </div>
         <Link
           href={`/recipes/${recipe.slug}`}
-          className="mt-auto text-blue-600 hover:underline dark:text-blue-400"
+          className="mt-auto inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
         >
-          View Recipe
+          View Recipe <ArrowRightIcon className="ml-1 h-4 w-4" />
         </Link>
       </div>
     </div>
