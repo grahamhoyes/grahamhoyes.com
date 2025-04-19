@@ -12,8 +12,8 @@ interface CategorySectionProps {
 
 const CategorySection = ({ category, recipes }: CategorySectionProps) => {
   return (
-    <section className="py-4">
-      <div className="mb-4 flex items-center justify-between">
+    <section className="mt-6 border-t border-light-200 py-6 first:mt-0 first:border-0 dark:border-dark-700">
+      <div className="mb-6 flex items-center justify-between">
         <SectionTitle>{titleCase(category)}</SectionTitle>
         <Link
           href={`/recipes/category/${createSlug(category)}`}

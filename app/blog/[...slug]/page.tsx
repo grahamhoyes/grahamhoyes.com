@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 
 import Link from "@/components/Link";
 import PageTitle from "@/components/PageTitle";
-import SectionContainer from "@/components/SectionContainer";
+import Page from "@/components/Page";
 import Image from "@/components/Image";
 import ScrollTop from "@/components/ScrollTop";
 import MdxRenderer from "@/components/Mdx";
@@ -45,7 +45,7 @@ const Post = ({ params }: PostProps) => {
   const nextPost = sortedBlogs[postIndex - 1] || null;
 
   return (
-    <SectionContainer>
+    <Page noContentPadding>
       <ScrollTop />
       <article>
         <div className="xl:divide-y xl:divide-light-200 xl:dark:divide-dark-700">
@@ -152,7 +152,7 @@ const Post = ({ params }: PostProps) => {
           </div>
         </div>
       </article>
-    </SectionContainer>
+    </Page>
   );
 };
 

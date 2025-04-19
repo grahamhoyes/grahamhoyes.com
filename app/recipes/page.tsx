@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { allRecipes } from "contentlayer/generated";
 import { CardList } from "./RecipeCard";
 import CategorySection from "./CategorySection";
-import PageTitle from "@/components/PageTitle";
+import Page from "@/components/Page";
 import SectionTitle from "@/components/SectionTitle";
 
 export const metadata: Metadata = {
@@ -28,11 +28,7 @@ const RecipesPage = () => {
   const topCategories = categories.slice(0, 5);
 
   return (
-    <div className="container mx-auto space-y-4 divide-y px-4">
-      <div className="space-y-2 pt-2 pb-2 md:space-y-5">
-        <PageTitle>Recipes</PageTitle>
-      </div>
-
+    <Page title="Recipes">
       <section className="py-4">
         <SectionTitle>Recent Recipes</SectionTitle>
         <div className="mt-4">
@@ -51,7 +47,7 @@ const RecipesPage = () => {
             .slice(0, MAX_RECIPES)}
         />
       ))}
-    </div>
+    </Page>
   );
 };
 

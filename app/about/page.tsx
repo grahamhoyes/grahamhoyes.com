@@ -4,7 +4,7 @@ import { allAuthors } from "contentlayer/generated";
 
 import Image from "@/components/Image";
 import SocialIcon from "@/components/social-icons";
-import PageTitle from "@/components/PageTitle";
+import Page from "@/components/Page";
 import SubsectionTitle from "@/components/SubsectionTitle";
 
 export const metadata: Metadata = {
@@ -18,11 +18,8 @@ const About = () => {
   const Content = useMDXComponent(author.body.code);
 
   return (
-    <div className="divide-y">
-      <div className="space-y-2 pt-2 pb-2 md:space-y-5">
-        <PageTitle>About</PageTitle>
-      </div>
-      <div className="items-start space-y-2 py-8 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
+    <Page title="About">
+      <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
         <div className="flex flex-col items-center">
           <Image
             src={author.avatar}
@@ -45,7 +42,7 @@ const About = () => {
           <Content />
         </div>
       </div>
-    </div>
+    </Page>
   );
 };
 

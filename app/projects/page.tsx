@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import { allProjects, Project } from "contentlayer/generated";
 import Card from "@/components/Card";
 import { MdxRenderer } from "@/components/Mdx";
-import PageTitle from "@/components/PageTitle";
+import Page from "@/components/Page";
 
 export const metadata: Metadata = {
   title: "Projects - Graham Hoyes",
@@ -26,18 +26,13 @@ const ProjectCard = (project: Project) => {
 
 const Projects = () => {
   return (
-    <div className="divide-y divide-light-200 dark:divide-dark-700">
-      <div className="space-y-2 pt-2 pb-2 md:space-y-5">
-        <PageTitle>Projects</PageTitle>
+    <Page title="Projects">
+      <div className="-m-4 flex flex-wrap">
+        {allProjects.map((project, idx) => (
+          <ProjectCard key={idx} {...project} />
+        ))}
       </div>
-      <div className="container py-12">
-        <div className="-m-4 flex flex-wrap">
-          {allProjects.map((project, idx) => (
-            <ProjectCard key={idx} {...project} />
-          ))}
-        </div>
-      </div>
-    </div>
+    </Page>
   );
 };
 

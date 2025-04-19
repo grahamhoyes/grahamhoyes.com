@@ -1,7 +1,6 @@
 import { Blog } from "contentlayer/generated";
 import formatDate from "@/lib/utils/formatDate";
 import Link from "@/components/Link";
-import PageTitle from "@/components/PageTitle";
 import SubsectionTitle from "@/components/SubsectionTitle";
 
 export const POSTS_PER_PAGE = 5;

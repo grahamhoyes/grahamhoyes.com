@@ -23,10 +23,10 @@ export const Ingredients = ({ children, title }: IngredientsProps) => {
           <div className="text-base leading-relaxed">{children}</div>
         </div>
       </div>
-      {/*Divider for mobile view*/}
+      {/* Divider for mobile view */}
       <div className="relative mt-2 mb-4 py-4 lg:hidden">
         <div className="absolute inset-0 flex items-center" aria-hidden="true">
-          <div className="w-full border-t-2 border-light-200 dark:border-dark-400" />
+          <div className="w-full border-t border-light-200 dark:border-dark-700" />
         </div>
       </div>
     </>
