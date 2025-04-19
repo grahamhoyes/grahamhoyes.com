@@ -98,7 +98,6 @@ export const Recipe = defineDocumentType(() => ({
     description: { type: "string", required: true },
     categories: { type: "list", of: { type: "string" }, required: true },
     lastmod: { type: "date" },
-    tags: { type: "list", of: { type: "string" } },
     authors: { type: "list", of: { type: "string" } },
     thumbnail: { type: "string", required: false },
   },

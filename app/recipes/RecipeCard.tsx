@@ -42,19 +42,6 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
             </Link>
           ))}
         </div>
-        {/*{recipe.tags && recipe.tags.length > 0 && (*/}
-        {/*  <div className="mb-4 flex flex-wrap gap-2">*/}
-        {/*    {recipe.tags.map((tag) => (*/}
-        {/*      <Link*/}
-        {/*        key={tag}*/}
-        {/*        href={`/recipes/tag/${createSlug(tag)}`}*/}
-        {/*        className="rounded bg-green-100 px-2.5 py-0.5 text-xs font-semibold text-green-800 transition-colors hover:bg-green-200 dark:bg-green-200 dark:text-green-800 dark:hover:bg-green-300"*/}
-        {/*      >*/}
-        {/*        {titleCase(tag)}*/}
-        {/*      </Link>*/}
-        {/*    ))}*/}
-        {/*  </div>*/}
-        {/*)}*/}
         <Link
           href={`/recipes/${recipe.slug}`}
           className="mt-auto text-blue-600 hover:underline dark:text-blue-400"
