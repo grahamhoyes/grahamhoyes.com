@@ -2,6 +2,8 @@ import { Metadata } from "next";
 import { allRecipes } from "contentlayer/generated";
 import { CardList } from "./RecipeCard";
 import CategorySection from "./CategorySection";
+import PageTitle from "@/components/PageTitle";
+import SectionTitle from "@/components/SectionTitle";
 
 export const metadata: Metadata = {
   title: "Recipes - Graham Hoyes",
@@ -28,14 +30,14 @@ const RecipesPage = () => {
   return (
     <div className="container mx-auto space-y-4 divide-y px-4">
       <div className="space-y-2 pt-2 pb-2 md:space-y-5">
-        <h1 className="text-3xl font-bold leading-9 tracking-tight text-light-900 dark:text-dark-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
-          Recipes
-        </h1>
+        <PageTitle>Recipes</PageTitle>
       </div>
 
       <section className="py-4">
-        <h2 className="mb-4 text-2xl font-semibold">Recent Recipes</h2>
-        <CardList recipes={sortedRecipes.slice(0, MAX_RECIPES)} />
+        <SectionTitle>Recent Recipes</SectionTitle>
+        <div className="mt-4">
+          <CardList recipes={sortedRecipes.slice(0, MAX_RECIPES)} />
+        </div>
       </section>
 
       {topCategories.map((category) => (

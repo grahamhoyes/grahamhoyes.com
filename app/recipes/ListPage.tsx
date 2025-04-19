@@ -34,7 +34,7 @@ const ListPage = ({
 
   return (
     <div className="container mx-auto px-4">
-      <div className="space-y-1 text-center">
+      <div className="space-y-1">
         <PageTitle>{titleCase(name)} Recipes</PageTitle>
       </div>
 

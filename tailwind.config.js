@@ -35,6 +35,16 @@ module.exports = {
         // Secondary color scheme for light mode
         light: colors.neutral,
       },
+      // Standard heading styles for consistency across the site
+      heading: {
+        h1: "text-4xl font-extrabold leading-tight tracking-tight text-light-900 dark:text-dark-100",
+        h2: "text-3xl font-bold leading-tight tracking-tight text-light-900 dark:text-dark-100",
+        h3: "text-2xl font-semibold leading-tight text-light-900 dark:text-dark-100",
+        h4: "text-xl font-semibold leading-tight text-light-900 dark:text-dark-100",
+        h5: "text-lg font-semibold leading-tight text-light-900 dark:text-dark-100",
+        h6: "text-base font-semibold leading-tight text-light-900 dark:text-dark-100",
+        meta: "text-sm text-light-600 dark:text-dark-400",
+      },
       typography: (theme) => ({
         DEFAULT: {
           css: {
@@ -50,6 +60,8 @@ module.exports = {
               fontWeight: "700",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.light.900"),
+              fontSize: theme("fontSize.2xl")[0],
+              lineHeight: theme("lineHeight.tight"),
               "&:not(:first-child)": {
                 marginTop: "1.5em",
               },
@@ -58,10 +70,14 @@ module.exports = {
               fontWeight: "700",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.light.900"),
+              fontSize: theme("fontSize.xl")[0],
+              lineHeight: theme("lineHeight.tight"),
             },
             h3: {
               fontWeight: "600",
               color: theme("colors.light.900"),
+              fontSize: theme("fontSize.lg")[0],
+              lineHeight: theme("lineHeight.tight"),
             },
             "h4,h5,h6": {
               color: theme("colors.light.900"),
@@ -121,15 +137,21 @@ module.exports = {
               fontWeight: "700",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.dark.100"),
+              fontSize: theme("fontSize.2xl")[0],
+              lineHeight: theme("lineHeight.tight"),
             },
             h2: {
               fontWeight: "700",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.dark.100"),
+              fontSize: theme("fontSize.xl")[0],
+              lineHeight: theme("lineHeight.tight"),
             },
             h3: {
               fontWeight: "600",
               color: theme("colors.dark.100"),
+              fontSize: theme("fontSize.lg")[0],
+              lineHeight: theme("lineHeight.tight"),
             },
             "h4,h5,h6": {
               color: theme("colors.dark.100"),

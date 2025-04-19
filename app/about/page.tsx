@@ -4,6 +4,8 @@ import { allAuthors } from "contentlayer/generated";
 
 import Image from "@/components/Image";
 import SocialIcon from "@/components/social-icons";
+import PageTitle from "@/components/PageTitle";
+import SubsectionTitle from "@/components/SubsectionTitle";
 
 export const metadata: Metadata = {
   title: "About - Graham Hoyes",
@@ -18,9 +20,7 @@ const About = () => {
   return (
     <div className="divide-y">
       <div className="space-y-2 pt-2 pb-2 md:space-y-5">
-        <h1 className="text-3xl font-bold leading-9 tracking-tight text-light-900 dark:text-dark-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
-          About
-        </h1>
+        <PageTitle>About</PageTitle>
       </div>
       <div className="items-start space-y-2 py-8 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
         <div className="flex flex-col items-center">
@@ -31,9 +31,7 @@ const About = () => {
             height="192"
             className="h-48 w-48 rounded-full"
           />
-          <h3 className="pt-4 pb-2 text-2xl font-bold leading-8 tracking-tight">
-            {author.name}
-          </h3>
+          <SubsectionTitle>{author.name}</SubsectionTitle>
           <div className="text-light-500 dark:text-dark-400">
             {author.occupation}
           </div>
