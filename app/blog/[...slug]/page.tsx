@@ -5,23 +5,14 @@ import { notFound } from "next/navigation";
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 import Link from "@/components/Link";
-import PageTitle from "@/components/PageTitle";
 import Page from "@/components/Page";
-import Image from "@/components/Image";
 import ScrollTop from "@/components/ScrollTop";
 import MdxRenderer from "@/components/Mdx";
 import siteMetadata from "@/data/siteMetadata";
+import { titleCase } from "@/lib/utils/titles";
 
 import { sortedBlogs, authors } from "@/data/generated";
 import generateRss from "@/lib/generate-rss";
-
-// "Saturday, July 1st, 2023"
-const postDateTemplate: Intl.DateTimeFormatOptions = {
-  weekday: "long",
-  year: "numeric",
-  month: "long",
-  day: "numeric",
-};
 
 interface PostProps {
   params: { slug: string[] };
@@ -35,10 +26,8 @@ const Post = ({ params }: PostProps) => {
   if (postIndex < 0) notFound();
 
   const post = sortedBlogs[postIndex];
-  const postAuthors = post.authors || [siteMetadata.author];
-  const authorDetails = postAuthors.map((authorName) => authors[authorName]);
 
-  const { filePath, date, title, draft } = post;
+  const { filePath, date, updated, title, tags, draft } = post;
 
   if (draft) notFound();
 
@@ -46,58 +35,25 @@ const Post = ({ params }: PostProps) => {
   const nextPost = sortedBlogs[postIndex - 1] || null;
 
   return (
-    <Page noContentPadding>
+    <Page
+      noContentPadding
+      title={title}
+      createdAt={date}
+      updatedAt={updated}
+      chips={tags?.map((tag) => ({
+        name: titleCase(tag),
+        // TODO: Replace with tag page
+        href: slug,
+      }))}
+      // breadcrumb={{
+      //   text: "Back to the Blog",
+      //   href: "/blog",
+      // }}
+    >
       <ScrollTop />
       <article>
         <div className="xl:divide-y xl:divide-light-200 xl:dark:divide-dark-700">
-          <header className="pt-6 xl:pb-6">
-            <div className="space-y-1">
-              <div>
-                <PageTitle>{title}</PageTitle>
-              </div>
-              <div className="mb-4 text-sm text-light-600 dark:text-dark-400">
-                <time dateTime={date}>
-                  {new Date(date).toLocaleDateString(
-                    siteMetadata.locale,
-                    postDateTemplate,
-                  )}
-                </time>
-              </div>
-            </div>
-          </header>
-          <div
-            className="divide-y divide-light-200 pb-8 dark:divide-dark-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
-            style={{ gridTemplateRows: "auto 1fr" }}
-          >
-            <dl className="pt-6 pb-10 xl:border-b xl:border-light-200 xl:pt-11 xl:dark:border-dark-700">
-              <dt className="sr-only">Authors</dt>
-              <dd>
-                <ul className="flex justify-center space-x-8 sm:space-x-12 xl:block xl:space-x-0 xl:space-y-8">
-                  {authorDetails.map((author) => (
-                    <li
-                      className="flex items-center space-x-2"
-                      key={author.name}
-                    >
-                      {author.avatar && (
-                        <Image
-                          src={author.avatar}
-                          width="38"
-                          height="38"
-                          alt="avatar"
-                          className="h-10 w-10 rounded-full"
-                        />
-                      )}
-                      <dl className="whitespace-nowrap text-sm font-medium leading-5">
-                        <dt className="sr-only">Name</dt>
-                        <dd className="text-light-900 dark:text-dark-100">
-                          {author.name}
-                        </dd>
-                      </dl>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </dl>
+          <div className="divide-y divide-light-200 pb-8 dark:divide-dark-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
             <div className="divide-y divide-light-200 dark:divide-dark-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
                 <MdxRenderer code={post.body.code} toc={post.toc} />
@@ -106,48 +62,52 @@ const Post = ({ params }: PostProps) => {
                 <Link
                   href={`${siteMetadata.siteRepo}/blob/main/data/${filePath}`}
                 >
-                  {"View on GitHub"}
+                  View on GitHub
                 </Link>
               </div>
             </div>
-            <footer>
-              <div className="divide-light-200 text-sm font-medium leading-5 dark:divide-dark-700 xl:col-start-1 xl:row-start-2 xl:divide-y">
-                {(nextPost || prevPost) && (
-                  <div className="flex justify-between py-4 xl:block xl:space-y-8 xl:py-8">
-                    {nextPost && (
-                      <div>
-                        <h2 className="text-xs uppercase tracking-wide text-light-500 dark:text-dark-400">
-                          Next Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${nextPost.slug}`}>
-                            {nextPost.title}
-                          </Link>
-                        </div>
+
+            <footer className="divide-light-200 dark:divide-dark-700 xl:divide-y">
+              {(nextPost || prevPost) && (
+                <div
+                  className={`flex ${
+                    prevPost && !nextPost ? "flex-row" : "flex-row-reverse"
+                  } justify-between py-4 text-sm font-medium xl:flex-col xl:space-y-8 xl:py-8`}
+                >
+                  {nextPost && (
+                    <div>
+                      <h2 className="text-xs uppercase tracking-wide text-light-500 dark:text-dark-400">
+                        Next Article
+                      </h2>
+                      <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                        <Link href={`/blog/${nextPost.slug}`}>
+                          {nextPost.title}
+                        </Link>
                       </div>
-                    )}
-                    {prevPost && (
-                      <div>
-                        <h2 className="text-xs uppercase tracking-wide text-light-500 dark:text-dark-400">
-                          Previous Article
-                        </h2>
-                        <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
-                          <Link href={`/blog/${prevPost.slug}`}>
-                            {prevPost.title}
-                          </Link>
-                        </div>
+                    </div>
+                  )}
+                  {prevPost && (
+                    <div>
+                      <h2 className="text-xs uppercase tracking-wide text-light-500 dark:text-dark-400">
+                        Previous Article
+                      </h2>
+                      <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                        <Link href={`/blog/${prevPost.slug}`}>
+                          {prevPost.title}
+                        </Link>
                       </div>
-                    )}
-                  </div>
-                )}
-              </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div className="pt-4 xl:pt-8">
                 <Link
                   href="/blog"
-                  className="flex items-center text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                  className="flex items-center text-sm text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
                 >
                   <ArrowLeftIcon className="mr-1 h-4 w-4" />
-                  Back to the blog
+                  Back to the Blog
                 </Link>
               </div>
             </footer>
@@ -182,7 +142,7 @@ export const generateMetadata = ({ params }: PostProps): Metadata => {
     openGraph: {
       type: "article",
       publishedTime: new Date(post.date).toISOString(),
-      modifiedTime: new Date(post.lastmod || post.date).toISOString(),
+      modifiedTime: new Date(post.updated || post.date).toISOString(),
       authors: (post.authors || ["default"]).map(
         (author) => authors[author].name,
       ),

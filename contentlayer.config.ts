@@ -49,8 +49,8 @@ export const Blog = defineDocumentType(() => ({
   fields: {
     title: { type: "string", required: true },
     date: { type: "date", required: true },
+    updated: { type: "date" },
     tags: { type: "list", of: { type: "string" } },
-    lastmod: { type: "date" },
     draft: { type: "boolean" },
     summary: { type: "string" },
     authors: { type: "list", of: { type: "string" } },
@@ -95,9 +95,9 @@ export const Recipe = defineDocumentType(() => ({
   fields: {
     title: { type: "string", required: true },
     date: { type: "date", required: true },
+    updated: { type: "date" },
     description: { type: "string", required: true },
     categories: { type: "list", of: { type: "string" }, required: true },
-    updated: { type: "date" },
     authors: { type: "list", of: { type: "string" } },
     thumbnail: { type: "string", required: false },
   },

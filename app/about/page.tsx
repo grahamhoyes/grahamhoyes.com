@@ -1,11 +1,11 @@
 import { Metadata } from "next";
-import { useMDXComponent } from "next-contentlayer/hooks";
 import { allAuthors } from "contentlayer/generated";
 
 import Image from "@/components/Image";
 import SocialIcon from "@/components/social-icons";
 import Page from "@/components/Page";
 import SubsectionTitle from "@/components/SubsectionTitle";
+import { MdxRenderer } from "@/components/Mdx";
 
 export const metadata: Metadata = {
   title: "About - Graham Hoyes",
@@ -14,8 +14,6 @@ export const metadata: Metadata = {
 
 const About = () => {
   const author = allAuthors.find((author) => author.slug === "default")!;
-
-  const Content = useMDXComponent(author.body.code);
 
   return (
     <Page title="About">
@@ -39,7 +37,7 @@ const About = () => {
           </div>
         </div>
         <div className="prose max-w-none dark:prose-dark xl:col-span-2">
-          <Content />
+          <MdxRenderer code={author.body.code} />
         </div>
       </div>
     </Page>
