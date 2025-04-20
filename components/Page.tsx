@@ -32,14 +32,16 @@ const Page = ({
   return (
     <div
       className={`${
-        !noDivide ? "divide-y divide-light-200 dark:divide-dark-700" : ""
+        !noDivide
+          ? "space-y-2 divide-y divide-light-200 dark:divide-dark-700"
+          : ""
       } ${className}`}
     >
       {(title || description) && (
-        <div className="space-y-2 pt-2 pb-2 md:space-y-5">
+        <div className="space-y-2 pt-2 pb-2">
           {title && <PageTitle>{title}</PageTitle>}
           {description && (
-            <p className="text-lg leading-7 text-light-500 dark:text-dark-400">
+            <p className="text-lg leading-7 text-light-600 dark:text-dark-400">
               {description}
             </p>
           )}

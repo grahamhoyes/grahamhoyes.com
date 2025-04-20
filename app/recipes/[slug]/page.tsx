@@ -39,8 +39,14 @@ const Recipe = ({ params }: RecipeProps) => {
 
           <PageTitle>{recipe.title}</PageTitle>
 
-          <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+          <div className="flex flex-wrap items-center gap-4 text-sm text-light-600 dark:text-dark-400">
             <div>Published {formatDate(recipe.date)}</div>
+
+            {recipe.updated && (
+              <div className="-ml-2 border-l border-gray-600 pl-2 dark:border-gray-400">
+                Updated {formatDate(recipe.updated)}
+              </div>
+            )}
 
             <div className="flex flex-wrap gap-2">
               {recipe.categories.map((category) => (
@@ -55,12 +61,12 @@ const Recipe = ({ params }: RecipeProps) => {
             </div>
           </div>
 
-          <div className="text-lg leading-7">{recipe.description}</div>
+          <div className="leading-7">{recipe.description}</div>
         </div>
 
         {/* Content */}
         <div className="prose min-h-[800px] max-w-none pt-6 text-base prose-ul:pl-5 dark:prose-dark lg:divide-y-0">
-          <div className="lg:grid lg:grid-cols-5 lg:gap-8">
+          <div className="lg:grid lg:grid-cols-3 lg:gap-8">
             <MdxRenderer code={recipe.body.code} />
           </div>
         </div>

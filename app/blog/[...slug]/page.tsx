@@ -2,6 +2,7 @@ import fs from "fs";
 
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 import Link from "@/components/Link";
 import PageTitle from "@/components/PageTitle";
@@ -54,7 +55,7 @@ const Post = ({ params }: PostProps) => {
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
-              <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
+              <div className="mb-4 text-sm text-light-600 dark:text-dark-400">
                 <time dateTime={date}>
                   {new Date(date).toLocaleDateString(
                     siteMetadata.locale,
@@ -143,9 +144,10 @@ const Post = ({ params }: PostProps) => {
               <div className="pt-4 xl:pt-8">
                 <Link
                   href="/blog"
-                  className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                  className="flex items-center text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                 >
-                  &larr; Back to the blog
+                  <ArrowLeftIcon className="mr-1 h-4 w-4" />
+                  Back to the blog
                 </Link>
               </div>
             </footer>

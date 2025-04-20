@@ -97,7 +97,7 @@ export const Recipe = defineDocumentType(() => ({
     date: { type: "date", required: true },
     description: { type: "string", required: true },
     categories: { type: "list", of: { type: "string" }, required: true },
-    lastmod: { type: "date" },
+    updated: { type: "date" },
     authors: { type: "list", of: { type: "string" } },
     thumbnail: { type: "string", required: false },
   },

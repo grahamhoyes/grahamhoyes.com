@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { Blog } from "contentlayer/generated";
 import formatDate from "@/lib/utils/formatDate";
 import Link from "@/components/Link";
@@ -42,10 +43,10 @@ export const PostList = ({ posts, pagination }: PostListProps) => (
                   <div className="text-base font-medium leading-6">
                     <Link
                       href={`/blog/${slug}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                      className="inline-flex items-center text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                       aria-label={`Read "${title}"`}
                     >
-                      Read more &rarr;
+                      Read more <ArrowRightIcon className="ml-1 h-4 w-4" />
                     </Link>
                   </div>
                 </div>

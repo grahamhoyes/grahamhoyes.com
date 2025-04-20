@@ -57,10 +57,10 @@ module.exports = {
               code: { color: theme("colors.primary.400") },
             },
             h1: {
-              fontWeight: "700",
+              fontWeight: "800",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.light.900"),
-              fontSize: theme("fontSize.2xl")[0],
+              fontSize: theme("fontSize.4xl")[0],
               lineHeight: theme("lineHeight.tight"),
               "&:not(:first-child)": {
                 marginTop: "1.5em",
@@ -70,17 +70,32 @@ module.exports = {
               fontWeight: "700",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.light.900"),
-              fontSize: theme("fontSize.xl")[0],
+              fontSize: theme("fontSize.3xl")[0],
               lineHeight: theme("lineHeight.tight"),
             },
             h3: {
               fontWeight: "600",
               color: theme("colors.light.900"),
+              fontSize: theme("fontSize.2xl")[0],
+              lineHeight: theme("lineHeight.tight"),
+            },
+            h4: {
+              fontWeight: "600",
+              color: theme("colors.light.900"),
+              fontSize: theme("fontSize.xl")[0],
+              lineHeight: theme("lineHeight.tight"),
+            },
+            h5: {
+              fontWeight: "600",
+              color: theme("colors.light.900"),
               fontSize: theme("fontSize.lg")[0],
               lineHeight: theme("lineHeight.tight"),
             },
-            "h4,h5,h6": {
+            h6: {
+              fontWeight: "600",
               color: theme("colors.light.900"),
+              fontSize: theme("fontSize.base")[0],
+              lineHeight: theme("lineHeight.tight"),
             },
             pre: {
               backgroundColor: theme("colors.light.800"),
@@ -134,27 +149,44 @@ module.exports = {
               code: { color: theme("colors.primary.400") },
             },
             h1: {
-              fontWeight: "700",
+              fontWeight: "800",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.dark.100"),
-              fontSize: theme("fontSize.2xl")[0],
+              fontSize: theme("fontSize.4xl")[0],
               lineHeight: theme("lineHeight.tight"),
+              "&:not(:first-child)": {
+                marginTop: "1.5em",
+              },
             },
             h2: {
               fontWeight: "700",
               letterSpacing: theme("letterSpacing.tight"),
               color: theme("colors.dark.100"),
-              fontSize: theme("fontSize.xl")[0],
+              fontSize: theme("fontSize.3xl")[0],
               lineHeight: theme("lineHeight.tight"),
             },
             h3: {
               fontWeight: "600",
               color: theme("colors.dark.100"),
+              fontSize: theme("fontSize.2xl")[0],
+              lineHeight: theme("lineHeight.tight"),
+            },
+            h4: {
+              fontWeight: "600",
+              color: theme("colors.dark.100"),
+              fontSize: theme("fontSize.xl")[0],
+              lineHeight: theme("lineHeight.tight"),
+            },
+            h5: {
+              fontWeight: "600",
+              color: theme("colors.dark.100"),
               fontSize: theme("fontSize.lg")[0],
               lineHeight: theme("lineHeight.tight"),
             },
-            "h4,h5,h6": {
+            h6: {
               color: theme("colors.dark.100"),
+              fontSize: theme("fontSize.base")[0],
+              lineHeight: theme("lineHeight.tight"),
             },
             pre: {
               backgroundColor: theme("colors.dark.800"),

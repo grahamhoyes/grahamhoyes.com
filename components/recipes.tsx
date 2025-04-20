@@ -12,9 +12,12 @@ export const Ingredients = ({ children, title }: IngredientsProps) => {
 
   return (
     <>
-      <div className="lg:col-span-2">
+      <div className="lg:col-span-1">
         <div className="rounded-lg lg:sticky lg:top-10 lg:h-fit">
-          <h2 className="mt-0 mb-4 text-3xl font-bold" id={slug}>
+          <h2
+            className="mt-0 mb-4 text-3xl font-bold leading-tight tracking-tight text-light-900 dark:text-dark-100"
+            id={slug}
+          >
             {title}
             <a href={"#" + slug} aria-hidden="true" tabIndex={-1}>
               <span className="icon icon-link" />
@@ -43,8 +46,11 @@ export const Steps = ({ children, title }: StepsProps) => {
   const slug = slugger.slug(title);
 
   return (
-    <div className="mx-auto lg:col-span-3">
-      <h2 className="mt-0 mb-6 text-3xl font-bold" id={slug}>
+    <div className="mx-auto lg:col-span-2">
+      <h2
+        className="mt-0 mb-4 text-3xl font-bold leading-tight tracking-tight text-light-900 dark:text-dark-100"
+        id={slug}
+      >
         {title}
         <a href={"#" + slug} aria-hidden="true" tabIndex={-1}>
           <span className="icon icon-link" />
