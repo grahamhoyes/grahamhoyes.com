@@ -1,20 +1,26 @@
 import { ReactNode } from "react";
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import Image from "./Image";
 import Link from "./Link";
 
-interface CardContentProps {
+type MaybeLinkProps = {
   children: ReactNode;
-}
+  href?: string;
+  label?: string;
+};
 
-export const CardContent = ({ children }: CardContentProps) => (
-  <p className="prose mb-3 max-w-none text-light-500 dark:text-dark-400">
-    {children}
-  </p>
-);
+const MaybeLink = ({ children, href, label }: MaybeLinkProps) => {
+  return href ? (
+    <Link href={href} aria-label={label}>
+      {children}
+    </Link>
+  ) : (
+    <>{children}</>
+  );
+};
 
 type CardProps = {
   title: string;
-  description?: string;
   imgSrc?: string;
   href: string;
   children?: ReactNode;
@@ -24,64 +30,45 @@ type CardProps = {
 
 const Card = ({
   title,
-  description,
   children,
   imgSrc,
   href,
   linkText,
   imageAnchor,
 }: CardProps) => (
-  <div className="md max-w-[544px] p-4 md:w-1/2 xl:w-1/3">
-    <div
-      className={`${
-        imgSrc && "h-full"
-      }  overflow-hidden rounded-md border-2 border-light-200 border-opacity-60 dark:border-dark-700`}
-    >
-      {imgSrc &&
-        (href ? (
-          <Link href={href} aria-label={`Link to ${title}`}>
-            <Image
-              alt={title}
-              src={imgSrc}
-              className={`max-h-60 object-cover sm:h-60 ${
-                imageAnchor || "object-top"
-              }`}
-              width={544}
-              height={400}
-            />
-          </Link>
-        ) : (
+  <div className="flux h-full flex-col overflow-hidden rounded-lg bg-white shadow-md dark:bg-dark-800">
+    {imgSrc && (
+      <div className="h-48 w-full flex-shrink-0">
+        <MaybeLink href={href} label={`Link to ${title}`}>
           <Image
             alt={title}
             src={imgSrc}
-            className={`lg:h-50 sm:h-50 max-h-60 object-cover ${
+            className={`h-full w-full object-cover ${
               imageAnchor || "object-top"
             }`}
             width={544}
             height={400}
           />
-        ))}
-      <div className="p-6">
-        <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
-          {href ? (
-            <Link href={href} aria-label={`Link to ${title}`}>
-              {title}
-            </Link>
-          ) : (
-            title
-          )}
-        </h2>
-        {children || <CardContent>{description}</CardContent>}
-        {href && (
-          <Link
-            href={href}
-            className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
-            aria-label={`Link to ${title}`}
-          >
-            {linkText || "Learn more"} &rarr;
-          </Link>
-        )}
+        </MaybeLink>
       </div>
+    )}
+
+    <div className="flex flex-grow flex-col p-4">
+      <MaybeLink href={href} aria-label={`Link to ${title}`}>
+        <h2 className="mb-3 text-2xl font-semibold transition-colors hover:text-blue-600 dark:hover:text-blue-400">
+          {title}
+        </h2>
+      </MaybeLink>
+      {children}
+      {href && (
+        <Link
+          href={href}
+          className="mt-4 inline-flex items-center text-blue-600 transition-colors hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          aria-label={`Link to ${title}`}
+        >
+          {linkText || "Learn more"} <ArrowRightIcon className="ml-1 h-4 w-4" />
+        </Link>
+      )}
     </div>
   </div>
 );

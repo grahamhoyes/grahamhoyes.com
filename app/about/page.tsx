@@ -17,8 +17,8 @@ const About = () => {
 
   return (
     <Page title="About">
-      <div className="items-start space-y-2 xl:grid xl:grid-cols-3 xl:gap-x-8 xl:space-y-0">
-        <div className="flex flex-col items-center">
+      <div className="items-start space-y-6 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0">
+        <div className="flex flex-col items-center gap-6">
           <Image
             src={author.avatar}
             alt="avatar"
@@ -26,17 +26,19 @@ const About = () => {
             height="192"
             className="h-48 w-48 rounded-full"
           />
-          <SubsectionTitle>{author.name}</SubsectionTitle>
-          <div className="text-light-500 dark:text-dark-400">
-            {author.occupation}
+          <div>
+            <SubsectionTitle>{author.name}</SubsectionTitle>
+            <div className="text-light-500 dark:text-dark-400">
+              {author.occupation}
+            </div>
           </div>
-          <div className="flex space-x-3 pt-6">
+          <div className="flex space-x-3">
             <SocialIcon kind="mail" href={`mailto:${author.email}`} />
             <SocialIcon kind="github" href={author.github} />
             <SocialIcon kind="linkedin" href={author.linkedin} />
           </div>
         </div>
-        <div className="prose max-w-none dark:prose-dark xl:col-span-2">
+        <div className="prose max-w-none dark:prose-dark lg:col-span-2">
           <MdxRenderer code={author.body.code} />
         </div>
       </div>

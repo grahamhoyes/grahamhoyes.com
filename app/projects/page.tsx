@@ -19,7 +19,9 @@ const ProjectCard = (project: Project) => {
       href={project.href}
       linkText={project.linkText}
     >
-      <MdxRenderer code={project.body.code} />
+      <div className="prose text-gray-600 dark:prose-dark dark:text-gray-300">
+        <MdxRenderer code={project.body.code} />
+      </div>
     </Card>
   );
 };
@@ -27,7 +29,7 @@ const ProjectCard = (project: Project) => {
 const Projects = () => {
   return (
     <Page title="Projects">
-      <div className="-m-4 flex flex-wrap">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {allProjects.map((project, idx) => (
           <ProjectCard key={idx} {...project} />
         ))}

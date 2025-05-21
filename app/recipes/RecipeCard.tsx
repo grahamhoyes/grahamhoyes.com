@@ -11,7 +11,7 @@ interface RecipeCardProps {
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-md dark:bg-gray-800">
+    <div className="flex h-full flex-col overflow-hidden rounded-lg bg-white shadow-md dark:bg-dark-800">
       {recipe.thumbnail && (
         <div className="h-48 w-full flex-shrink-0">
           <Image
@@ -45,7 +45,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
         </div>
         <Link
           href={`/recipes/${recipe.slug}`}
-          className="mt-auto inline-flex items-center text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+          className="mt-auto inline-flex items-center text-blue-600 transition-colors hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
         >
           View Recipe <ArrowRightIcon className="ml-1 h-4 w-4" />
         </Link>
