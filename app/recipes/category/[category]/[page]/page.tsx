@@ -15,11 +15,20 @@ const categories = Array.from(
 );
 const slugMap = createSlugMap(categories);
 
-const PaginatedCategoryPage = ({
-  params: { category: categorySlug, page },
-}: {
-  params: { category: string; page: string };
-}) => {
+interface Params {
+  category: string;
+  page: string;
+}
+
+interface PaginatedCategoryPageProps {
+  params: Promise<Params>;
+}
+
+const PaginatedCategoryPage = async (props: PaginatedCategoryPageProps) => {
+  const params = await props.params;
+
+  const { category: categorySlug, page } = params;
+
   const currentPage = parseInt(page, 10);
   const categoryName = slugMap.get(categorySlug) || categorySlug;
 
@@ -39,7 +48,7 @@ const PaginatedCategoryPage = ({
 
 export default PaginatedCategoryPage;
 
-export const generateStaticParams = async () => {
+export const generateStaticParams = (): Params[] => {
   const params: { category: string; page: string }[] = [];
 
   for (const category of slugMap.keys()) {
@@ -58,11 +67,10 @@ export const generateStaticParams = async () => {
   return params;
 };
 
-export const generateMetadata = ({
-  params,
-}: {
-  params: { category: string; page: string };
-}): Metadata => {
+export const generateMetadata = async (
+  props: PaginatedCategoryPageProps,
+): Promise<Metadata> => {
+  const params = await props.params;
   const categoryName = titleCase(
     slugMap.get(params.category) || params.category,
   );

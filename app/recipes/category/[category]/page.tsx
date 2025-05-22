@@ -16,11 +16,19 @@ const categories = Array.from(
 );
 const slugMap = createSlugMap(categories);
 
-const CategoryPage = ({
-  params: { category: categorySlug },
-}: {
-  params: { category: string };
-}) => {
+interface Params {
+  category: string;
+}
+
+interface CategoryPageProps {
+  params: Promise<Params>;
+}
+
+const CategoryPage = async (props: CategoryPageProps) => {
+  const params = await props.params;
+
+  const { category: categorySlug } = params;
+
   const categoryName = slugMap.get(categorySlug) || categorySlug;
 
   return (
@@ -39,17 +47,16 @@ const CategoryPage = ({
 
 export default CategoryPage;
 
-export const generateStaticParams = async () => {
+export const generateStaticParams = (): Params[] => {
   return Array.from(slugMap.keys()).map((slug) => ({
     category: slug,
   }));
 };
 
-export const generateMetadata = ({
-  params,
-}: {
-  params: { category: string };
-}): Metadata => {
+export const generateMetadata = async (
+  props: CategoryPageProps,
+): Promise<Metadata> => {
+  const params = await props.params;
   const categoryName = titleCase(
     slugMap.get(params.category) || params.category,
   );

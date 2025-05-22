@@ -9,10 +9,17 @@ import readingTime from "reading-time";
 // Remark packages
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import remarkExtractFrontmatter from "./lib/remark-extract-frontmatter";
-import remarkCodeTitles from "./lib/remark-code-title";
-import remarkImgToJsx from "./lib/remark-img-to-jsx";
-import { extractTocHeadings } from "./lib/remark-toc-headings";
+import {
+  remarkExtractFrontmatter,
+  remarkCodeTitles,
+  remarkImgToJsx,
+  extractTocHeadings,
+} from "pliny/mdx-plugins/index.js";
+
+// import remarkExtractFrontmatter from "./lib/remark-extract-frontmatter";
+// import remarkCodeTitles from "./lib/remark-code-title";
+// import remarkImgToJsx from "./lib/remark-img-to-jsx";
+// import { extractTocHeadings } from "./lib/remark-toc-headings";
 
 // Rehype packages
 import rehypeSlug from "rehype-slug";
@@ -128,7 +135,7 @@ export default makeSource({
       ],
       rehypeKatex,
       [rehypeCitation, { path: path.join(root, "data") }],
-      // [rehypePrismPlus, { ignoreMissing: true }],
+      [rehypePrismPlus, { ignoreMissing: true }],
       rehypePresetMinify,
     ],
   },

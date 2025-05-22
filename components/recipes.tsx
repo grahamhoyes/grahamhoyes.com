@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import slugger from "github-slugger";
+import GithubSlugger from "github-slugger";
 
 interface IngredientsProps {
   children: ReactNode;
@@ -7,6 +7,8 @@ interface IngredientsProps {
 }
 
 export const Ingredients = ({ children, title }: IngredientsProps) => {
+  const slugger = new GithubSlugger();
+
   title = title ?? "Ingredients";
   const slug = slugger.slug(title);
 
@@ -19,7 +21,7 @@ export const Ingredients = ({ children, title }: IngredientsProps) => {
             id={slug}
           >
             {title}
-            <a href={"#" + slug} aria-hidden="true" tabIndex={-1}>
+            <a href={"#" + slug} tabIndex={-1}>
               <span className="icon icon-link" />
             </a>
           </h2>
@@ -43,6 +45,7 @@ interface StepsProps {
 
 export const Steps = ({ children, title }: StepsProps) => {
   title = title ?? "Steps";
+  const slugger = new GithubSlugger();
   const slug = slugger.slug(title);
 
   return (

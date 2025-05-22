@@ -10,7 +10,7 @@ import { authors } from "@/data/generated";
 
 interface Chip {
   name: string;
-  href: string;
+  href?: string;
 }
 
 interface Breadcrumb {
@@ -112,15 +112,24 @@ const Page = ({
 
               {chips && chips.length > 0 && (
                 <div className="flex flex-wrap gap-2">
-                  {chips.map(({ name, href }, i) => (
-                    <Link
-                      key={i}
-                      href={href}
-                      className="rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 transition-colors hover:bg-blue-200 dark:bg-blue-200 dark:text-blue-800 dark:hover:bg-blue-300"
-                    >
-                      {titleCase(name)}
-                    </Link>
-                  ))}
+                  {chips.map(({ name, href }, i) =>
+                    href ? (
+                      <Link
+                        key={i}
+                        href={href}
+                        className="rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 transition-colors hover:bg-blue-200 dark:bg-blue-200 dark:text-blue-800 dark:hover:bg-blue-300"
+                      >
+                        {titleCase(name)}
+                      </Link>
+                    ) : (
+                      <p
+                        key={i}
+                        className="rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 transition-colors dark:bg-blue-200 dark:text-blue-800"
+                      >
+                        {titleCase(name)}
+                      </p>
+                    ),
+                  )}
                 </div>
               )}
 

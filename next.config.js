@@ -1,7 +1,9 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { withContentlayer } = require("next-contentlayer2");
 
 // You might need to insert additional domains in script-src if you are using external services
@@ -74,14 +76,14 @@ module.exports = () => {
       // Using cloudflare pages, we don't have the nextjs image api
       unoptimized: true,
     },
-    // async headers() {
-    //   return [
-    //     {
-    //       source: "/(.*)",
-    //       headers: securityHeaders,
-    //     },
-    //   ];
-    // },
+    async headers() {
+      return [
+        {
+          source: "/(.*)",
+          headers: securityHeaders,
+        },
+      ];
+    },
     webpack: (config) => {
       config.module.rules.push({
         test: /\.svg$/,
