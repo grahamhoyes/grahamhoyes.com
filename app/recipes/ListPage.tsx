@@ -2,7 +2,7 @@ import { CardList } from "./RecipeCard";
 import Pagination from "@/components/Pagination";
 import { Recipe } from "contentlayer/generated";
 import { titleCase } from "@/lib/utils/titles";
-import PageTitle from "@/components/PageTitle";
+import Page from "@/components/Page";
 
 interface ListPageProps {
   name: string;
@@ -33,11 +33,7 @@ const ListPage = ({
   );
 
   return (
-    <div className="container mx-auto px-4">
-      <div className="space-y-1">
-        <PageTitle>{titleCase(name)} Recipes</PageTitle>
-      </div>
-
+    <Page title={`${titleCase(name)} Recipes`}>
       <CardList recipes={displayRecipes} />
 
       <Pagination
@@ -45,7 +41,7 @@ const ListPage = ({
         totalPages={totalPages}
         basePath={basePath}
       />
-    </div>
+    </Page>
   );
 };
 

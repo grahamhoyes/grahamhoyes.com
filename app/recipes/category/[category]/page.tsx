@@ -1,20 +1,14 @@
 import { Metadata } from "next";
-import { allRecipes } from "contentlayer/generated";
+import {
+  sortedRecipes,
+  recipeCategories,
+  recipeCategoryMap,
+} from "@/data/generated";
 import ListPage from "@/app/recipes/ListPage";
 
-import { createSlugMap, titleCase } from "@/lib/utils/titles";
+import { titleCase } from "@/lib/utils/titles";
 
 const RECIPES_PER_PAGE = 12;
-
-// Because this is a server component, we can compute these at build time
-const categories = Array.from(
-  new Set(
-    allRecipes.flatMap((recipe) =>
-      recipe.categories.map((c) => c.toLowerCase()),
-    ),
-  ),
-);
-const slugMap = createSlugMap(categories);
 
 interface Params {
   category: string;
@@ -29,12 +23,13 @@ const CategoryPage = async (props: CategoryPageProps) => {
 
   const { category: categorySlug } = params;
 
-  const categoryName = slugMap.get(categorySlug) || categorySlug;
+  const categoryName =
+    recipeCategoryMap.get(categorySlug)?.category || categorySlug;
 
   return (
     <ListPage
       name={categoryName}
-      recipes={allRecipes}
+      recipes={sortedRecipes}
       filterFunc={(recipe) =>
         recipe.categories.some((cat) => cat.toLowerCase() === categoryName)
       }
@@ -48,8 +43,8 @@ const CategoryPage = async (props: CategoryPageProps) => {
 export default CategoryPage;
 
 export const generateStaticParams = (): Params[] => {
-  return Array.from(slugMap.keys()).map((slug) => ({
-    category: slug,
+  return recipeCategories.map((category) => ({
+    category: category.slug,
   }));
 };
 
@@ -58,7 +53,7 @@ export const generateMetadata = async (
 ): Promise<Metadata> => {
   const params = await props.params;
   const categoryName = titleCase(
-    slugMap.get(params.category) || params.category,
+    recipeCategoryMap.get(params.category)?.category || params.category,
   );
 
   return {
