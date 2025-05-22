@@ -15,6 +15,7 @@ const siteMetadata = {
   twitter: "https://twitter.com/grahamhoyes/",
   linkedin: "https://www.linkedin.com/in/grahamhoyes/",
   locale: "en-US",
+  timeZone: "America/Toronto",
 };
 
 module.exports = siteMetadata;

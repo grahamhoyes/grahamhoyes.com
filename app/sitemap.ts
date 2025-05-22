@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import { allBlogs, allRecipes, recipeCategories } from "@/data/generated";
 import siteMetadata from "@/data/siteMetadata";
+import { localToUtcDate } from "@/lib/utils/formatDate";
 
 export const dynamic = "force-static";
 
@@ -11,12 +12,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     .filter((post) => !post.draft)
     .map((post) => ({
       url: `${siteUrl}/${post.path}`,
-      lastModified: post.updated || post.date,
+      lastModified: localToUtcDate(post.updated || post.date),
     }));
 
   const recipeRoutes = allRecipes.map((recipe) => ({
     url: `${siteUrl}/${recipe.path}`,
-    lastModified: recipe.updated || recipe.date,
+    lastModified: localToUtcDate(recipe.updated || recipe.date),
   }));
 
   const recipeCategoryRoutes = recipeCategories.map((category) => ({
