@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import GithubSlugger from "github-slugger";
+import { createSlug } from "@/lib/utils/titles";
 
 interface IngredientsProps {
   children: ReactNode;
@@ -7,10 +7,8 @@ interface IngredientsProps {
 }
 
 export const Ingredients = ({ children, title }: IngredientsProps) => {
-  const slugger = new GithubSlugger();
-
   title = title ?? "Ingredients";
-  const slug = slugger.slug(title);
+  const slug = createSlug(title);
 
   return (
     <>
@@ -45,8 +43,7 @@ interface StepsProps {
 
 export const Steps = ({ children, title }: StepsProps) => {
   title = title ?? "Steps";
-  const slugger = new GithubSlugger();
-  const slug = slugger.slug(title);
+  const slug = createSlug(title);
 
   return (
     <div className="mx-auto lg:col-span-2">

@@ -18,6 +18,8 @@ const ContentSecurityPolicy = `
   frame-src giscus.app
 `;
 
+// Security headers aren't needed in static export mode
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const securityHeaders = [
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
   {
@@ -76,14 +78,15 @@ module.exports = () => {
       // Using cloudflare pages, we don't have the nextjs image api
       unoptimized: true,
     },
-    async headers() {
-      return [
-        {
-          source: "/(.*)",
-          headers: securityHeaders,
-        },
-      ];
-    },
+    // Headers aren't used in static export mode
+    // async headers() {
+    //   return [
+    //     {
+    //       source: "/(.*)",
+    //       headers: securityHeaders,
+    //     },
+    //   ];
+    // },
     webpack: (config) => {
       config.module.rules.push({
         test: /\.svg$/,

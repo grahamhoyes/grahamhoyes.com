@@ -16,11 +16,6 @@ import {
   extractTocHeadings,
 } from "pliny/mdx-plugins/index.js";
 
-// import remarkExtractFrontmatter from "./lib/remark-extract-frontmatter";
-// import remarkCodeTitles from "./lib/remark-code-title";
-// import remarkImgToJsx from "./lib/remark-img-to-jsx";
-// import { extractTocHeadings } from "./lib/remark-toc-headings";
-
 // Rehype packages
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
@@ -44,7 +39,7 @@ const computedFields: ComputedFields = {
     resolve: (doc) => doc._raw.sourceFilePath,
   },
   toc: {
-    type: "string",
+    type: "json",
     resolve: (doc) => extractTocHeadings(doc.body.raw),
   },
 };
