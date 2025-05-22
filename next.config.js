@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
 });
 
-const { withContentlayer } = require("next-contentlayer");
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { withContentlayer } = require("next-contentlayer2");
 
 // You might need to insert additional domains in script-src if you are using external services
 const ContentSecurityPolicy = `
@@ -16,6 +18,8 @@ const ContentSecurityPolicy = `
   frame-src giscus.app
 `;
 
+// Security headers aren't needed in static export mode
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const securityHeaders = [
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP
   {
@@ -74,6 +78,7 @@ module.exports = () => {
       // Using cloudflare pages, we don't have the nextjs image api
       unoptimized: true,
     },
+    // Headers aren't used in static export mode
     // async headers() {
     //   return [
     //     {

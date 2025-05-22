@@ -2,17 +2,19 @@ import {
   ComputedFields,
   defineDocumentType,
   makeSource,
-} from "contentlayer/source-files";
+} from "contentlayer2/source-files";
 import path from "path";
 import readingTime from "reading-time";
 
 // Remark packages
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
-import remarkExtractFrontmatter from "./lib/remark-extract-frontmatter";
-import remarkCodeTitles from "./lib/remark-code-title";
-import remarkImgToJsx from "./lib/remark-img-to-jsx";
-import { extractTocHeadings } from "./lib/remark-toc-headings";
+import {
+  remarkExtractFrontmatter,
+  remarkCodeTitles,
+  remarkImgToJsx,
+  extractTocHeadings,
+} from "pliny/mdx-plugins/index.js";
 
 // Rehype packages
 import rehypeSlug from "rehype-slug";
@@ -37,7 +39,7 @@ const computedFields: ComputedFields = {
     resolve: (doc) => doc._raw.sourceFilePath,
   },
   toc: {
-    type: "string",
+    type: "json",
     resolve: (doc) => extractTocHeadings(doc.body.raw),
   },
 };

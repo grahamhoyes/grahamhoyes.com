@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import slugger from "github-slugger";
+import { createSlug } from "@/lib/utils/titles";
 
 interface IngredientsProps {
   children: ReactNode;
@@ -8,7 +8,7 @@ interface IngredientsProps {
 
 export const Ingredients = ({ children, title }: IngredientsProps) => {
   title = title ?? "Ingredients";
-  const slug = slugger.slug(title);
+  const slug = createSlug(title);
 
   return (
     <>
@@ -19,7 +19,7 @@ export const Ingredients = ({ children, title }: IngredientsProps) => {
             id={slug}
           >
             {title}
-            <a href={"#" + slug} aria-hidden="true" tabIndex={-1}>
+            <a href={"#" + slug} tabIndex={-1}>
               <span className="icon icon-link" />
             </a>
           </h2>
@@ -43,7 +43,7 @@ interface StepsProps {
 
 export const Steps = ({ children, title }: StepsProps) => {
   title = title ?? "Steps";
-  const slug = slugger.slug(title);
+  const slug = createSlug(title);
 
   return (
     <div className="mx-auto lg:col-span-2">

@@ -1,7 +1,7 @@
-import { TocHeading } from "@/lib/remark-toc-headings";
+import { TocItem } from "pliny/mdx-plugins/remark-toc-headings";
 
 interface TOCInlineProps {
-  toc: TocHeading[];
+  toc: TocItem[];
   indentDepth?: number;
   fromHeading?: number;
   toHeading?: number;

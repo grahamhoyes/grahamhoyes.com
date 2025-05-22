@@ -1,32 +1,33 @@
 import { Metadata } from "next";
-import { allRecipes } from "contentlayer/generated";
+import { sortedRecipes, recipeCategoryMap } from "@/data/generated";
 import ListPage from "@/app/recipes/ListPage";
 
-import { createSlugMap, titleCase } from "@/lib/utils/titles";
+import { titleCase } from "@/lib/utils/titles";
 
 const RECIPES_PER_PAGE = 12;
 
-const categories = Array.from(
-  new Set(
-    allRecipes.flatMap((recipe) =>
-      recipe.categories.map((c) => c.toLowerCase()),
-    ),
-  ),
-);
-const slugMap = createSlugMap(categories);
+interface Params {
+  category: string;
+  page: string;
+}
 
-const PaginatedCategoryPage = ({
-  params: { category: categorySlug, page },
-}: {
-  params: { category: string; page: string };
-}) => {
+interface PaginatedCategoryPageProps {
+  params: Promise<Params>;
+}
+
+const PaginatedCategoryPage = async (props: PaginatedCategoryPageProps) => {
+  const params = await props.params;
+
+  const { category: categorySlug, page } = params;
+
   const currentPage = parseInt(page, 10);
-  const categoryName = slugMap.get(categorySlug) || categorySlug;
+  const categoryName =
+    recipeCategoryMap.get(categorySlug)?.category || categorySlug;
 
   return (
     <ListPage
       name={categoryName}
-      recipes={allRecipes}
+      recipes={sortedRecipes}
       filterFunc={(recipe) =>
         recipe.categories.some((cat) => cat.toLowerCase() === categoryName)
       }
@@ -39,32 +40,29 @@ const PaginatedCategoryPage = ({
 
 export default PaginatedCategoryPage;
 
-export const generateStaticParams = async () => {
+export const generateStaticParams = (): Params[] => {
   const params: { category: string; page: string }[] = [];
 
-  for (const category of slugMap.keys()) {
-    const categoryRecipes = allRecipes.filter((recipe) =>
-      recipe.categories.some(
-        (cat) => cat.toLowerCase() === slugMap.get(category),
-      ),
+  for (const [slug, { category }] of recipeCategoryMap.entries()) {
+    const categoryRecipes = sortedRecipes.filter((recipe) =>
+      recipe.categories.some((cat) => cat.toLowerCase() === category),
     );
     const totalPages = Math.ceil(categoryRecipes.length / RECIPES_PER_PAGE);
 
     for (let page = 1; page <= totalPages; page++) {
-      params.push({ category, page: page.toString() });
+      params.push({ category: slug, page: page.toString() });
     }
   }
 
   return params;
 };
 
-export const generateMetadata = ({
-  params,
-}: {
-  params: { category: string; page: string };
-}): Metadata => {
+export const generateMetadata = async (
+  props: PaginatedCategoryPageProps,
+): Promise<Metadata> => {
+  const params = await props.params;
   const categoryName = titleCase(
-    slugMap.get(params.category) || params.category,
+    recipeCategoryMap.get(params.category)?.category || params.category,
   );
 
   return {

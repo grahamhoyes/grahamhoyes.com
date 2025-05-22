@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Recipe, allRecipes } from "contentlayer/generated";
+import { sortedRecipes, recipeCategories } from "@/data/generated";
 import { CardList } from "./RecipeCard";
 import CategorySection from "./CategorySection";
 import Page from "@/components/Page";
@@ -13,26 +13,11 @@ export const metadata: Metadata = {
 const MAX_RECIPES = 6;
 
 const RecipesPage = () => {
-  const sortedRecipes = allRecipes.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
-
-  const categoryCounts = allRecipes.reduce(
-    (counts: Map<string, number>, recipe: Recipe) => {
-      recipe.categories.forEach((category) => {
-        const key = category.toLowerCase();
-        counts.set(key, (counts.get(key) || 0) + 1);
-      });
-      return counts;
-    },
-    new Map<string, number>(),
-  );
-
-  const topCategories = Array.from(categoryCounts.entries())
-    .map(([category, count]) => ({ category, count }))
-    .sort((a, b) => b.count - a.count)
+  const topCategories = recipeCategories
     .map(({ category }) => category)
     .slice(0, 5);
+
+  console.log(topCategories);
 
   return (
     <Page title="Recipes">

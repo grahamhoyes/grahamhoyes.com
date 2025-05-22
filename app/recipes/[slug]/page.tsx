@@ -8,13 +8,16 @@ import Page from "@/components/Page";
 import siteMetadata from "@/data/siteMetadata";
 import { titleCase, createSlug } from "@/lib/utils/titles";
 
-interface RecipeProps {
-  params: {
-    slug: string;
-  };
+interface Params {
+  slug: string;
 }
 
-const Recipe = ({ params }: RecipeProps) => {
+interface RecipeProps {
+  params: Promise<Params>;
+}
+
+const Recipe = async (props: RecipeProps) => {
+  const params = await props.params;
   const recipe = sortedRecipes.find((recipe) => recipe.slug === params.slug);
 
   if (!recipe) notFound();
@@ -65,7 +68,7 @@ const Recipe = ({ params }: RecipeProps) => {
 
 export default Recipe;
 
-export const generateStaticParams = () => {
+export const generateStaticParams = (): Params[] => {
   return sortedRecipes.map(({ slug }) => ({
     slug,
   }));

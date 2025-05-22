@@ -14,11 +14,16 @@ import { titleCase } from "@/lib/utils/titles";
 import { sortedBlogs, authors } from "@/data/generated";
 import generateRss from "@/lib/generate-rss";
 
-interface PostProps {
-  params: { slug: string[] };
+interface Params {
+  slug: string[];
 }
 
-const Post = ({ params }: PostProps) => {
+interface PostProps {
+  params: Promise<Params>;
+}
+
+const Post = async (props: PostProps) => {
+  const params = await props.params;
   const slug = params.slug.join("/");
 
   const postIndex = sortedBlogs.findIndex((p) => p.slug === slug);
@@ -43,7 +48,7 @@ const Post = ({ params }: PostProps) => {
       chips={tags?.map((tag) => ({
         name: titleCase(tag),
         // TODO: Replace with tag page
-        href: slug,
+        // href: slug,
       }))}
       // breadcrumb={{
       //   text: "Back to the Blog",
@@ -120,7 +125,7 @@ const Post = ({ params }: PostProps) => {
 
 export default Post;
 
-export const generateStaticParams = (): PostProps["params"][] => {
+export const generateStaticParams = (): Params[] => {
   // Write rss TODO: Do this somewhere else
   if (sortedBlogs.length > 0) {
     const rss = generateRss(sortedBlogs);
@@ -132,7 +137,8 @@ export const generateStaticParams = (): PostProps["params"][] => {
   }));
 };
 
-export const generateMetadata = ({ params }: PostProps): Metadata => {
+export const generateMetadata = async (props: PostProps): Promise<Metadata> => {
+  const params = await props.params;
   const post = sortedBlogs.find((p) => p.slug === params.slug.join("/"));
 
   if (!post) return {};

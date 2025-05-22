@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   title: "Graham Hoyes",
   authors: { name: "Graham Hoyes" },
   description: "The personal antics of Graham Hoyes",
-  themeColor: "#000000",
+
   icons: {
     icon: [
       { url: "/static/favicons/favicon-16x16.png", sizes: "16x16" },
@@ -39,12 +39,15 @@ export const metadata: Metadata = {
       sizes: "76x76",
     },
   },
+
   manifest: "/static/favicons/site.webmanifest",
+
   alternates: {
     types: {
       "application/rss+xml": "/feed.xml",
     },
   },
+
   openGraph: {
     title: "Graham Hoyes",
     url: "https://grahamhoyes.com",
@@ -57,6 +60,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+
   metadataBase: new URL(
     process.env.CF_PAGES_URL ||
     `https://${process.env.VERCEL_URL}` ||
@@ -128,3 +132,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
+export const viewport = {
+  themeColor: "#000000",
+};

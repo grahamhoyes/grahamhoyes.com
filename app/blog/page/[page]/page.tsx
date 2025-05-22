@@ -8,13 +8,19 @@ export const metadata: Metadata = {
   title: "Blog | Graham Hoyes",
 };
 
-interface BlogListProps {
-  params: {
-    page: string;
-  };
+interface Params {
+  page: string;
 }
 
-const BlogList = ({ params: { page } }: BlogListProps) => {
+interface BlogListProps {
+  params: Promise<Params>;
+}
+
+const BlogList = async (props: BlogListProps) => {
+  const params = await props.params;
+
+  const { page } = params;
+
   const pageNumber = parseInt(page);
 
   const posts = sortedBlogs.slice(
@@ -30,7 +36,7 @@ const BlogList = ({ params: { page } }: BlogListProps) => {
   return <PostList posts={posts} pagination={pagination} />;
 };
 
-export const generateStaticParams = (): BlogListProps["params"][] => {
+export const generateStaticParams = (): Params[] => {
   const totalPages = Math.ceil(sortedBlogs.length / POSTS_PER_PAGE);
   return Array.from({ length: totalPages }, (_, i) => ({
     page: (i + 1).toString(),
