@@ -2,7 +2,7 @@ import {
   ComputedFields,
   defineDocumentType,
   makeSource,
-} from "contentlayer/source-files";
+} from "contentlayer2/source-files";
 import path from "path";
 import readingTime from "reading-time";
 
@@ -128,7 +128,7 @@ export default makeSource({
       ],
       rehypeKatex,
       [rehypeCitation, { path: path.join(root, "data") }],
-      [rehypePrismPlus, { ignoreMissing: true }],
+      // [rehypePrismPlus, { ignoreMissing: true }],
       rehypePresetMinify,
     ],
   },
