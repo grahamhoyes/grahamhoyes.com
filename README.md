@@ -2,7 +2,7 @@
 
 This is my personal website, blog, and collection of whatever else I want to put on the internet.
 
-It is primarily built with Typescript, NextJS (13+), Tailwind CSS, and Contentlayer. The code is very heavily adapted from the [Tailwind Nextjs Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog/) template, without which I likely would not have left the comfort of PHP I wrote a decade ago.
+It is primarily built with Typescript, NextJS, Tailwind CSS, and Contentlayer. The code is very heavily adapted from an old version of the [Tailwind Nextjs Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog/) template.
 
 ## Deployment
 

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 
 import { sortedBlogs } from "@/data/generated";
 import siteMetadata from "@/data/siteMetadata";
+import Page from "@/components/Page";
 
 import PostList, { POSTS_PER_PAGE } from "@/components/PostList";
 
@@ -16,7 +17,11 @@ const Blog = () => {
     totalPages: Math.ceil(sortedBlogs.length / POSTS_PER_PAGE),
   };
 
-  return <PostList posts={initialDisplayPosts} pagination={pagination} />;
+  return (
+    <Page title="Blog">
+      <PostList posts={initialDisplayPosts} pagination={pagination} />
+    </Page>
+  );
 };
 
 export default Blog;

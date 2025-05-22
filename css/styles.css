@@ -1,0 +1,19 @@
+.icon-link:before {
+  content: "#";
+  margin-left: 0.5rem;
+}
+
+.icon-link {
+  display: inline-block;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+h1:hover .icon-link,
+h2:hover .icon-link,
+h3:hover .icon-link,
+h4:hover .icon-link,
+h5:hover .icon-link,
+h6:hover .icon-link {
+  opacity: 100%;
+}

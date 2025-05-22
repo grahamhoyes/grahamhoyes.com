@@ -5,6 +5,7 @@ import { Source_Code_Pro } from "next/font/google";
 
 import "@/css/tailwind.css";
 import "@/css/prism.css";
+import "@/css/styles.css";
 import "katex/dist/katex.css";
 import "@fontsource/inter/variable-full.css";
 
@@ -12,7 +13,6 @@ import siteMetadata from "@/data/siteMetadata";
 import headerNavLinks from "@/data/headerNavLinks";
 
 import Providers from "app/Providers";
-import SectionContainer from "@/components/SectionContainer";
 import Link from "@/components/Link";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import MobileNav from "@/components/MobileNav";
@@ -75,9 +75,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="bg-white text-light-900 antialiased dark:bg-dark-900 dark:text-dark-50">
         <Providers defaultTheme={siteMetadata.theme}>
-          <SectionContainer>
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 xl:max-w-6xl xl:px-0">
             <div className="flex h-screen flex-col justify-between">
-              <header className="sticky top-0 z-40 flex items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
+              <header className="sticky top-0 z-40 flex h-[4.5rem] items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
                 <div>
                   <Link href="/" aria-label={siteMetadata.headerTitle}>
                     <div className="flex items-center justify-between">
@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         />
                       </div>
                       <div
-                        className="hidden h-6 text-2xl font-semibold sm:block"
+                        className="h-6 text-2xl font-semibold sm:block"
                         style={{ lineHeight: 1 }}
                       >
                         {siteMetadata.headerTitle}
@@ -107,7 +107,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                       <Link
                         key={link.title}
                         href={link.href}
-                        className="p-1 font-medium text-light-900 dark:text-dark-100 sm:p-4"
+                        className="mx-1 rounded-lg p-3 font-medium text-light-900 transition-colors hover:bg-dark-200 dark:text-dark-100 dark:hover:bg-dark-600"
                       >
                         {link.title}
                       </Link>
@@ -122,7 +122,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
               <Footer />
             </div>
-          </SectionContainer>
+          </div>
         </Providers>
       </body>
     </html>

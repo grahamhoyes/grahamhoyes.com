@@ -1,7 +1,7 @@
 import {
+  ComputedFields,
   defineDocumentType,
   makeSource,
-  ComputedFields,
 } from "contentlayer/source-files";
 import path from "path";
 import readingTime from "reading-time";
@@ -49,8 +49,8 @@ export const Blog = defineDocumentType(() => ({
   fields: {
     title: { type: "string", required: true },
     date: { type: "date", required: true },
+    updated: { type: "date" },
     tags: { type: "list", of: { type: "string" } },
-    lastmod: { type: "date" },
     draft: { type: "boolean" },
     summary: { type: "string" },
     authors: { type: "list", of: { type: "string" } },
@@ -88,11 +88,27 @@ export const Author = defineDocumentType(() => ({
   computedFields,
 }));
 
+export const Recipe = defineDocumentType(() => ({
+  name: "Recipe",
+  filePathPattern: "recipes/*.mdx",
+  contentType: "mdx",
+  fields: {
+    title: { type: "string", required: true },
+    date: { type: "date", required: true },
+    updated: { type: "date" },
+    description: { type: "string", required: true },
+    categories: { type: "list", of: { type: "string" }, required: true },
+    authors: { type: "list", of: { type: "string" } },
+    thumbnail: { type: "string", required: false },
+  },
+  computedFields,
+}));
+
 const root = process.cwd();
 
 export default makeSource({
   contentDirPath: "data",
-  documentTypes: [Blog, Project, Author],
+  documentTypes: [Blog, Project, Author, Recipe],
   mdx: {
     cwd: root,
     remarkPlugins: [
@@ -104,7 +120,12 @@ export default makeSource({
     ],
     rehypePlugins: [
       rehypeSlug,
-      rehypeAutolinkHeadings,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "append",
+        },
+      ],
       rehypeKatex,
       [rehypeCitation, { path: path.join(root, "data") }],
       [rehypePrismPlus, { ignoreMissing: true }],

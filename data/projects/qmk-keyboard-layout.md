@@ -1,7 +1,7 @@
 ---
 title: Dvorak Keyboard Layout (QMK)
 imgSrc: /static/images/typewriter.jpg
-href: https://github.com/grahamhoyes/qmk_firmware/tree/grahamhoyes/zodiark/keyboards/aleblazer/zodiark/keymaps/grahamhoyes
+href: https://github.com/grahamhoyes/qmk_firmware/blob/grahamhoyes/keyboards/aleblazer/zodiark/keymaps/grahamhoyes/keymap.c
 linkText: View On GitHub
 ---
 

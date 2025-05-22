@@ -1,6 +1,8 @@
+import { ArrowRightIcon } from "@heroicons/react/24/solid";
 import { Blog } from "contentlayer/generated";
 import formatDate from "@/lib/utils/formatDate";
 import Link from "@/components/Link";
+import SubsectionTitle from "@/components/SubsectionTitle";
 
 export const POSTS_PER_PAGE = 5;
 
@@ -25,14 +27,14 @@ export const PostList = ({ posts, pagination }: PostListProps) => (
                 <div className="space-y-5 xl:col-span-3">
                   <div className="space-y-6">
                     <div>
-                      <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                      <SubsectionTitle>
                         <Link
                           href={`/blog/${slug}`}
                           className="text-light-900 dark:text-dark-100"
                         >
                           {title}
                         </Link>
-                      </h2>
+                      </SubsectionTitle>
                     </div>
                     <div className="prose max-w-none text-light-500 dark:text-dark-400">
                       {summary}
@@ -41,10 +43,10 @@ export const PostList = ({ posts, pagination }: PostListProps) => (
                   <div className="text-base font-medium leading-6">
                     <Link
                       href={`/blog/${slug}`}
-                      className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                      className="inline-flex items-center text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
                       aria-label={`Read "${title}"`}
                     >
-                      Read more &rarr;
+                      Read more <ArrowRightIcon className="ml-1 h-4 w-4" />
                     </Link>
                   </div>
                 </div>
