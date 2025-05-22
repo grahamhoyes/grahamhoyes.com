@@ -26,7 +26,7 @@ const About = () => {
             height="192"
             className="h-48 w-48 rounded-full"
           />
-          <div>
+          <div className="flex flex-col items-center">
             <SubsectionTitle>{author.name}</SubsectionTitle>
             <div className="text-light-500 dark:text-dark-400">
               {author.occupation}

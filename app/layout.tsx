@@ -77,7 +77,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <Providers defaultTheme={siteMetadata.theme}>
           <div className="mx-auto max-w-6xl px-4 sm:px-6 xl:max-w-6xl xl:px-0">
             <div className="flex h-screen flex-col justify-between">
-              <header className="sticky top-0 z-40 flex items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
+              <header className="sticky top-0 z-40 flex h-[4.5rem] items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
                 <div>
                   <Link href="/" aria-label={siteMetadata.headerTitle}>
                     <div className="flex items-center justify-between">
@@ -93,7 +93,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                         />
                       </div>
                       <div
-                        className="hidden h-6 text-2xl font-semibold sm:block"
+                        className="h-6 text-2xl font-semibold sm:block"
                         style={{ lineHeight: 1 }}
                       >
                         {siteMetadata.headerTitle}
