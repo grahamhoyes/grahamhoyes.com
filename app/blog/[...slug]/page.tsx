@@ -64,7 +64,7 @@ const Post = async (props: PostProps) => {
               <div className="prose max-w-none py-8 dark:prose-dark">
                 <MdxRenderer code={post.body.code} toc={post.toc} />
               </div>
-              <div className="pt-6">
+              <div className="pt-4 text-center">
                 <Comments />
               </div>
             </div>
