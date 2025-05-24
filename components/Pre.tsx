@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, ReactNode } from "react";
+import { useEffect, useState, useRef, ReactNode } from "react";
 import {
   ClipboardDocumentIcon,
   ClipboardDocumentCheckIcon,
@@ -10,6 +10,18 @@ export const Pre = ({ children }: { children: ReactNode }) => {
   const textInput = useRef<HTMLDivElement>(null);
   const [hovered, setHovered] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [clipboardAvailable, setClipboardAvailable] = useState(false);
+
+  useEffect(() => {
+    // This is primarily used to hide the copy button on insecure origins
+    // (like over the network for testing) where the navigator API is unavailable.
+    const isClipboardAvailable =
+      typeof navigator !== "undefined" &&
+      navigator.clipboard &&
+      typeof navigator.clipboard.writeText === "function";
+
+    setClipboardAvailable(isClipboardAvailable);
+  }, []);
 
   const onEnter = () => {
     setHovered(true);
@@ -24,7 +36,6 @@ export const Pre = ({ children }: { children: ReactNode }) => {
 
     setCopied(true);
 
-    // TODO: Failing on mobile
     navigator.clipboard
       .writeText(content)
       .then(() => setTimeout(() => setCopied(false), 2000));
@@ -37,7 +48,7 @@ export const Pre = ({ children }: { children: ReactNode }) => {
       onMouseLeave={onExit}
       className="relative"
     >
-      {(hovered || copied) && (
+      {clipboardAvailable && (hovered || copied) && (
         <button
           aria-label="Copy code"
           type="button"
