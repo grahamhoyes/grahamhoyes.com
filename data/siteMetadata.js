@@ -26,7 +26,7 @@ const siteMetadata = {
       mapping: "pathname",
       reactionsEnabled: true,
       emitMetadata: false,
-      inputPosition: "top",
+      inputPosition: "bottom",
       lightTheme: "light",
       darkTheme: "transparent_dark",
       lang: "en",
