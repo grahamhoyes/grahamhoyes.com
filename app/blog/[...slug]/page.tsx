@@ -11,6 +11,7 @@ import ScrollTop from "@/components/ScrollTop";
 import MdxRenderer from "@/components/Mdx";
 import siteMetadata from "@/data/siteMetadata";
 import { titleCase } from "@/lib/utils/titles";
+import { localToUtcDate } from "@/lib/utils/formatDate";
 
 import { sortedBlogs, authors } from "@/data/generated";
 import generateRss from "@/lib/generate-rss";
@@ -151,14 +152,19 @@ export const generateMetadata = async (props: PostProps): Promise<Metadata> => {
 
   return {
     title: `${post.title} | ${siteMetadata.title}`,
+    description: post.summary,
     openGraph: {
       type: "article",
-      publishedTime: new Date(post.date).toISOString(),
-      modifiedTime: new Date(post.updated || post.date).toISOString(),
+      publishedTime: localToUtcDate(post.date),
+      modifiedTime: localToUtcDate(post.updated || post.date),
+      url: `${siteMetadata.siteUrl}/blog/${post.slug}`,
       authors: (post.authors || ["default"]).map(
         (author) => authors[author].name,
       ),
       tags: post.tags,
+      title: post.title,
+      description: post.summary,
+      locale: siteMetadata.locale,
     },
   };
 };

@@ -21,8 +21,8 @@ const siteMetadata = {
       // See https://giscus.app/ for configuration options
       repo: "grahamhoyes/grahamhoyes.com",
       repositoryId: "R_kgDOHOZmRQ",
-      category: "Announcements",
-      categoryId: "DIC_kwDOJ2zq9M4CTf3N",
+      category: "Blog Comments",
+      categoryId: "DIC_kwDOHOZmRc4CqjEO",
       mapping: "pathname",
       reactionsEnabled: true,
       emitMetadata: false,
