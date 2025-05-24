@@ -24,6 +24,7 @@ export const Pre = ({ children }: { children: ReactNode }) => {
 
     setCopied(true);
 
+    // TODO: Failing on mobile
     navigator.clipboard
       .writeText(content)
       .then(() => setTimeout(() => setCopied(false), 2000));

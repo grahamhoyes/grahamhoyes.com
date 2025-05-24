@@ -80,52 +80,50 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="bg-white text-light-900 antialiased dark:bg-dark-900 dark:text-dark-50">
         <Providers defaultTheme={siteMetadata.theme}>
           <div className="mx-auto max-w-6xl px-4 sm:px-6 xl:max-w-6xl xl:px-0">
-            <div className="flex h-screen flex-col justify-between">
-              <header className="sticky top-0 z-40 flex h-[4.5rem] items-center justify-between bg-white py-5 dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
-                <div>
-                  <Link href="/" aria-label={siteMetadata.headerTitle}>
-                    <div className="flex items-center justify-between">
-                      <div className="mr-3">
-                        <Image
-                          src={siteMetadata.siteLogo}
-                          alt={siteMetadata.title}
-                          width="24"
-                          height="24"
-                          quality="100"
-                          style={{ verticalAlign: "middle" }}
-                          unoptimized={true}
-                        />
-                      </div>
-                      <div
-                        className="h-6 text-2xl font-semibold sm:block"
-                        style={{ lineHeight: 1 }}
-                      >
-                        {siteMetadata.headerTitle}
-                      </div>
+            <header className="sticky top-0 z-40 flex h-[3.5rem] sm:h-[4.5rem] items-center justify-between bg-white dark:bg-dark-900 sm:relative sm:top-auto sm:py-10">
+              <div>
+                <Link href="/" aria-label={siteMetadata.headerTitle}>
+                  <div className="flex items-center justify-between">
+                    <div className="mr-3">
+                      <Image
+                        src={siteMetadata.siteLogo}
+                        alt={siteMetadata.title}
+                        width="24"
+                        height="24"
+                        quality="100"
+                        style={{ verticalAlign: "middle" }}
+                        unoptimized={true}
+                      />
                     </div>
-                  </Link>
-                </div>
-                <div className="flex items-center text-base leading-5">
-                  <div className="hidden sm:block">
-                    {headerNavLinks.map((link) => (
-                      <Link
-                        key={link.title}
-                        href={link.href}
-                        className="mx-1 rounded-lg p-3 font-medium text-light-900 transition-colors hover:bg-dark-200 dark:text-dark-100 dark:hover:bg-dark-600"
-                      >
-                        {link.title}
-                      </Link>
-                    ))}
+                    <div
+                      className="h-6 text-2xl font-semibold sm:block"
+                      style={{ lineHeight: 1 }}
+                    >
+                      {siteMetadata.headerTitle}
+                    </div>
                   </div>
-                  <ThemeSwitch />
-                  <MobileNav />
+                </Link>
+              </div>
+              <div className="flex items-center text-base leading-5">
+                <div className="hidden sm:block">
+                  {headerNavLinks.map((link) => (
+                    <Link
+                      key={link.title}
+                      href={link.href}
+                      className="mx-1 rounded-lg p-3 font-medium text-light-900 transition-colors hover:text-primary-600 dark:hover:text-primary-400 hover:bg-light-100  dark:text-dark-100 dark:hover:bg-dark-800"
+                    >
+                      {link.title}
+                    </Link>
+                  ))}
                 </div>
-              </header>
+                <ThemeSwitch />
+                <MobileNav />
+              </div>
+            </header>
 
-              <main className="mb-auto">{children}</main>
+            <main className="mb-auto">{children}</main>
 
-              <Footer />
-            </div>
+            <Footer />
           </div>
         </Providers>
       </body>
