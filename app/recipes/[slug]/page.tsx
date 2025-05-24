@@ -1,12 +1,13 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import MdxRenderer from "@/components/Mdx";
-
-import { sortedRecipes } from "@/data/generated";
+import { sortedRecipes, authors } from "@/data/generated";
 import Link from "@/components/Link";
+import MdxRenderer from "@/components/Mdx";
 import Page from "@/components/Page";
 import siteMetadata from "@/data/siteMetadata";
 import { titleCase, createSlug } from "@/lib/utils/titles";
+import { localToUtcDate } from "@/lib/utils/formatDate";
 
 interface Params {
   slug: string;
@@ -72,4 +73,36 @@ export const generateStaticParams = (): Params[] => {
   return sortedRecipes.map(({ slug }) => ({
     slug,
   }));
+};
+
+export const generateMetadata = async (
+  props: RecipeProps,
+): Promise<Metadata> => {
+  const params = await props.params;
+  const recipe = sortedRecipes.find((recipe) => recipe.slug === params.slug);
+
+  if (!recipe) return {};
+
+  return {
+    title: recipe.title,
+    description: recipe.description,
+    openGraph: {
+      type: "article",
+      title: recipe.title,
+      description: recipe.description,
+      url: `${siteMetadata.siteUrl}/recipes/${recipe.slug}`,
+      authors: (recipe.authors || ["default"]).map(
+        (author) => authors[author].name,
+      ),
+      tags: recipe.categories,
+      publishedTime: localToUtcDate(recipe.date),
+      modifiedTime: localToUtcDate(recipe.updated || recipe.date),
+      locale: siteMetadata.locale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: recipe.title,
+      description: recipe.description,
+    },
+  };
 };

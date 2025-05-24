@@ -6,10 +6,12 @@ import { ArrowLeftIcon } from "@heroicons/react/24/solid";
 
 import Link from "@/components/Link";
 import Page from "@/components/Page";
+import Comments from "@/components/Comments";
 import ScrollTop from "@/components/ScrollTop";
 import MdxRenderer from "@/components/Mdx";
 import siteMetadata from "@/data/siteMetadata";
 import { titleCase } from "@/lib/utils/titles";
+import { localToUtcDate } from "@/lib/utils/formatDate";
 
 import { sortedBlogs, authors } from "@/data/generated";
 import generateRss from "@/lib/generate-rss";
@@ -60,19 +62,15 @@ const Post = async (props: PostProps) => {
         <div className="xl:divide-y xl:divide-light-200 xl:dark:divide-dark-700">
           <div className="divide-y divide-light-200 pb-8 dark:divide-dark-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0">
             <div className="divide-y divide-light-200 dark:divide-dark-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
-              <div className="prose max-w-none pt-10 pb-8 dark:prose-dark">
+              <div className="prose max-w-none py-8 dark:prose-dark">
                 <MdxRenderer code={post.body.code} toc={post.toc} />
               </div>
-              <div className="pt-6 pb-6 text-sm text-dark-700 dark:text-dark-300">
-                <Link
-                  href={`${siteMetadata.siteRepo}/blob/main/data/${filePath}`}
-                >
-                  View on GitHub
-                </Link>
+              <div className="pt-4 text-center">
+                <Comments />
               </div>
             </div>
 
-            <footer className="divide-light-200 dark:divide-dark-700 xl:divide-y">
+            <footer className="divide-light-200 dark:divide-dark-700 xl:divide-y mt-4 xl:mt-0">
               {(nextPost || prevPost) && (
                 <div
                   className={`flex ${
@@ -81,10 +79,10 @@ const Post = async (props: PostProps) => {
                 >
                   {nextPost && (
                     <div>
-                      <h2 className="text-xs uppercase tracking-wide text-light-500 dark:text-dark-400">
+                      <h2 className="text-xs text-right xl:text-left uppercase tracking-wide text-light-700 dark:text-dark-300">
                         Next Article
                       </h2>
-                      <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
+                      <div className="text-right xl:text-left text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
                         <Link href={`/blog/${nextPost.slug}`}>
                           {nextPost.title}
                         </Link>
@@ -93,7 +91,7 @@ const Post = async (props: PostProps) => {
                   )}
                   {prevPost && (
                     <div>
-                      <h2 className="text-xs uppercase tracking-wide text-light-500 dark:text-dark-400">
+                      <h2 className="text-xs uppercase tracking-wide text-light-700 dark:text-dark-300">
                         Previous Article
                       </h2>
                       <div className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400">
@@ -105,6 +103,15 @@ const Post = async (props: PostProps) => {
                   )}
                 </div>
               )}
+
+              <div className="py-2 xl:py-6">
+                <Link
+                  href={`${siteMetadata.siteRepo}/blob/main/data/${filePath}`}
+                  className="text-sm text-dark-700 dark:text-dark-300 hover:text-primary-600 dark:hover:text-primary-400"
+                >
+                  View on GitHub
+                </Link>
+              </div>
 
               <div className="pt-4 xl:pt-8">
                 <Link
@@ -145,14 +152,19 @@ export const generateMetadata = async (props: PostProps): Promise<Metadata> => {
 
   return {
     title: `${post.title} | ${siteMetadata.title}`,
+    description: post.summary,
     openGraph: {
       type: "article",
-      publishedTime: new Date(post.date).toISOString(),
-      modifiedTime: new Date(post.updated || post.date).toISOString(),
+      publishedTime: localToUtcDate(post.date),
+      modifiedTime: localToUtcDate(post.updated || post.date),
+      url: `${siteMetadata.siteUrl}/blog/${post.slug}`,
       authors: (post.authors || ["default"]).map(
         (author) => authors[author].name,
       ),
       tags: post.tags,
+      title: post.title,
+      description: post.summary,
+      locale: siteMetadata.locale,
     },
   };
 };

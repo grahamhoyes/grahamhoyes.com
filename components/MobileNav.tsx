@@ -21,7 +21,7 @@ const MobileNav = () => {
   };
 
   return (
-    <div className="flex flex-row items-center sm:hidden">
+    <div className="flex flex-row items-center sm:hidden ml-1">
       <button
         type="button"
         className="mx-1 h-8 w-8 rounded"
@@ -33,7 +33,7 @@ const MobileNav = () => {
 
       {navShow && (
         <div
-          className={`fixed inset-0 top-[4.5rem] z-10 transform backdrop-blur-md transition-all duration-150 ease-in-out`}
+          className={`fixed inset-0 top-[3.5rem] z-10 transform backdrop-blur-md transition-all duration-150 ease-in-out`}
         >
           <button
             type="button"

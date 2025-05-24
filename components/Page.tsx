@@ -89,26 +89,28 @@ const Page = ({
 
           {hasMetadata && (
             <div className="flex flex-col items-start gap-4 text-sm text-light-600 dark:text-dark-400 md:flex-row md:items-center">
-              {createdAt && (
-                <time
-                  dateTime={createdAt}
-                  aria-label={`Published on ${formatDate(createdAt)}`}
-                >
-                  Published {formatDate(createdAt)}
-                </time>
-              )}
+              <div className="flex flex-col items-start gap-2 md:gap-4 md:flex-row md:items-center">
+                {createdAt && (
+                  <time
+                    dateTime={createdAt}
+                    aria-label={`Published on ${formatDate(createdAt)}`}
+                  >
+                    Published {formatDate(createdAt)}
+                  </time>
+                )}
 
-              {updatedAt && (
-                <time
-                  className={`${
-                    createdAt ? "-ml-2 border-l pl-2" : ""
-                  } border-gray-600 dark:border-gray-400`}
-                  dateTime={updatedAt}
-                  aria-label={`Updated on ${formatDate(updatedAt)}`}
-                >
-                  Updated {formatDate(updatedAt)}
-                </time>
-              )}
+                {updatedAt && (
+                  <time
+                    className={`${
+                      createdAt ? "-ml-2 md:border-l pl-2" : ""
+                    } border-gray-600 dark:border-gray-400`}
+                    dateTime={updatedAt}
+                    aria-label={`Updated on ${formatDate(updatedAt)}`}
+                  >
+                    Updated {formatDate(updatedAt)}
+                  </time>
+                )}
+              </div>
 
               {chips && chips.length > 0 && (
                 <div className="flex flex-wrap gap-2">
