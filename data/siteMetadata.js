@@ -16,6 +16,23 @@ const siteMetadata = {
   linkedin: "https://www.linkedin.com/in/grahamhoyes/",
   locale: "en-US",
   timeZone: "America/Toronto",
+  comments: {
+    giscusConfig: {
+      // See https://giscus.app/ for configuration options
+      repo: "grahamhoyes/grahamhoyes.com",
+      repositoryId: "R_kgDOHOZmRQ",
+      category: "Announcements",
+      categoryId: "DIC_kwDOJ2zq9M4CTf3N",
+      mapping: "pathname",
+      reactionsEnabled: true,
+      emitMetadata: false,
+      inputPosition: "top",
+      lightTheme: "light",
+      darkTheme: "transparent_dark",
+      lang: "en",
+      loading: "lazy",
+    },
+  },
 };
 
 module.exports = siteMetadata;

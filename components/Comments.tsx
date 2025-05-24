@@ -2,11 +2,15 @@
 
 import { useState } from "react";
 import { useTheme } from "next-themes";
-import Giscus from "@giscus/react";
+import Giscus, { Mapping, InputPosition, Loading } from "@giscus/react";
+
+import siteMetadata from "@/data/siteMetadata";
 
 export const Comments = () => {
   const { resolvedTheme } = useTheme();
   const [loadComments, setLoadComments] = useState(true);
+
+  const { giscusConfig } = siteMetadata.comments;
 
   return (
     <>
@@ -14,18 +18,22 @@ export const Comments = () => {
         <div className="pb-2">
           <Giscus
             id="comments"
-            repo="grahamhoyes/grahamhoyes.com"
-            repoId="R_kgDOHOZmRQ"
-            category="Announcements"
-            categoryId="DIC_kwDOHOZmRc4Cqf5a"
-            mapping="pathname"
+            repo={giscusConfig.repo as `${string}/${string}`}
+            repoId={giscusConfig.repositoryId}
+            category={giscusConfig.category}
+            categoryId={giscusConfig.categoryId}
+            mapping={giscusConfig.mapping as Mapping}
             strict="1"
-            reactionsEnabled="1"
-            emitMetadata="0"
-            inputPosition="top"
-            theme={resolvedTheme === "dark" ? "dark" : "light"}
-            lang="en"
-            loading="lazy"
+            reactionsEnabled={giscusConfig.reactionsEnabled ? "1" : "0"}
+            emitMetadata={giscusConfig.emitMetadata ? "1" : "0"}
+            inputPosition={giscusConfig.inputPosition as InputPosition}
+            theme={
+              resolvedTheme === "dark"
+                ? giscusConfig.darkTheme
+                : giscusConfig.lightTheme
+            }
+            lang={giscusConfig.lang}
+            loading={giscusConfig.loading as Loading}
           />
         </div>
       )}
