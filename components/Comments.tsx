@@ -8,7 +8,7 @@ import siteMetadata from "@/data/siteMetadata";
 
 export const Comments = () => {
   const { resolvedTheme } = useTheme();
-  const [loadComments, setLoadComments] = useState(true);
+  const [loadComments, setLoadComments] = useState(false);
 
   const { giscusConfig } = siteMetadata.comments;
 
