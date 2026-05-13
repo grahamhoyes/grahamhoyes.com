@@ -5,6 +5,7 @@ import { sortedRecipes, authors } from "@/data/generated";
 import Link from "@/components/Link";
 import MdxRenderer from "@/components/Mdx";
 import Page from "@/components/Page";
+import { RecipeMeta } from "@/components/recipes";
 import siteMetadata from "@/data/siteMetadata";
 import { titleCase, createSlug } from "@/lib/utils/titles";
 import { localToUtcDate } from "@/lib/utils/formatDate";
@@ -37,6 +38,13 @@ const Recipe = async (props: RecipeProps) => {
         href: "/recipes",
       }}
       description={recipe.description}
+      metaExtra={
+        <RecipeMeta
+          serves={recipe.serves}
+          activeTime={recipe.activeTime}
+          totalTime={recipe.totalTime}
+        />
+      }
     >
       <div className="space-y-6 divide-y divide-light-200 dark:divide-dark-700">
         {/* Content */}

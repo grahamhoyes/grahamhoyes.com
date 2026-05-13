@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Recipe } from "contentlayer/generated";
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
+import { ClockIcon } from "@heroicons/react/24/outline";
 
 import { createSlug, titleCase } from "@/lib/utils/titles";
 
@@ -32,6 +33,27 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
         <p className="line-clamp-2 mb-4 flex-grow text-gray-600 dark:text-gray-300">
           {recipe.description}
         </p>
+        {(recipe.activeTime || recipe.totalTime) && (
+          <div className="mb-4 flex flex-wrap gap-x-3 gap-y-1 text-xs text-light-600 dark:text-dark-400">
+            {recipe.activeTime && (
+              <span className="inline-flex items-center gap-1">
+                <ClockIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                <span>
+                  <span className="font-medium">Active:</span>{" "}
+                  {recipe.activeTime}
+                </span>
+              </span>
+            )}
+            {recipe.totalTime && (
+              <span className="inline-flex items-center gap-1">
+                <ClockIcon className="h-3.5 w-3.5" aria-hidden="true" />
+                <span>
+                  <span className="font-medium">Total:</span> {recipe.totalTime}
+                </span>
+              </span>
+            )}
+          </div>
+        )}
         <div className="mb-4 flex flex-wrap gap-2">
           {recipe.categories.map((category) => (
             <Link

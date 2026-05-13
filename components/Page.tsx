@@ -31,6 +31,7 @@ interface PageProps {
   noDivide?: boolean;
   noContentPadding?: boolean;
   fullWidth?: boolean;
+  metaExtra?: ReactNode;
 }
 
 /**
@@ -47,6 +48,7 @@ interface PageProps {
  * @param className - Additional CSS classes for the page container
  * @param noDivide - Whether to remove the divider between header and content (default: false)
  * @param noContentPadding - Whether to remove padding from the content section (default: false)
+ * @param metaExtra - Optional extra metadata node rendered as a second row in the page header, below the date/chips row and above the description
  */
 const Page = ({
   children,
@@ -60,6 +62,7 @@ const Page = ({
   className = "",
   noDivide = false,
   noContentPadding = false,
+  metaExtra,
 }: PageProps) => {
   const author = authorName ? authors[authorName] : undefined;
 
@@ -73,7 +76,7 @@ const Page = ({
           : ""
       } ${className}`}
     >
-      {(title || description || hasMetadata) && (
+      {(title || description || hasMetadata || metaExtra) && (
         <div className="space-y-2 py-2">
           {breadcrumb && (
             <Link
@@ -154,8 +157,10 @@ const Page = ({
             </div>
           )}
 
+          {metaExtra && <div>{metaExtra}</div>}
+
           {description && (
-            <p className="leading-7 text-light-800 dark:text-dark-200">
+            <p className="leading-relaxed text-light-800 dark:text-dark-200">
               {description}
             </p>
           )}

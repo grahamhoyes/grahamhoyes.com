@@ -102,6 +102,9 @@ export const Recipe = defineDocumentType(() => ({
     categories: { type: "list", of: { type: "string" }, required: true },
     authors: { type: "list", of: { type: "string" } },
     thumbnail: { type: "string", required: false },
+    serves: { type: "string", required: false },
+    activeTime: { type: "string", required: false },
+    totalTime: { type: "string", required: false },
   },
   computedFields,
 }));

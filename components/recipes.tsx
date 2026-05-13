@@ -1,5 +1,53 @@
 import { ReactNode } from "react";
+import { ClockIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import { createSlug } from "@/lib/utils/titles";
+
+interface RecipeMetaProps {
+  serves?: string;
+  activeTime?: string;
+  totalTime?: string;
+  className?: string;
+}
+
+export const RecipeMeta = ({
+  serves,
+  activeTime,
+  totalTime,
+  className = "",
+}: RecipeMetaProps) => {
+  if (!serves && !activeTime && !totalTime) return null;
+
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-light-600 dark:text-dark-400 ${className}`}
+    >
+      {activeTime && (
+        <span className="inline-flex items-center gap-1">
+          <ClockIcon className="h-4 w-4" aria-hidden="true" />
+          <span>
+            <span className="font-medium">Active:</span> {activeTime}
+          </span>
+        </span>
+      )}
+      {totalTime && (
+        <span className="inline-flex items-center gap-1">
+          <ClockIcon className="h-4 w-4" aria-hidden="true" />
+          <span>
+            <span className="font-medium">Total:</span> {totalTime}
+          </span>
+        </span>
+      )}
+      {serves && (
+        <span className="inline-flex items-center gap-1">
+          <UserGroupIcon className="h-4 w-4" aria-hidden="true" />
+          <span>
+            <span className="font-medium">Serves:</span> {serves}
+          </span>
+        </span>
+      )}
+    </div>
+  );
+};
 
 interface IngredientsProps {
   children: ReactNode;
